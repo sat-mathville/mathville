@@ -56,6 +56,7 @@ export default class extends Phaser.State {
   }
 
   update() {
+    this.game.physics.arcade.collide(this.boy,this.stations)
     if(this.cursors.left.isDown)this.boy.body.velocity.x = -150;
     else if(this.cursors.right.isDown)this.boy.body.velocity.x = 150;
     else if(this.cursors.up.isDown)this.boy.body.velocity.y = -150;
