@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 //ACTION TYPES
 export const FETCH_PROBLEMS = 'FETCH_PROBLEMS'
 
@@ -9,6 +10,8 @@ const initialState = {
 }
 
 //ACTION CREATORS
+
+//everytime we get problems what we're really doing is getting specific problems for that building
 
 const fetchProblems = (problems) => ({
     type: FETCH_PROBLEMS,
