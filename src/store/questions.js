@@ -19,16 +19,14 @@ const fetchProblems = (problems) => ({
 
 // THUNKS
 
-export const getProblems = () => dispatch => {
-    console.log('I am a thunk hahahahahahahaha')
-    dispatch(fetchProblems([{text: 'hi'}]))
-//   return async (dispatch) => {
-//     try {
-//       const res = await axios.get(`/api/questions/`)
-//       const problems = res.data
-//       dispatch(fetchProblems(problems))
-//     } catch (err) { console.log(err) }
-//   }
+export const getProblems = () => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`/api/questions/`)
+      const problems = res.data
+      dispatch(fetchProblems(problems))
+    } catch (err) { console.log(err) }
+  }
 }
 
 // REDUCER
