@@ -3,10 +3,10 @@ import axios from 'axios'
 
 //ACTION TYPES
 export const FETCH_PROBLEMS = 'FETCH_PROBLEMS'
+export const ONE_PROBLEM = 'ONE_PROBLEM'
 
 const initialState = {
-    allProblems = [],
-    specificProbs = {}
+    allProblems = []
 }
 
 //ACTION CREATORS
@@ -20,12 +20,12 @@ const fetchProblems = (problems) => ({
 
 //THUNKS
 
-export const getProblems = (type) => {
+export const getProblems = () => {
     return async (dispatch)  => {
         try {
-            const res = await axios.get(`/api/questions/${type}`)
-            const specificProbs = res.data
-            dispatch(fetchProblems(specificProbs))
+            const res = await axios.get(`/api/questions/`)
+            const problems = res.data
+            dispatch(fetchProblems(problems))
         } catch(err){
             console.log(err)
         }
@@ -37,7 +37,7 @@ export const getProblems = (type) => {
 export default function(state = initialState, action) {
     switch(action.type){
         case FETCH_PROBLEMS:
-            return {...state, specificProbs: action.problems}
+            return {...state, allProblems: action.problems}
         default: 
             return state
     }
