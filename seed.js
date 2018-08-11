@@ -1,5 +1,5 @@
 const db = require('./server/db/')
-const {Question}  = require('./server/db/models')
+const {Question, User}  = require('./server/db/models')
 
 async function seed() {
     await db.sync({force: true})
@@ -13,6 +13,14 @@ async function seed() {
     ])
 
     console.log(`seeded ${questions.length} questions`)
+
+    const user = await User.create({
+        email: 'cody@email.com',
+        username: 'admin',
+        password: 'admintesting'
+    })
+
+    console.log(`seeded 1 user`)
 }
 
 async function runSeed() {
@@ -26,7 +34,7 @@ async function runSeed() {
         console.log('closing db connection')
         await db.close()
         console.log('db connection closed')
-    } 
+    }
 }
 
 if(module === require.main){
