@@ -4,9 +4,7 @@ import axios from 'axios'
 export const FETCH_PROBLEMS = 'FETCH_PROBLEMS'
 export const ONE_PROBLEM = 'ONE_PROBLEM'
 
-const initialState = {
-  allProblems: []
-}
+const initialState = []
 
 // ACTION CREATORS
 
@@ -34,7 +32,7 @@ export const getProblems = () => {
 export default function (state = initialState, action) {
   switch (action.type) {
     case FETCH_PROBLEMS:
-      return {allProblems: action.problems}
+      return action.problems
     default:
       return state
   }
