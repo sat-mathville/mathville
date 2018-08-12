@@ -27,7 +27,7 @@ export default class extends Phaser.State {
     this.currentQuestionText = {}
     this.score = 0
 
-    const opening = 'start the question click'
+    const opening = 'start the questions'
     let banner = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, opening, {
       font: '35px',
       fill: '#000000',
@@ -40,14 +40,6 @@ export default class extends Phaser.State {
     banner.input.useHandCursor = true
 
     banner.events.onInputDown.add(this.renderQuestion, this)
-
-    // const dialogue = lang.text('welcome')
-    // let banner = this.add.text(200, 200, dialogue, {
-    //   font: '15px Bangers',
-    //   fill: '#77BFA3',
-    //   smoothed: false
-    // })
-    // banner.anchor.setTo(0.5)
 
     this.boy = this.game.add.sprite(400, 350, 'boy')
     this.wizard = this.game.add.sprite(this.world.centerX - 250, this.world.centerY + 150, 'wizard')
