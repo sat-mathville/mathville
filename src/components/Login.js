@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import store, {me} from '../store'
+import {Route} from 'react-router-dom'
 
 export default class extends Component {
   constructor () {
     super()
     this.state = {
-      username: '',
+      // username: '',
       email: '',
       password: '',
       isLoggedIn: false
