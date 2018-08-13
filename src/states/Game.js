@@ -15,10 +15,11 @@ export default class extends Phaser.State {
     this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('details', '../assets/images/stations3_details_4.csv',null,Phaser.Tilemap.CSV)
     this.load.image('tileset','../assets/images/ProjectUtumno_full.png')
-    store.dispatch(getProblems())
+
   }
   create() {
     // Load Map
+    store.dispatch(getProblems())
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0,0,1920,1080)
     this.map = this.game.add.tilemap('map')

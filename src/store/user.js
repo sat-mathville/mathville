@@ -29,11 +29,12 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, method) => async dispatch => {
+export const auth = (data, method) => async dispatch => {
   let res
   try {
-    res = await axios.post(`/auth/${method}`, {email, password})
+    res = await axios.post(`/auth/${method}`, data)
   } catch (authError) {
+    console.log('CATCH BLOCK!')
     return dispatch(getUser({error: authError}))
   }
 
