@@ -1,6 +1,8 @@
 import 'pixi'
 import 'p2'
 import Phaser from 'phaser'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
 import BootState from './states/Boot'
 import SplashState from './states/Splash'
@@ -9,6 +11,10 @@ import HouseState from './states/House'
 import StartState from './states/StartGame'
 
 import config from './config'
+
+ReactDOM.render('Hello World',
+  document.getElementById('app')
+)
 
 class Game extends Phaser.Game {
   constructor () {
