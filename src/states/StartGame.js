@@ -1,5 +1,6 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
+import store from '../store'
 
 export default class extends Phaser.State {
  init () {}
@@ -9,6 +10,14 @@ export default class extends Phaser.State {
  }
 
  create() {
+   if(!store.getState().user.id){
+
+   }
+   else if(store.getState().user.id){
+
+   }
+ }
+ renderPlayButton() {
   this.button1 = this.add.button(this.world.centerX,this.world.centerY, 'greenbutton', this.actionOnClick, this, 2, 1, 0);
   this.button1.anchor.setTo(0.5,0.5)
   this.button1.width = 300
@@ -18,7 +27,9 @@ export default class extends Phaser.State {
 
   this.txt.anchor.setTo(0.5,0.5)
  }
-
+ renderPleaseLogin(){
+  this.add.text(this.world.centerX,this.world.centerY,'Please Login')
+ }
  actionOnClick () {
   this.game.state.start('Game')
  }

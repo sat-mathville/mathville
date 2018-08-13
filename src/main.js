@@ -3,7 +3,7 @@ import 'p2'
 import Phaser from 'phaser'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './components/app'
+import Login from './components/Login'
 
 import BootState from './states/Boot'
 import SplashState from './states/Splash'
@@ -65,6 +65,6 @@ if (window.cordova) {
   app.initialize()
 }
 
-ReactDOM.render(<App />,
+ReactDOM.render(<Login />,
   document.getElementById('app')
 )

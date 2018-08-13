@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import store, {me} from '../store'
+import store, {logout, auth, me} from '../store'
 import {Route} from 'react-router-dom'
 
-export default class extends Component {
+export default class Login extends Component {
   constructor () {
     super()
     this.state = {
@@ -13,37 +13,52 @@ export default class extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
   }
-  async componentDidMount() {
-    await store.dispatch(me())
-    store.subscribe(()=> {
-      if(store.getState().user.id) {
+  componentDidMount () {
+    store.dispatch(me())
+    store.subscribe(() => {
+      console.log('SUBSCRIBE TEST')
+      if (store.getState().user.id) {
         this.setState({
           isLoggedIn: true
         })
-      }
+      } else this.setState({isLoggedIn: false})
     })
   }
-  handleChange(event) {
+  handleChange (event) {
+    console.log('handle Change', this.state)
     this.setState({
       [event.target.name]: event.target.value
     })
   }
-  handleSubmit(event) {
+  handleSubmit (event) {
     event.preventDefault()
-    // add in thunk
-
+    store.dispatch(auth(this.state.email, this.state.password, 'login'))
+    this.setState({
+      email: '',
+      password: ''
+    })
+  }
+  handleLogout (event) {
+    event.preventDefault()
+    console.log('HANDLE LOGOUT')
+    store.dispatch(logout())
   }
   render () {
-    return(
-      (this.state.isLoggedIn) ? `Welcome, ${store.getState().user.username}` :
-      (
-        <form onSubmit={this.handleSubmit}>
-          <input name='username' type='text' value={this.state.username} onChange={this.handleChange}/>
+    console.log('Return TEST', store.getState().user)
+    return (
+      (this.state.isLoggedIn) ? <div>Welcome, {store.getState().user.username}<button type='submit'onClick={this.handleLogout}>Logout</button></div>
+
+        : <form onSubmit={this.handleSubmit}>
+          <label>Email:
           <input name='email' type='text' value={this.state.email} onChange={this.handleChange}/>
+          </label>
+          <label>Password:
           <input name='password' type='text' value={this.state.password} onChange={this.handleChange}/>
+          </label>
+          <button type='submit'>Submit</button>
         </form>
-      )
 
     )
   }
