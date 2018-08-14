@@ -95,28 +95,32 @@ export default class extends Phaser.State {
       text.destroy()
     }
     if (this.currentQuestion === this.questions.length - 1) {
-        const finalOutput = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, `Congratulations! You have answered correctly ${this.score}`, {
-          font: '35px',
-          fill: '#000000',
-          smoothed: false
-        })
-        this.finalOutput.inputEnabled = true
-        this.finalOutput.input.useHandCursor = true
-        this.finalOutput.events.onInputDown.add(() => {
-          console.log('Before this.game.start.GAME!')
-          this.game.state.start('Game')
-        }, this)
+      this.currentQuestionText.destroy()
+      for (let key in this.buttons) {
+          this.buttons[key].destroy()
+      }
+      const finalOutput = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, `Congratulations! You have answered correctly ${this.score}`, {
+        font: '35px',
+        fill: '#000000',
+        smoothed: false
+      })
+      finalOutput.inputEnabled = true
+      finalOutput.input.useHandCursor = true
+      finalOutput.events.onInputDown.add(() => {
+        this.game.state.start('Game')
+      }, this)
     } else {
       if (Object.keys(this.currentQuestionText).length > 0) {
         this.currentQuestionText.destroy()
       }
       this.currentQuestion++
-      if (this.currentQuestion === this.questions.length) console.log('oh no')
       this.currentQuestionText = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, this.questions[this.currentQuestion].content, {
         font: '35px',
         fill: '#000000',
         smoothed: false
       })
+
+      console.log(this.currentQuestionText,"TEST")
 
       this.currentQuestionText.anchor.setTo(0.5)
       this.currentQuestionText.inputEnabled = true

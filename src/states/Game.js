@@ -47,7 +47,7 @@ export default class extends Phaser.State {
     this.door = this.game.add.sprite(1240,215, 'door')
     this.game.physics.enable(this.door,Phaser.Physics.ARCADE)
 
-    this.boy = this.game.add.sprite(400,350,'boy')
+    this.boy = this.game.add.sprite(1200,350,'boy')
     this.boy.scale.setTo(0.75)
     this.boy.animations.add('walkUp', [104,105,106,107,108,109,110,111,112], null, true)
     this.boy.animations.add('walkLeft', [117,118,119,120,121,122,123,124,125], null, true)
