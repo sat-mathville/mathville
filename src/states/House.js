@@ -89,6 +89,13 @@ export default class extends Phaser.State {
       // this.game.debug.spriteInfo(this.mushroom, 32, 32)
     }
   }
+  renderFinalOutput () {
+    if (this.score === this.questions.length) {
+      return 'Congratulations! You have leveled up!'
+    } else {
+      return `I'm sorry. You have not answered enough questions correctly. \n Please come back for some more magic practice!`
+    }
+  }
 
   renderQuestion (text) {
     if (this.currentQuestion === -1) {
@@ -97,9 +104,9 @@ export default class extends Phaser.State {
     if (this.currentQuestion === this.questions.length - 1) {
       this.currentQuestionText.destroy()
       for (let key in this.buttons) {
-          this.buttons[key].destroy()
+        this.buttons[key].destroy()
       }
-      const finalOutput = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, `Congratulations! You have answered correctly ${this.score}`, {
+      const finalOutput = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, this.renderFinalOutput(), {
         font: '35px',
         fill: '#000000',
         smoothed: false
@@ -120,7 +127,7 @@ export default class extends Phaser.State {
         smoothed: false
       })
 
-      console.log(this.currentQuestionText,"TEST")
+      console.log(this.currentQuestionText, 'TEST')
 
       this.currentQuestionText.anchor.setTo(0.5)
       this.currentQuestionText.inputEnabled = true
