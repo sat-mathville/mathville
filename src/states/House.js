@@ -6,11 +6,11 @@ export default class extends Phaser.State {
   init () { }
   preload () {
     const userCharacter = () => {
-      if(store.getState().user.character===1)return '../assets/images/boy.png'
-      else if (store.getState().user.character===2)return '../assets/images/girl.png'
-      else if(store.getState().user.character===3)return '../assets/images/cat_fighter_sprite1.png'
+      if (store.getState().user.character === 1) return '../assets/images/boy.png'
+      else if (store.getState().user.character === 2) return '../assets/images/girl.png'
+      else if (store.getState().user.character === 3) return '../assets/images/cat_fighter_sprite1.png'
     }
-    this.load.spritesheet('boy', userCharacter(),64,64)
+    this.load.spritesheet('boy', userCharacter(), 64, 64)
     this.load.spritesheet('wizard', '../assets/images/wizard_idle.png', 163, 185)
     this.load.tilemap('house', '../assets/images/WizardHouse.csv', null, Phaser.Tilemap.CSV)
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
@@ -91,58 +91,75 @@ export default class extends Phaser.State {
   }
 
   renderQuestion (text) {
-    if(this.currentQuestion===-1){
+    if (this.currentQuestion === -1) {
       text.destroy()
     }
-    if(Object.keys(this.currentQuestionText).length > 0){
+    if (this.currentQuestion === this.questions.length - 1) {
       this.currentQuestionText.destroy()
-    }
-    this.currentQuestion++
-    if (this.currentQuestion === this.questions.length) console.log('oh no')
-     this.currentQuestionText = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, this.questions[this.currentQuestion].content, {
-      font: '35px',
-      fill: '#000000',
-      smoothed: false
-    })
-
-    this.currentQuestionText.anchor.setTo(0.5)
-    this.currentQuestionText.inputEnabled = true
-    this.currentQuestionText.input.useHandCursor = true
-    this.currentQuestionText.events.onInputDown.add(this.renderQuestion, this)
-
-    let answers = []
-
-    answers.push(this.questions[this.currentQuestion].option1)
-    answers.push(this.questions[this.currentQuestion].option2)
-    answers.push(this.questions[this.currentQuestion].option3)
-    answers.push(this.questions[this.currentQuestion].option4)
-
-    function shuffle (answers) {
-      for (let i = answers.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [answers[i], answers[j]] = [answers[j], answers[i]]
+      for (let key in this.buttons) {
+          this.buttons[key].destroy()
       }
-      return answers
-    }
-
-    shuffle(answers)
-
-    for (let i = 0; i < answers.length; i++) {
-
-      if(this.buttons[i]){
-        this.buttons[i].destroy()
-      }
-      this.buttons[i] = this.add.text(this.chatbox.x + 230, this.chatbox.y + 200 + (i * 50), answers[i], {
-        font: '25px',
+      const finalOutput = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, `Congratulations! You have answered correctly ${this.score}`, {
+        font: '35px',
         fill: '#000000',
         smoothed: false
       })
-      this.buttons[i].inputEnabled = true
-      this.buttons[i].input.useHandCursor = true
-      if (answers[i] === this.questions[this.currentQuestion].option1) {
-        this.buttons[i].events.onInputDown.add(this.correctAnswer, this)
-      } else {
-        this.buttons[i].events.onInputDown.add(this.renderQuestion, this)
+      finalOutput.inputEnabled = true
+      finalOutput.input.useHandCursor = true
+      finalOutput.events.onInputDown.add(() => {
+        this.game.state.start('Game')
+      }, this)
+    } else {
+      if (Object.keys(this.currentQuestionText).length > 0) {
+        this.currentQuestionText.destroy()
+      }
+      this.currentQuestion++
+      this.currentQuestionText = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, this.questions[this.currentQuestion].content, {
+        font: '35px',
+        fill: '#000000',
+        smoothed: false
+      })
+
+      console.log(this.currentQuestionText,"TEST")
+
+      this.currentQuestionText.anchor.setTo(0.5)
+      this.currentQuestionText.inputEnabled = true
+      this.currentQuestionText.input.useHandCursor = true
+      this.currentQuestionText.events.onInputDown.add(this.renderQuestion, this)
+
+      let answers = []
+
+      answers.push(this.questions[this.currentQuestion].option1)
+      answers.push(this.questions[this.currentQuestion].option2)
+      answers.push(this.questions[this.currentQuestion].option3)
+      answers.push(this.questions[this.currentQuestion].option4)
+
+      function shuffle (answers) {
+        for (let i = answers.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [answers[i], answers[j]] = [answers[j], answers[i]]
+        }
+        return answers
+      }
+
+      shuffle(answers)
+
+      for (let i = 0; i < answers.length; i++) {
+        if (this.buttons[i]) {
+          this.buttons[i].destroy()
+        }
+        this.buttons[i] = this.add.text(this.chatbox.x + 230, this.chatbox.y + 200 + (i * 50), answers[i], {
+          font: '25px',
+          fill: '#000000',
+          smoothed: false
+        })
+        this.buttons[i].inputEnabled = true
+        this.buttons[i].input.useHandCursor = true
+        if (answers[i] === this.questions[this.currentQuestion].option1) {
+          this.buttons[i].events.onInputDown.add(this.correctAnswer, this)
+        } else {
+          this.buttons[i].events.onInputDown.add(this.renderQuestion, this)
+        }
       }
     }
   }
