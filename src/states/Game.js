@@ -15,6 +15,7 @@ export default class extends Phaser.State {
       else if(store.getState().user.character===3)return '../assets/images/cat_fighter_sprite1.png'
     }
     this.load.spritesheet('boy', userCharacter(),64,64)
+    this.load.spritesheet('door', '../assets/images/door.png',105, 111)
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv',null,Phaser.Tilemap.CSV)
@@ -50,6 +51,9 @@ export default class extends Phaser.State {
       asset: 'animal'
     })
 
+    this.door = this.game.add.sprite(1240,215, 'door')
+    this.game.physics.enable(this.door,Phaser.Physics.ARCADE)
+
     this.boy = this.game.add.sprite(400,350,'boy')
     this.boy.scale.setTo(0.75)
     this.boy.animations.add('walkUp', [104,105,106,107,108,109,110,111,112], null, true)
@@ -58,7 +62,6 @@ export default class extends Phaser.State {
     this.boy.animations.add('walkRight', [143,144,145,146,147,148,149,150,151], null, true)
     this.game.physics.arcade.enable(this.stations)
     this.stations.setCollisionBetween(0,6080, true, this.stations_3)
-
 
     this.cursors = this.game.input.keyboard.createCursorKeys()
     this.game.physics.enable(this.boy,Phaser.Physics.ARCADE)
@@ -72,9 +75,11 @@ export default class extends Phaser.State {
 
   update() {
 
-    this.game.physics.arcade.collide(this.boy,this.stations_3, () => {
+    this.game.physics.arcade.collide(this.boy,this.stations_3)
+    this.game.physics.arcade.overlap(this.boy, this.door, () => {
       this.game.state.start('House')
-    })
+    }, null, this)
+
     if(this.cursors.left.isDown){
       this.boy.body.velocity.x = -200
       this.boy.animations.play('walkLeft', 40, true)
