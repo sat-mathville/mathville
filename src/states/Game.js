@@ -25,7 +25,6 @@ export default class extends Phaser.State {
   }
   create() {
     // Load Map
-    store.dispatch(getProblems())
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0,0,1920,1080)
     this.map = this.game.add.tilemap('map')
