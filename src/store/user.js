@@ -34,7 +34,6 @@ export const auth = (data, method) => async dispatch => {
   try {
     res = await axios.post(`/auth/${method}`, data)
   } catch (authError) {
-    console.log('CATCH BLOCK!')
     return dispatch(getUser({error: authError}))
   }
 
