@@ -95,7 +95,6 @@ export default class extends Phaser.State {
       text.destroy()
     }
     if (this.currentQuestion === this.questions.length - 1) {
-      if (this.score === this.questions.length) {
         const finalOutput = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, `Congratulations! You have answered correctly ${this.score}`, {
           font: '35px',
           fill: '#000000',
@@ -104,9 +103,9 @@ export default class extends Phaser.State {
         this.finalOutput.inputEnabled = true
         this.finalOutput.input.useHandCursor = true
         this.finalOutput.events.onInputDown.add(() => {
+          console.log('Before this.game.start.GAME!')
           this.game.state.start('Game')
         }, this)
-      }
     } else {
       if (Object.keys(this.currentQuestionText).length > 0) {
         this.currentQuestionText.destroy()
