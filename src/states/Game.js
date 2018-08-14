@@ -9,16 +9,22 @@ import store, {getProblems} from '../store'
 export default class extends Phaser.State {
   init() { }
   preload() {
-    this.load.spritesheet('boy', '../assets/images/boy.png',64,64)
+    const userCharacter = () => {
+      if(store.getState().user.character===1)return '../assets/images/boy.png'
+      else if (store.getState().user.character===2)return '../assets/images/girl.png'
+      else if(store.getState().user.character===3)return '../assets/images/cat_fighter_sprite1.png'
+    }
+    this.load.spritesheet('boy', userCharacter(),64,64)
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('details', '../assets/images/stations3_details_4.csv',null,Phaser.Tilemap.CSV)
     this.load.image('tileset','../assets/images/ProjectUtumno_full.png')
-    store.dispatch(getProblems())
+
   }
   create() {
     // Load Map
+    store.dispatch(getProblems())
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0,0,1920,1080)
     this.map = this.game.add.tilemap('map')

@@ -1,15 +1,15 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store from '../store'
+import store, {getProblems} from '../store'
 
 export default class extends Phaser.State {
- init () {}
-
  preload() {
   this.load.image('greenbutton', '../assets/images/greenButton.png')
+
  }
 
  create() {
+   console.log('run create')
    if(!store.getState().user.id){
     this.renderPleaseLogin()
   }
@@ -26,6 +26,7 @@ export default class extends Phaser.State {
  }
 
  renderPlayButton() {
+   console.log('1st line render play button')
   if(this.pleaseLogin){
     this.pleaseLogin.destroy()
   }
@@ -39,13 +40,18 @@ export default class extends Phaser.State {
   this.txt.anchor.setTo(0.5,0.5)
  }
  renderPleaseLogin(){
+  console.log('1st line render please login')
   if(this.button1){
-    this.button1.pendingDestroy = true
+    this.button1.destroy()
     this.txt.destroy()
   }
   this.pleaseLogin = this.add.text(this.world.centerX,this.world.centerY,'Please Login')
  }
  actionOnClick () {
+  //  this.button1.destroy()
+  //  this.txt.destroy()
+   console.log('1st line render on click')
+
   this.game.state.start('Game')
  }
 
