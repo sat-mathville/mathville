@@ -9,7 +9,7 @@ export default class Login extends Component {
       username: '',
       email: '',
       password: '',
-      character:'',
+      character:0,
       isLoggedIn: false,
       signUp: 'false',
     }
@@ -50,17 +50,17 @@ export default class Login extends Component {
   }
   handleSubmitSignUp(event){
     event.preventDefault()
-    store.dispatch(auth(this.state, 'signup'))
+    const copyState = Object.assign({},this.state)
+    copyState.character = Number(this.state.character)
+    store.dispatch(auth(copyState, 'signup'))
     this.setState({
       email: '',
       password: '',
       username: '',
-      character:''
+      character:0
     })
   }
   render () {
-    console.log('Character Check:',this.state.character)
-    console.log('Return TEST', store.getState().user)
     if(this.state.isLoggedIn)
     return( <div>Welcome, {store.getState().user.username}<button type='submit'onClick={this.handleLogout}>Logout</button></div>
     )
@@ -95,9 +95,9 @@ export default class Login extends Component {
           <label>Select Character:
           <select name='character' onChange={this.handleChange}>
             <option value='default'>--</option>
-            <option value='boy'>Boy</option>
-            <option value='girl'>Girl</option>
-            <option value='animal'>Animal</option>
+            <option value='1'>Boy</option>
+            <option value='2'>Girl</option>
+            <option value='3'>Animal</option>
           </select>
           </label>
           <button type='submit'>Submit</button>

@@ -1,5 +1,5 @@
 const db = require('./server/db/')
-const {Question, User}  = require('./server/db/models')
+const {Question, User, Ability}  = require('./server/db/models')
 
 async function seed() {
     await db.sync({force: true})
@@ -17,10 +17,23 @@ async function seed() {
     const user = await User.create({
         email: 'cody@email.com',
         username: 'admin',
-        password: 'admintesting'
+        password: 'admintesting',
+        character: 1
+
     })
 
+    const ability = await Ability.create({
+        name: 'Fire spell',
+        type: 'magic',
+        image: 'https://i.ytimg.com/vi/Iu8vGpCxJUs/maxresdefault.jpg',
+        value: 5
+    })
+    console.log('user ID', user.id)
+
+    await ability.setUsers(user)
+
     console.log(`seeded 1 user`)
+    console.log(`seeded 1 ability`)
 }
 
 async function runSeed() {

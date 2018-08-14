@@ -16,6 +16,10 @@ const User = db.define('user', {
     unique: true,
     allowNull: false
   },
+  character: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1
+  },
   // satDate: {
   //   type: Sequelize.DATE
   //   // allow this to possibly be null?

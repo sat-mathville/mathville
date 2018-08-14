@@ -9,16 +9,18 @@ const Ability = db.define('ability', {
   },
   type: {
     type: Sequelize.ENUM('healing', 'weaponry', 'strength', 'magic'),
-    allowNull: false  
-  },
-  value: {
-    type: Sequelize.INTEGER,
     allowNull: false
   },
   image: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  value: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
   }
 })
+
+
 
 module.exports = Ability

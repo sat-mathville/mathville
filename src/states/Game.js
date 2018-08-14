@@ -9,7 +9,12 @@ import store, {getProblems} from '../store'
 export default class extends Phaser.State {
   init() { }
   preload() {
-    this.load.spritesheet('boy', '../assets/images/boy.png',64,64)
+    const userCharacter = () => {
+      if(store.getState().user.character===1)return '../assets/images/boy.png'
+      else if (store.getState().user.character===2)return '../assets/images/girl.png'
+      else if(store.getState().user.character===3)return '../assets/images/cat_fighter_sprite1.png'
+    }
+    this.load.spritesheet('boy', userCharacter(),64,64)
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv',null,Phaser.Tilemap.CSV)
