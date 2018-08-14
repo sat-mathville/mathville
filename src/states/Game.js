@@ -44,13 +44,6 @@ export default class extends Phaser.State {
     this.stations_3 = this.stations.createLayer(0)
     this.details_4 = this.details.createLayer(0)
 
-    this.kitten = new Kitten({
-      game: this.game,
-      x: this.world.centerX,
-      y: this.world.centerY,
-      asset: 'animal'
-    })
-
     this.door = this.game.add.sprite(1240,215, 'door')
     this.game.physics.enable(this.door,Phaser.Physics.ARCADE)
 
