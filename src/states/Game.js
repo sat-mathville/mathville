@@ -43,13 +43,6 @@ export default class extends Phaser.State {
     this.stations_3 = this.stations.createLayer(0)
     this.details_4 = this.details.createLayer(0)
 
-    this.kitten = new Kitten({
-      game: this.game,
-      x: this.world.centerX,
-      y: this.world.centerY,
-      asset: 'animal'
-    })
-
     this.boy = this.game.add.sprite(400,350,'boy')
     this.boy.scale.setTo(0.75)
     this.boy.animations.add('walkUp', [104,105,106,107,108,109,110,111,112], null, true)
