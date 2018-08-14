@@ -21,7 +21,6 @@ export default class Login extends Component {
   componentDidMount () {
     store.dispatch(me())
     store.subscribe(() => {
-      console.log('SUBSCRIBE TEST')
       if (store.getState().user.id) {
         this.setState({
           isLoggedIn: true
