@@ -3,8 +3,9 @@ import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import questions from './questions'
 import user from './user'
+import abilities from './abilities'
 
-const reducer = combineReducers({questions, user})
+const reducer = combineReducers({questions, user, abilities})
 
 const logger = createLogger({collapsed: true})
 
