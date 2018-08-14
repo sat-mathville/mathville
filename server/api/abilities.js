@@ -1,21 +1,23 @@
 const router = require('express').Router()
-const Ability = require('../db/models/ability')
+const {Ability,User} = require('../db/models')
 module.exports = router
 
 
-router.get('/', async(req,res,next)=>{
-  try{
-    const abilities = await Ability.findAll({where:{
-      userId: req.user.id
-    }
-    })
-    res.json(abilities)
-  }
-  catch(error){
-    next(error)
-  }
-})
+// router.get('/', async(req,res,next)=>{
+//   try{
+//     const abilities = await Ability.findAll({
+//       where: {
+//        userId:req.user.id
+//       },
+//       include:
+//     })
+//     res.json(abilities)
+//   }
+//   catch(error){
+//     next(error)
+//   }
+// })
 
-router.put('/:userId',async(req,res,next) => {
+// router.put('/:userId',async(req,res,next) => {
 
-})
+// })
