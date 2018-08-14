@@ -14,23 +14,40 @@ async function seed() {
 
     console.log(`seeded ${questions.length} questions`)
 
-    const user = await User.create({
+    const users = await Promise.all([
+        User.create({
         email: 'cody@email.com',
         username: 'admin',
         password: 'admintesting',
         character: 1
 
-    })
+    }),
+    User.create({
+        email: 'shoshana@email.com',
+        username: 'Shoshana',
+        password: '123',
+        character: 2
 
-    const ability = await Ability.create({
+    }),
+])
+
+    const abilities = await Promise.all([
+        Ability.create({
         name: 'Fire spell',
         type: 'magic',
         image: 'https://i.ytimg.com/vi/Iu8vGpCxJUs/maxresdefault.jpg',
         value: 5
-    })
-    console.log('user ID', user.id)
+    }),
+    Ability.create({
+        name: 'Avada Kedavra spell',
+        type: 'magic',
+        image: 'https://i.ytimg.com/vi/Iu8vGpCxJUs/maxresdefault.jpg',
+        value: 8
+    }),
+])
 
-    await ability.setUsers(user)
+    await abilities[0].setUsers(users[0])
+    await abilities[1].setUsers(users[1])
 
     console.log(`seeded 1 user`)
     console.log(`seeded 1 ability`)

@@ -1,12 +1,8 @@
 
 const Ability = require('./ability')
-// const Character = require('./character')
 const Question = require('./question')
 const User = require('./user')
 const Category = require('./category')
-
-// User.belongsTo(Character)
-// Character.hasMany(User)
 
 User.belongsToMany(Ability, {through: 'user-abilities'})
 Ability.belongsToMany(User, {through: 'user-abilities'})
