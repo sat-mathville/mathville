@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import store, {logout, auth, me} from '../store'
+import store, {logout, auth, me, fetchAllAbilities, getProblems} from '../store'
 import {Route} from 'react-router-dom'
 
 export default class Login extends Component {
@@ -20,6 +20,8 @@ export default class Login extends Component {
   }
   componentDidMount () {
     store.dispatch(me())
+    store.dispatch(fetchAllAbilities())
+    store.dispatch(getProblems())
     store.subscribe(() => {
       if (store.getState().user.id) {
         this.setState({
