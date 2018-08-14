@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getUserAbilities } from './userAbilities'
 
 /**
  * ACTION TYPES
@@ -23,7 +24,7 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    console.log('data',res.data)
+    dispatch(getUserAbilities(res.data.abilities))
     dispatch(getUser(res.data.user || defaultUser))
   } catch (err) {
     console.error(err)

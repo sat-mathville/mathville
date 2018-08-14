@@ -7,7 +7,7 @@ const GET_ALL_ABILITIES = 'GET_ALL_ABILITIES'
 const getAllAbilities = abilities => ({type: GET_ALL_ABILITIES, abilities})
 
 // Thunk creators
-export const fetchAllAbilities = async () => dispatch => {
+export const fetchAllAbilities = () => async dispatch => {
   try {
     const abilities = await axios.get('/api/abilities')
     dispatch(getAllAbilities(abilities))
