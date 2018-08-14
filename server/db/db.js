@@ -9,6 +9,24 @@ const db = new Sequelize(
     logging: false
   }
 )
+// const config = {
+//   database: databaseName,
+//   username: 'fsa',
+//   password: 'secret',
+//   options: {
+//     host: 'localhost',
+//     port: 5432,
+//     dialect: 'postgres',
+//     logging: false
+//   }
+// }
+
+// const db = new Sequelize(
+//   config.database,
+//   config.username,
+//   config.password,
+//   config.options
+// )
 module.exports = db
 
 // This is a global Mocha hook used for resource cleanup.
