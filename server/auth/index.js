@@ -4,11 +4,7 @@ module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
-    const user = await User.findOne({where: {email: req.body.email},include: [{
-      model: Ability,
-      required: true
-    }]
-  })
+    const user = await User.findOne({where: {email: req.body.email}})
     if (!user) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
@@ -42,7 +38,13 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
-  res.json(req.user)
+router.get('/me', async (req, res) => {
+  const user = await User.findById(req.user.id)
+  const abilities = await user.getAbilities()
+  const data = {
+    user: req.user,
+    abilities: abilities.map(ability=>ability.id)
+  }
+  res.json(data)
 })
 
