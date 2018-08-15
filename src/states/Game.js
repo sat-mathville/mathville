@@ -43,7 +43,8 @@ export default class extends Phaser.State {
     this.stations_3 = this.stations.createLayer(0)
     this.details_4 = this.details.createLayer(0)
 
-    this.door = this.game.add.sprite(1240,215, 'door')
+    this.door = this.game.add.sprite(1265, 268, 'door')
+    this.door.scale.setTo(0.5)
     this.game.physics.enable(this.door,Phaser.Physics.ARCADE)
 
     this.boy = this.game.add.sprite(1200,350,'boy')
