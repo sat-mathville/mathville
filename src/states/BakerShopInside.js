@@ -10,14 +10,14 @@ export default class extends Phaser.State {
         }
         //characters
         this.load.spritesheet('boy', userCharacter(), 64, 64)
-        this.load.spritesheet('baker', '../assets/images/bakersInside/littleBaker.png', 163, 185)
+        // this.load.spritesheet('baker', '../assets/images/bakersInside/littleBaker.png', 163, 185)
         //tilesheets
         this.load.image('restaurantSet', '../assets/images/bakersInside/restaurant.png')
-        this.load.image('baker', '../assets/images/bakersInside/baker.png')
+        this.load.image('baker', '../assets/images/roguelikeSheet_transparent.png')
         //tilemap layers
         this.load.tilemap('counter','../assets/images/bakersInside/FinalBakerShop._counter.csv')
         this.load.tilemap('ground','../assets/images/bakersInside/FinalBakerShop._ground.csv')
-        this.load.tilemap('restaurant','../assets/images/bakersInside/FinalBakerShop._restaurant tileset.csv')
+        // this.load.tilemap('restaurant','../assets/images/bakersInside/FinalBakerShop._restaurant tileset.csv')
         this.load.tilemap('layer1','../assets/images/bakersInside/FinalBakerShop._Tile Layer 1.csv')
         this.load.tilemap('wallitems','../assets/images/bakersInside/FinalBakerShop._wall items.csv')
         this.load.tilemap('wall','../assets/images/bakersInside/FinalBakerShop._wall.csv')
@@ -29,43 +29,44 @@ export default class extends Phaser.State {
         //going to ignore windows for now since I didn't end up putting any windows
         
         //add baker sprite somewhere
+
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         this.game.world.setBounds(0, 0, 1024, 640)
-        this.ground = this.game.add.tilemap('ground') 
+        this.ground = this.game.add.tilemap('ground',16,16) 
         this.ground.addTilesetImage('baker')
         this.bakerGround = this.ground.createLayer(0)
         
-        this.wall = this.game.add.tilemap('wall')
-        this.wall.addTilesetImage('baker')
-        this.bakerWall = this.wall.createLayer(0)
-        this.game.physics.arcade.enable(this.wall)
-        this.wall.setCollisionBetween(0, 6080, true, this.bakerWall)
+        // this.wall = this.game.add.tilemap('wall',16,16)
+        // this.wall.addTilesetImage('baker')
+        // this.bakerWall = this.wall.createLayer(0)
+        // this.game.physics.arcade.enable(this.wall)
+        // this.wall.setCollisionBetween(0, 6080, true, this.bakerWall)
 
-        this.counter = this.game.add.tilemap('counter')
-        this.counter.addTilesetImage('baker')
-        this.bakerCounter = this.counter.createLayer(0)
-        this.game.physics.arcade.enable(this.counter)
-        this.counter.setCollisionBetween(0, 6080, true, this.bakerCounter)
+        // this.counter = this.game.add.tilemap('counter',16,16)
+        // this.counter.addTilesetImage('baker')
+        // this.bakerCounter = this.counter.createLayer(0)
+        // this.game.physics.arcade.enable(this.counter)
+        // this.counter.setCollisionBetween(0, 6080, true, this.bakerCounter)
 
-        this.restaurant = this.game.add.tilemap('restaurant')
-        this.restaurant.addTilesetImage('restaurantSet')
-        this.bakerRestaurant = this.restaurant.createLayer(0)
-        this.game.physics.arcade.enable(this.restaurant)
-        this.restaurant.setCollisionBetween(0, 6080, true, this.bakerRestaurant)
+        // this.restaurant = this.game.add.tilemap('restaurant')
+        // this.restaurant.addTilesetImage('restaurantSet')
+        // this.bakerRestaurant = this.restaurant.createLayer(0)
+        // this.game.physics.arcade.enable(this.restaurant)
+        // this.restaurant.setCollisionBetween(0, 6080, true, this.bakerRestaurant)
 
-        this.wallitems = this.game.add.tilemap('wallitems')
-        this.wallitems.addTilesetImage('baker')
-        this.bakerWallItems = this.wallitems.createLayer(0)
-        this.game.physics.arcade.enable(this.wallitems)
-        this.wallitems.setCollisionBetween(0, 6080, true, this.bakerWallItems)
+        // this.wallitems = this.game.add.tilemap('wallitems')
+        // this.wallitems.addTilesetImage('baker')
+        // this.bakerWallItems = this.wallitems.createLayer(0)
+        // this.game.physics.arcade.enable(this.wallitems)
+        // this.wallitems.setCollisionBetween(0, 6080, true, this.bakerWallItems)
 
         this.boy = this.game.add.sprite(this.world.centerX, this.world.centerY, 'boy')
-        this.baker = this.game.add.sprite(this.world.centerX, this.world.centerY + 150)
+        // this.baker = this.game.add.sprite(this.world.centerX, this.world.centerY + 150)
         this.boy.scale.setTo(1)
-        this.baker.scale.setTo(1)
+        // this.baker.scale.setTo(1)
         this.cursors = this.game.input.keyboard.createCursorKeys()
         this.game.physics.enable(this.boy, Phaser.Physics.ARCADE)
-        this.game.physics.enable(this.baker, Phaser.Physics.ARCADE)
+        // this.game.physics.enable(this.baker, Phaser.Physics.ARCADE)
         this.boy.body.collideWorldBounds = true
         this.camera.follow(this.boy)
 
