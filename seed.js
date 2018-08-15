@@ -5,21 +5,34 @@ async function seed () {
   await db.sync({force: true})
   console.log('db synced')
 
-  const basicQuestions = await Promise.all([
+  const basicArithmetic = await Promise.all([
     Question.create({ content: '769 + 502 = ?', option1: '1,271', option2: '267', option3: '1,371', option4: '1,471'
     }),
     Question.create({content: '578,101 - 194,129 = ?', option1: '383,972', option2: '772,230', option3: '-383,972', option4: '-772,230'
     }),
     Question.create({content: '16 * 15 = ?', option1: '240', option2: '224', option3: '180', option4: '242'
     }),
-    Question.create({content: '-96 / 3 = ?', option1: '-30', option2: '32', option3: '-32', option4: '30'
+    Question.create({content: '-96 / 3 = ?', option1: '-32', option2: '32', option3: '-30', option4: '30'
     }),
     Question.create({content: '-171.6 / -22 = ?', option1: '7.8', option2: '-9.7', option3: '9.7', option4: '-7.8'
     })
   ])
 
   const advancedArithmetic = await Promise.all([
-      Question.create({ content: 'What is the least common multiple (l. c. m.) of 18 and 24.', option1: '72', option2: '36', option3: '54',option4: '96'})
+    Question.create({content: 'What is the least common multiple (l.c.m.) of 18 and 24.', option1: '72', option2: '36', option3: '54', option4: '96'}),
+    Question.create({content: 'What is the least common multiple (l.c.m.) of 16 and 48.', option1: '48', option2: '96', option3: '64', option4: '16'}),
+    Question.create({content: 'What is the greatest common factor (g.c.f.) of 24 and 16.', option1: '8', option2: '16', option3: '24', option4: '6'}),
+    Question.create({content: 'What is the greatest common factor (g.c.f.) of 11 and 44.', option1: '11', option2: '44', option3: '4', option4: '1'}),
+    Question.create({content: 'What is the greatest common factor (g.c.f.) of 24 and 20.', option1: '4', option2: '6', option3: '2', option4: '20'})
+  ])
+
+  const basicProbability = await Promise.all([
+    Question.create({content: 'If you flip a fair coin 10 times, what is the probability of getting all heads?', option1: '0.5^10', option2: '1^10', option3: '0.25^10', option4: '-1^10'}),
+    Question.create({content: 'If you flip a fair coin twice, what is the probability of getting at least 1 head?', option1: '0.75', option2: '0.5', option3: '1.25', option4: '-0.5'}),
+    Question.create({content: 'If you will flip a fair die once, what is the probability of getting an odd number?', option1: '0.5', option2: '-0.5', option3: '1.5', option4: '0.25'}),
+    Question.create({content: 'If you roll a pair offair dice once, what is hte probability ofgetting a sum of 5?', option1: '1/9', option2: '1/4', option3: '-1/4', option4: '1.25'}),
+    Question.create({content: 'If you roll a fair die twice, what is the probability of getting the same number twice?', option1: '1/6', option2: '-1/6', option3: '1/12', option4: '7/6'}),
+    Question.create({content: 'If you roll a fair die twice, what is the probability of getting 2 different numbers?', option1: '5/6', option2: '1/6', option3: '-5/6', option4: '7/6'})
   ])
 
   const categories = await Promise.all([
@@ -28,10 +41,14 @@ async function seed () {
     Category.create({type: 'basicGeometry'}),
     Category.create({type: 'basicProbability'})
   ])
-  console.log(`seeded ${basicQuestions.length} questions`)
+  console.log(`seeded ${basicArithmetic.length} basic arithmetic questions`)
+  console.log(`seeded ${advancedArithmetic.length} advanced arithmetic questions`)
+  console.log(`seeded ${basicProbability.length} basic probability questions`)
   console.log(`seeded ${categories.length} categories`)
-  for (let i = 0; i < basicQuestions.length; i++) {
-    await basicQuestions[i].setCategory(categories[0])
+  for (let i = 0; i < basicArithmetic.length; i++) {
+    await basicArithmetic[i].setCategory(categories[0])
+    await advancedArithmetic[i].setCategory(categories[1])
+    await basicProbability[i].setCategory(categories[3])
   }
 
   const users = await Promise.all([
