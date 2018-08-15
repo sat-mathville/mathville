@@ -1,6 +1,6 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store, {addNewAbilityThunk} from '../store'
+import store from '../store'
 import renderQuestion from './helperFunctions/renderQuestion'
 
 export default class extends Phaser.State {
