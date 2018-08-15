@@ -43,7 +43,8 @@ export default class extends Phaser.State {
     this.stations_3 = this.stations.createLayer(0)
     this.details_4 = this.details.createLayer(0)
 
-    this.door = this.game.add.sprite(1240,215, 'door')
+    this.door = this.game.add.sprite(1265, 268, 'door')
+    this.door.scale.setTo(0.5)
     this.game.physics.enable(this.door,Phaser.Physics.ARCADE)
 
     this.boy = this.game.add.sprite(1200,350,'boy')
@@ -60,16 +61,13 @@ export default class extends Phaser.State {
     this.boy.body.collideWorldBounds = true;
 
     this.camera.follow(this.boy)
-
-    // this.game.add.sprite(0,0, 'animal')
-    // this.kitten.scale.setTo(2,2)
   }
 
   update() {
 
     this.game.physics.arcade.collide(this.boy,this.stations_3)
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
-      this.game.state.start('House')
+      this.game.state.start('WizardHouse')
     }, null, this)
 
     if(this.cursors.left.isDown){
@@ -89,17 +87,9 @@ export default class extends Phaser.State {
       this.boy.animations.play('walkDown', 40, true)
     }
     else {
-      this.boy.body.velocity.x = 0;
-      this.boy.body.velocity.y = 0;
-      this.boy.animations.stop();
-    }
-
-    // console.log('this',this.boy)
-  }
-
-  render() {
-    if (__DEV__) {
-      // this.game.debug.spriteInfo(this.mushroom, 32, 32)
+      this.boy.body.velocity.x = 0
+      this.boy.body.velocity.y = 0
+      this.boy.animations.stop()
     }
   }
 
