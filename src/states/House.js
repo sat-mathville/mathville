@@ -55,7 +55,7 @@ export default class extends Phaser.State {
       for (let key in this.buttons) {
         this.buttons[key].destroy()
       }
-      const finalOutput = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, renderFinalOutput(), {
+      const finalOutput = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, renderFinalOutput(this.score,this.questions.length), {
         font: '35px',
         fill: '#000000',
         smoothed: false
