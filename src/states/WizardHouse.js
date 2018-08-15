@@ -83,5 +83,4 @@ export default class extends Phaser.State {
       this.boy.animations.stop()
     }
   }
-
 }

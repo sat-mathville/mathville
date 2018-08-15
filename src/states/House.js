@@ -1,6 +1,7 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store from '../store'
+import store, {addNewAbilityThunk} from '../store'
+import renderFinalOutput from './helperFunctions/renderFinalOutputMsg'
 
 export default class extends Phaser.State {
   init () { }
@@ -40,24 +41,21 @@ export default class extends Phaser.State {
       // this.game.debug.spriteInfo(this.mushroom, 32, 32)
     }
   }
-  renderFinalOutput () {
-    if (this.score === this.questions.length) {
-      return 'Congratulations! You have leveled up!'
-    } else {
-      return `I'm sorry. You have not answered enough questions correctly. \n Please come back for some more magic practice!`
-    }
-  }
 
   renderQuestion (text) {
     if (this.currentQuestion === -1) {
       text.destroy()
     }
     if (this.currentQuestion === this.questions.length - 1) {
+      let id = 1
+      if (!(store.getState().userAbilities.find(ability => ability === id))) {
+        store.dispatch(addNewAbilityThunk(id))
+      }
       this.currentQuestionText.destroy()
       for (let key in this.buttons) {
         this.buttons[key].destroy()
       }
-      const finalOutput = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, this.renderFinalOutput(), {
+      const finalOutput = this.add.text(this.chatbox.x + 200, this.chatbox.y + 150, renderFinalOutput(this.score,this.questions.length), {
         font: '35px',
         fill: '#000000',
         smoothed: false

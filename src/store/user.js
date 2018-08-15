@@ -4,18 +4,22 @@ import { getUserAbilities } from './userAbilities'
 /**
  * ACTION TYPES
  */
-const GET_USER = 'GET_USER'
+export const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 
 /**
  * INITIAL STATE
  */
-const defaultUser = {}
+const defaultUser = {
+  user: {},
+  abilities: []
+}
 
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
+const getUser = data => ({type: GET_USER, data})
+
 const removeUser = () => ({type: REMOVE_USER})
 
 /**
@@ -24,8 +28,8 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUserAbilities(res.data.abilities))
-    dispatch(getUser(res.data.user || defaultUser))
+    // dispatch(getUserAbilities(res.data.abilities))
+    dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)
   }
@@ -41,7 +45,6 @@ export const auth = (data, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
-    // history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }
@@ -62,7 +65,7 @@ export const logout = () => async dispatch => {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
-      return action.user
+      return action.data.user
     case REMOVE_USER:
       return defaultUser
     default:
