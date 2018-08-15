@@ -6,10 +6,10 @@ async function seed() {
     console.log('db synced')
 
     const questions = await Promise.all([
-        Question.create({content: 'Favorite flavor or icecream?', option1: 'chocolate', option2: 'vanilla', option3: 'mango', option4: 'red beans'}),
-        Question.create({content: 'Do you like semicolons?', option1: 'YESSS!!!', option2: 'hell no', option3: 'uh, why should I care?', option4: 'what is a semicolon?'}),
-        Question.create({content: 'Favorite pet?', option1: 'dog', option2: 'cat', option3: 'lizard', option4: 'snake'}),
-        Question.create({content: 'Who is that wizard?', option1: 'Miracle Max', option2: 'Merlin', option3: 'Gandalf', option4: 'Dumbledore'})
+        Question.create({ content: '769 + 502 = ?', option1: '1,271',option2: '267',option3: '1,371',option4: '1,471'
+        }),
+        Question.create({content: '578,101 - 194,129 = ?',option1: '383,972',option2: '772,230', option3: '-383,972',option4: '-772,230'
+        })
     ])
 
     console.log(`seeded ${questions.length} questions`)
