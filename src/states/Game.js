@@ -1,19 +1,14 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import Mushroom from '../sprites/Mushroom'
-import Kitten from '../sprites/Kitten'
 import lang from '../lang'
 import store, {getProblems} from '../store'
+import spriteUrl from './helperFunctions/spriteUrl'
+import animate from './helperFunctions/animate'
+import navigate from './helperFunctions/navigate'
 
 export default class extends Phaser.State {
-  init () { }
   preload () {
-    const userCharacter = () => {
-      if (store.getState().user.character === 1) return '../assets/images/boy.png'
-      else if (store.getState().user.character === 2) return '../assets/images/girl.png'
-      else if (store.getState().user.character === 3) return '../assets/images/cat_fighter_sprite1.png'
-    }
-    this.load.spritesheet('boy', userCharacter(),64,64)
+    this.load.spritesheet('boy', spriteUrl(),64,64)
     this.load.spritesheet('door', '../assets/images/door.png',105, 111)
     this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png',105, 111)
     //baker 
@@ -26,7 +21,7 @@ export default class extends Phaser.State {
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
   }
   create () {
-    // Load Map
+    // Load main map/world
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0, 0, 1920, 1080)
     this.map = this.game.add.tilemap('map')
@@ -38,16 +33,22 @@ export default class extends Phaser.State {
     this.stations.addTilesetImage('tileset')
     this.details.addTilesetImage('tileset')
 
-    // Create Layer
+    // Create layers
     this.land_1 = this.map.createLayer(0)
     this.grass_2 = this.grass.createLayer(0)
     this.stations_3 = this.stations.createLayer(0)
     this.details_4 = this.details.createLayer(0)
 
+    //set up barriers for the bakery
     this.bakery = this.game.add.sprite(680,42, 'bakery')
     this.bakery.scale.setTo(0.5)
     this.game.physics.enable(this.bakery, Phaser.Physics.ARCADE)
 
+    // Set up physics (barriers) for walls and trees and stuff
+    this.game.physics.arcade.enable(this.stations)
+    this.stations.setCollisionBetween(0, 6080, true, this.stations_3)
+
+    // Create entrances to other game scenes
     this.door = this.game.add.sprite(1265, 268, 'door')
     this.door.scale.setTo(0.5)
     this.game.physics.enable(this.door, Phaser.Physics.ARCADE)
@@ -56,23 +57,19 @@ export default class extends Phaser.State {
     this.forestDoor.scale.setTo(0.35)
     this.game.physics.enable(this.forestDoor, Phaser.Physics.ARCADE)
 
+    // Create player's character
+    // Make sure you set up the physics first before animating the character
     this.boy = this.game.add.sprite(1200, 350, 'boy')
-    this.boy.scale.setTo(0.75)
-    this.boy.animations.add('walkUp', [104, 105, 106, 107, 108, 109, 110, 111, 112], null, true)
-    this.boy.animations.add('walkLeft', [117, 118, 119, 120, 121, 122, 123, 124, 125], null, true)
-    this.boy.animations.add('walkDown', [130, 131, 132, 133, 134, 135, 136, 137, 138], null, true)
-    this.boy.animations.add('walkRight', [143, 144, 145, 146, 147, 148, 149, 150, 151], null, true)
-    this.game.physics.arcade.enable(this.stations)
-    this.stations.setCollisionBetween(0, 6080, true, this.stations_3)
+    this.game.physics.arcade.enable(this.boy)
+    this.camera.follow(this.boy) // Set up the camera to follow the character
+    animate(this.boy)
 
+    // Create keyboard input tracker
     this.cursors = this.game.input.keyboard.createCursorKeys()
-    this.game.physics.enable(this.boy, Phaser.Physics.ARCADE)
-    this.boy.body.collideWorldBounds = true
 
     // Import scorebard and calculate score
     this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
     this.scoreboard.fixedToCamera = true
-
     function calculateScore () {
       const abilitiesIds = store.getState().userAbilities
       let sum = 0
@@ -83,7 +80,6 @@ export default class extends Phaser.State {
     }
     this.scoreNum = this.add.text(this.scoreboard.x+10,this.scoreboard.y+20,`Score: ${calculateScore()}`)
     this.scoreNum.fixedToCamera = true
-    this.camera.follow(this.boy)
   }
 
   update () {
@@ -115,5 +111,7 @@ export default class extends Phaser.State {
       this.boy.body.velocity.y = 0
       this.boy.animations.stop()
     }
+
+    navigate(this.cursors, this.boy)
   }
 }
