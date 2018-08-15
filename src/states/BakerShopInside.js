@@ -12,16 +12,15 @@ export default class extends Phaser.State {
         this.load.spritesheet('boy', userCharacter(), 64, 64)
         // this.load.spritesheet('baker', '../assets/images/bakersInside/littleBaker.png', 163, 185)
         //tilesheets
-        this.load.image('restaurantSet', '../assets/images/bakersInside/restaurant.png')
-        this.load.image('baker', '../assets/images/roguelikeSheet_transparent.png')
+        this.load.image('bakerySet', '../assets/images/bakersInside/interior.png')
         //tilemap layers
-        this.load.tilemap('counter','../assets/images/bakersInside/FinalBakerShop._counter.csv')
-        this.load.tilemap('ground','../assets/images/bakersInside/FinalBakerShop._ground.csv')
-        // this.load.tilemap('restaurant','../assets/images/bakersInside/FinalBakerShop._restaurant tileset.csv')
-        this.load.tilemap('layer1','../assets/images/bakersInside/FinalBakerShop._Tile Layer 1.csv')
-        this.load.tilemap('wallitems','../assets/images/bakersInside/FinalBakerShop._wall items.csv')
-        this.load.tilemap('wall','../assets/images/bakersInside/FinalBakerShop._wall.csv')
-        this.load.tilemap('windows','../assets/images/bakersInside/FinalBakerShop._windows.csv')
+        this.load.tilemap('floor','../assets/images/bakersInside/bakery_floor.csv')
+        this.load.tilemap('furniture','../assets/images/bakersInside/bakery_furniture.csv')
+        this.load.tilemap('outsidewall','../assets/images/bakersInside/bakery_outside wall.csv')
+        this.load.tilemap('onfurniture','../assets/images/bakersInside/bakery_stuff on top of furniture.csv')
+        this.load.tilemap('layer1','../assets/images/bakersInside/bakery_Tile Layer 1')
+        this.load.tilemap('chimneytop','../assets/images/bakersInside/bakery_top of chimney.csv')
+        this.load.tilemap('insidewall','../assets/images/bakersInside/bakery_wall.csv')
     }
 
     create(){
@@ -32,35 +31,24 @@ export default class extends Phaser.State {
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         this.game.world.setBounds(0, 0, 1024, 640)
-        this.ground = this.game.add.tilemap('ground',16,16) 
-        this.ground.addTilesetImage('baker')
-        this.bakerGround = this.ground.createLayer(0)
+        this.floor = this.game.add.tilemap('floor') 
+        this.floor.addTilesetImage('bakerySet')
+        this.bakeryFloor = this.floor.createLayer(0)
         
-        // this.wall = this.game.add.tilemap('wall',16,16)
-        // this.wall.addTilesetImage('baker')
-        // this.bakerWall = this.wall.createLayer(0)
-        // this.game.physics.arcade.enable(this.wall)
-        // this.wall.setCollisionBetween(0, 6080, true, this.bakerWall)
+        this.furniture = this.game.add.tilemap('furniture')
+        this.furniture.addTilesetImage('bakerySet')
+        this.bakeryFurniture = this.furniture.createLayer(0)
+        this.game.physics.arcade.enable(this.furniture)
+        this.furniture.setCollisionBetween(0, 6080, true, this.bakeryFurniture)
 
-        // this.counter = this.game.add.tilemap('counter',16,16)
-        // this.counter.addTilesetImage('baker')
-        // this.bakerCounter = this.counter.createLayer(0)
-        // this.game.physics.arcade.enable(this.counter)
-        // this.counter.setCollisionBetween(0, 6080, true, this.bakerCounter)
+        this.outsideWall = this.game.add.tilemap('outsidewall')
+        this.outsideWall.addTilesetImage('bakerySet')
+        this.bakeryOutsideWall = this.outsideWall.createLayer(0)
+        this.game.physics.arcade.enable(this.outsideWall)
+        this.outsideWall.setCollisionBetween(0,6080, this, this.bakeryOutsideWall)
 
-        // this.restaurant = this.game.add.tilemap('restaurant')
-        // this.restaurant.addTilesetImage('restaurantSet')
-        // this.bakerRestaurant = this.restaurant.createLayer(0)
-        // this.game.physics.arcade.enable(this.restaurant)
-        // this.restaurant.setCollisionBetween(0, 6080, true, this.bakerRestaurant)
 
-        // this.wallitems = this.game.add.tilemap('wallitems')
-        // this.wallitems.addTilesetImage('baker')
-        // this.bakerWallItems = this.wallitems.createLayer(0)
-        // this.game.physics.arcade.enable(this.wallitems)
-        // this.wallitems.setCollisionBetween(0, 6080, true, this.bakerWallItems)
-
-        this.boy = this.game.add.sprite(this.world.centerX, this.world.centerY, 'boy')
+        this.boy = this.game.add.sprite(this.world.centerX+50, this.world.center-200, 'boy')
         // this.baker = this.game.add.sprite(this.world.centerX, this.world.centerY + 150)
         this.boy.scale.setTo(1)
         // this.baker.scale.setTo(1)
@@ -78,12 +66,10 @@ export default class extends Phaser.State {
     }
 
     update(){
-        this.game.physics.arcade.collide(this.boy, this.bakerWall)
-        this.game.physics.arcade.collide(this.boy, this.bakerCounter)
-        this.game.physics.arcade.collide(this.boy, this.bakerRestaurant)
-        this.game.physics.arcade.overlap(this.boy, this.baker, () => {
-            this.game.state.start('House')
-        }, null, this)
+        this.game.physics.arcade.collide(this.boy, this.bakeryFurniture)
+        // this.game.physics.arcade.overlap(this.boy, this.baker, () => {
+        //     this.game.state.start('House')
+        // }, null, this)
 
         if (this.cursors.left.isDown) {
             this.boy.body.velocity.x = -200
