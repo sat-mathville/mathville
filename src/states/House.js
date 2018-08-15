@@ -6,7 +6,6 @@ import renderQuestion from './helperFunctions/renderQuestion'
 export default class extends Phaser.State {
   preload () {
     this.load.image('chatbox', '../assets/images/ChatBox.png')
-    this.load.image('checkbox', 'https://icon2.kisspng.com/20180619/vov/kisspng-checkbox-rectangle-square-computer-icons-clip-art-checkboxes-5b298c2babb9f3.4618111415294495157034.jpg')
     this.questions = store.getState().questions
   }
   create () {
