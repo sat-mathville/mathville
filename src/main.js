@@ -11,6 +11,7 @@ import GameState from './states/Game'
 import HouseState from './states/House'
 import StartState from './states/StartGame'
 import WizardHouseState from './states/WizardHouse'
+import BakerShopState from './states/BakerShopInside'
 
 
 import config from './config'
@@ -30,6 +31,7 @@ class Game extends Phaser.Game {
     this.state.add('Game', GameState, false)
     this.state.add('StartGame', StartState, false)
     this.state.add('WizardHouse', WizardHouseState, false)
+    this.state.add('BakerShopInside', BakerShopState, false)
     this.state.add('House', HouseState, false)
 
     // with Cordova with need to wait that the device is ready so we will call the Boot state in another file
