@@ -18,8 +18,8 @@ router.put('/:id', async (req, res, next) => {
       Ability.findById(+req.params.id)
     ])
     await ability.setUsers(user)
-    res.status(201).send(ability.id)
-  } catch(err){
+    res.json({id: ability.id})
+  } catch (err) {
     next(err)
   }
 })

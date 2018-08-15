@@ -9,8 +9,8 @@ const getAllAbilities = abilities => ({type: GET_ALL_ABILITIES, abilities})
 // Thunk creators
 export const fetchAllAbilities = () => async dispatch => {
   try {
-    const abilities = await axios.get('/api/abilities')
-    dispatch(getAllAbilities(abilities))
+    const {data} = await axios.get('/api/abilities')
+    dispatch(getAllAbilities(data))
   } catch (err) {
     console.log(err)
   }
