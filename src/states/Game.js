@@ -66,8 +66,8 @@ export default class extends Phaser.State {
     function calculateScore () {
       const abilitiesIds = store.getState().userAbilities
       let sum = 0
-      for (let i = 0; i < abilitiesIds.length; i++) {
-        sum += store.getState().abilities.find(ability => ability.id === abilitiesIds[i]).value
+      for (let entry of abilitiesIds) {
+        sum += store.getState().abilities.find(ability => ability.id === entry).value
       }
       return sum
     }

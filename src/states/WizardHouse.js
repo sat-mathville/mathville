@@ -1,4 +1,4 @@
-
+import makeChatbox from './helperFunctions/makeChatbox'
 import Phaser from 'phaser'
 import store from '../store'
 
@@ -19,9 +19,12 @@ export default class extends Phaser.State {
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
     this.load.image('elfhouse', '../assets/images/elfhouse.png')
     this.load.spritesheet('potions', '../assets/images/potions.png')
+    this.load.image('chatbox', '../assets/images/chatbox.jpg')
   }
 
   create () {
+    this.overlap = false
+
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0, 0, 1024, 640)
     this.house = this.game.add.tilemap('house')
@@ -91,7 +94,10 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.wizardWall)
     this.game.physics.arcade.collide(this.boy, this.wizardFurniture)
     this.game.physics.arcade.overlap(this.boy, this.wizard, () => {
-      this.game.state.start('House')
+      if (!this.overlap) {
+        makeChatbox(["I'm a wizard", "Help me answer these math questions"], this, "House")
+        this.overlap = true
+      }
     }, null, this)
 
     this.purpleFire1.animations.play('move', 10, true)
