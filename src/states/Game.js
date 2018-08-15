@@ -1,7 +1,7 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store from '../store'
-
+import lang from '../lang'
+import store, {getProblems} from '../store'
 import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
