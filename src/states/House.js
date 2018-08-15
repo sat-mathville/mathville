@@ -10,7 +10,7 @@ export default class extends Phaser.State {
     this.questions = store.getState().questions
   }
   create () {
-    this.chatbox = this.game.add.sprite(200, 200, 'chatbox')
+    this.chatbox = this.game.add.sprite(this.world.centerX - 180, this.world.centerX - 250, 'chatbox')
     this.currentQuestion = -1
 
     this.buttons = {}
