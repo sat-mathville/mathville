@@ -18,6 +18,10 @@ async function seed () {
     })
   ])
 
+  const advancedArithmetic = await Promise.all([
+      Question.create({ content: 'What is the least common multiple (l. c. m.) of 18 and 24.', option1: '72', option2: '36', option3: '54',option4: '96'})
+  ])
+
   const categories = await Promise.all([
     Category.create({type: 'basicArithmetic'}),
     Category.create({type: 'advancedArithmetic'}),
