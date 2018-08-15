@@ -47,7 +47,7 @@ export default class extends Phaser.State {
       text.destroy()
     }
     if (this.currentQuestion === this.questions.length - 1) {
-      let id = 1
+      let id = 2
       if (!(store.getState().userAbilities.find(ability => ability === id))) {
         store.dispatch(addNewAbilityThunk(id))
       }
