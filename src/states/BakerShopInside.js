@@ -30,7 +30,7 @@ export default class extends Phaser.State {
         //add baker sprite somewhere
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
-        this.game.world.setBounds(0, 0, 1024, 640)
+        this.game.world.setBounds(0, 0, 1024, 1024)
         this.floor = this.game.add.tilemap('floor') 
         this.floor.addTilesetImage('bakerySet')
         this.bakeryFloor = this.floor.createLayer(0)
@@ -47,8 +47,14 @@ export default class extends Phaser.State {
         this.game.physics.arcade.enable(this.outsideWall)
         this.outsideWall.setCollisionBetween(0,6080, this, this.bakeryOutsideWall)
 
+        this.onFurniture = this.game.add.tilemap('onfurniture')
+        this.onFurniture.addTilesetImage('bakerySet')
+        this.bakeryOnFurniture = this.onFurniture.createLayer(0)
+        this.game.physics.arcade.enable(this.onFurniture)
+        this.onFurniture.setCollisionBetween(0, 6080, true, this.bakeryOnFurniture)
 
-        this.boy = this.game.add.sprite(this.world.centerX+50, this.world.center-200, 'boy')
+
+        this.boy = this.game.add.sprite(this.world.centerX-100, this.world.centerY-100, 'boy')
         // this.baker = this.game.add.sprite(this.world.centerX, this.world.centerY + 150)
         this.boy.scale.setTo(1)
         // this.baker.scale.setTo(1)
