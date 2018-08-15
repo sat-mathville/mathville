@@ -34,12 +34,12 @@ export const addNewAbilityThunk = (newAbilityId) => async dispatch => {
 /**
  * REDUCER
  */
-export default function (state = [], action) {
+export default function (state = new Set([]), action) {
   switch (action.type) {
     case GET_USER:
-      return action.data.abilities
+      return new Set(action.data.abilities)
     case ADD_NEW_ABILITY:
-      return [...state, action.newAbilityId]
+      return state.add(action.newAbilityId)
     default:
       return state
   }
