@@ -1,6 +1,7 @@
 
 import Phaser from 'phaser'
 import store from '../store'
+import makeChatbox from './helperFunctions/makeChatbox'
 
 export default class extends Phaser.State {
   preload () {
@@ -22,7 +23,7 @@ export default class extends Phaser.State {
   }
 
   create () {
-
+    this.overlap = false
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0, 0, 960, 960)
 
@@ -69,7 +70,10 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.forestCreature)
     this.villain.animations.play('idle', 20, true)
     this.game.physics.arcade.overlap(this.boy, this.villain, () => {
-      this.game.state.start('House')
+      if (!this.overlap) {
+        makeChatbox(["I'm a villain", "Answer this"], this, "House")
+        this.overlap = true
+      }
     }, null, this)
 
     if (this.cursors.left.isDown) {
@@ -89,9 +93,5 @@ export default class extends Phaser.State {
       this.boy.body.velocity.y = 0
       this.boy.animations.stop()
     }
-  }
-
-  makeChatbox () {
-    this.chatbox = this.game.add.sprite(this.world.centerX - 180, this.world.centerX - 250, 'chatbox')
   }
 }
