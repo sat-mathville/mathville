@@ -1,6 +1,6 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store from '../store'
+import store, {addNewAbilityThunk} from '../store'
 
 export default class extends Phaser.State {
   init () { }
@@ -53,6 +53,12 @@ export default class extends Phaser.State {
       text.destroy()
     }
     if (this.currentQuestion === this.questions.length - 1) {
+      let id = 1
+      console.log('check answer questions if statement',store.getState().userAbilities.find(ability => ability === id))
+      if (!(store.getState().userAbilities.find(ability => ability === id))) {
+
+        store.dispatch(addNewAbilityThunk(id))
+      }
       this.currentQuestionText.destroy()
       for (let key in this.buttons) {
         this.buttons[key].destroy()
