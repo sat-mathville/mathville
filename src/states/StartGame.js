@@ -4,7 +4,7 @@ import store, {getProblems} from '../store'
 
 export default class extends Phaser.State {
  preload() {
-  this.load.image('greenbutton', '../assets/images/greenButton.png')
+  this.load.image('playBtn', '../assets/images/playBtn.png')
 
  }
 
@@ -22,12 +22,12 @@ export default class extends Phaser.State {
     this.pleaseLogin.destroy()
   }
   if(!this.button1){
-    this.button1 = this.add.button(this.world.centerX,this.world.centerY, 'greenbutton', this.actionOnClick, this, 2, 1, 0);
+    this.button1 = this.add.button(this.world.centerX,this.world.centerY, 'playBtn', this.actionOnClick, this, 2, 1, 0);
     this.button1.anchor.setTo(0.5,0.5)
-    this.button1.width = 300
-    this.button1.height = 150
+    // this.button1.width = 300
+    // this.button1.height = 150
 
-    this.txt = this.add.text (this.button1.x, this.button1.y, "PLAY",  {font:"100px Arial", fill:"#fff", align:"center"})
+    this.txt = this.add.text (this.button1.x, this.button1.y, "START",  {font:"80px Times", fill:"#fff", align:"center"})
 
     this.txt.anchor.setTo(0.5,0.5)
   }
