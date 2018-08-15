@@ -1,7 +1,5 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import Mushroom from '../sprites/Mushroom'
-import Kitten from '../sprites/Kitten'
 import lang from '../lang'
 import store, {getProblems} from '../store'
 
