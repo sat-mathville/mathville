@@ -15,7 +15,7 @@ router.post('/login', async (req, res, next) => {
       const abilities = await user.getAbilities()
       const data = {
         user,
-        abilities: abilities.map(ability=>ability.id)
+        abilities: abilities.map(ability => ability.id)
       }
       req.login(user, err => (err ? next(err) : res.json(data)))
     }
@@ -48,8 +48,7 @@ router.get('/me', async (req, res) => {
   const abilities = await user.getAbilities()
   const data = {
     user: req.user,
-    abilities: abilities.map(ability=>ability.id)
+    abilities: abilities.map(ability => ability.id)
   }
   res.json(data)
 })
-
