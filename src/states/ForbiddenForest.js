@@ -15,9 +15,14 @@ export default class extends Phaser.State {
     this.load.tilemap('trees', '../assets/images/forest_trees3.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('creature', '../assets/images/forest_creature4.csv', null, Phaser.Tilemap.CSV)
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
+
+    this.load.spritesheet('villain', '../assets/images/villain_idle.png', 80, 80)
+
+    this.load.image('chatbox', '../assets/images/chatbox.jpg')
   }
 
   create () {
+
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0, 0, 960, 960)
 
@@ -41,6 +46,11 @@ export default class extends Phaser.State {
     this.game.physics.arcade.enable(this.creature)
     this.creature.setCollisionBetween(0, 6080, true, this.forestCreature)
 
+    this.villain = this.game.add.sprite(20, 20, 'villain')
+    this.villain.scale.setTo(1)
+    this.game.physics.enable(this.villain, Phaser.Physics.ARCADE)
+    this.villain.animations.add('idle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], null, true)
+
     this.boy = this.game.add.sprite(this.world.centerX - 50, this.world.centerY, 'boy')
     this.boy.scale.setTo(0.75)
     this.cursors = this.game.input.keyboard.createCursorKeys()
@@ -52,15 +62,15 @@ export default class extends Phaser.State {
     this.boy.animations.add('walkLeft', [117, 118, 119, 120, 121, 122, 123, 124, 125], null, true)
     this.boy.animations.add('walkDown', [130, 131, 132, 133, 134, 135, 136, 137, 138], null, true)
     this.boy.animations.add('walkRight', [143, 144, 145, 146, 147, 148, 149, 150, 151], null, true)
-
   }
 
   update () {
     this.game.physics.arcade.collide(this.boy, this.forestTrees)
     this.game.physics.arcade.collide(this.boy, this.forestCreature)
-    // this.game.physics.arcade.overlap(this.boy, this.wizard, () => {
-    //   this.game.state.start('House')
-    // }, null, this)
+    this.villain.animations.play('idle', 20, true)
+    this.game.physics.arcade.overlap(this.boy, this.villain, () => {
+      this.game.state.start('House')
+    }, null, this)
 
     if (this.cursors.left.isDown) {
       this.boy.body.velocity.x = -200
@@ -79,5 +89,9 @@ export default class extends Phaser.State {
       this.boy.body.velocity.y = 0
       this.boy.animations.stop()
     }
+  }
+
+  makeChatbox () {
+    this.chatbox = this.game.add.sprite(this.world.centerX - 180, this.world.centerX - 250, 'chatbox')
   }
 }
