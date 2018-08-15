@@ -16,6 +16,7 @@ export default class extends Phaser.State {
     }
     this.load.spritesheet('boy', userCharacter(),64,64)
     this.load.spritesheet('door', '../assets/images/door.png',105, 111)
+    this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png',105, 111)
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv',null,Phaser.Tilemap.CSV)
@@ -45,7 +46,11 @@ export default class extends Phaser.State {
 
     this.door = this.game.add.sprite(1265, 268, 'door')
     this.door.scale.setTo(0.5)
-    this.game.physics.enable(this.door,Phaser.Physics.ARCADE)
+    this.game.physics.enable(this.door, Phaser.Physics.ARCADE)
+
+    this.forestDoor = this.game.add.sprite(127, 319, 'forestDoor')
+    this.forestDoor.scale.setTo(0.35)
+    this.game.physics.enable(this.forestDoor, Phaser.Physics.ARCADE)
 
     this.boy = this.game.add.sprite(1200,350,'boy')
     this.boy.scale.setTo(0.75)
@@ -68,6 +73,9 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy,this.stations_3)
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
       this.game.state.start('WizardHouse')
+    }, null, this)
+    this.game.physics.arcade.overlap(this.boy, this.forestDoor, () => {
+      this.game.state.start('ForbiddenForest')
     }, null, this)
 
     if(this.cursors.left.isDown){
