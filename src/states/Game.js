@@ -12,6 +12,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('door', '../assets/images/door.png',105, 111)
     this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png',105, 111)
     //baker 
+    this.load.image('bakerydoor', '../assets/images/bakersOutside/bakerydoor.png')
     this.load.spritesheet('bakery','../assets/images/bakersOutside/smallerHouse.png')
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv',null,Phaser.Tilemap.CSV)
@@ -40,9 +41,10 @@ export default class extends Phaser.State {
     this.details_4 = this.details.createLayer(0)
 
     //set up barriers for the bakery
-    this.bakery = this.game.add.sprite(680,42, 'bakery')
+    this.bakery = this.game.add.sprite(680,180, 'bakery')
     this.bakery.scale.setTo(0.5)
     this.game.physics.enable(this.bakery, Phaser.Physics.ARCADE)
+    this.bakery.immovable = true
 
     // Set up physics (barriers) for walls and trees and stuff
     this.game.physics.arcade.enable(this.stations)
@@ -52,6 +54,10 @@ export default class extends Phaser.State {
     this.door = this.game.add.sprite(1265, 268, 'door')
     this.door.scale.setTo(0.5)
     this.game.physics.enable(this.door, Phaser.Physics.ARCADE)
+
+    this.bakerydoor = this.game.add.sprite(744,294,'bakerydoor')
+    this.bakerydoor.scale.setTo(1)
+    this.game.physics.enable(this.bakerydoor, Phaser.Physics.ARCADE)
 
     this.forestDoor = this.game.add.sprite(127, 319, 'forestDoor')
     this.forestDoor.scale.setTo(0.35)
@@ -84,14 +90,16 @@ export default class extends Phaser.State {
 
   update () {
     this.game.physics.arcade.collide(this.boy, this.stations_3)
-    // this.game.physics.arcade.collide(this.boy, this.bakery)
+    this.game.physics.arcade.collide(this.boy, this.bakery)
+    this.bakery.body.immovable = true
+
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
       this.game.state.start('WizardHouse')
     }, null, this)
     this.game.physics.arcade.overlap(this.boy, this.forestDoor, () => {
       this.game.state.start('ForbiddenForest')
     }, null, this)
-    this.game.physics.arcade.overlap(this.boy, this.bakery, () => {
+    this.game.physics.arcade.overlap(this.boy, this.bakerydoor, () => {
       this.game.state.start('BakerShopInside')
     })
     if (this.cursors.left.isDown) {

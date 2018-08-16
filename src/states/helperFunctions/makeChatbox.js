@@ -18,7 +18,7 @@ export default function makeChatbox (dialogue, gameState, newState, counter = 0)
       dialogue[counter],
       {
         font: '35px',
-        fill: '#000000',
+        fill: '#060606',
         smoothed: false
       }
     )

@@ -28,7 +28,12 @@ export default class extends Phaser.State {
         //going to ignore windows for now since I didn't end up putting any windows
         
         //add baker sprite somewhere
-
+        this.insidewall = this.game.add.tilemap('insidewall')
+        this.insidewall.addTilesetImage('bakerySet')
+        this.bakeryInsideWall = this.insidewall.createLayer(0)
+        this.game.physics.arcade.enable(this.insidewall)
+        this.insidewall.setCollisionBetween(0, 6080, true, this.bakeryInsideWall)
+        
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         this.game.world.setBounds(0, 0, 1024, 1024)
         this.floor = this.game.add.tilemap('floor') 
@@ -39,22 +44,29 @@ export default class extends Phaser.State {
         this.furniture.addTilesetImage('bakerySet')
         this.bakeryFurniture = this.furniture.createLayer(0)
         this.game.physics.arcade.enable(this.furniture)
-        this.furniture.setCollisionBetween(0, 6080, true, this.bakeryFurniture)
+        this.furniture.setCollisionBetween(0, 2000, true, this.bakeryFurniture)
 
         this.outsideWall = this.game.add.tilemap('outsidewall')
         this.outsideWall.addTilesetImage('bakerySet')
         this.bakeryOutsideWall = this.outsideWall.createLayer(0)
         this.game.physics.arcade.enable(this.outsideWall)
-        this.outsideWall.setCollisionBetween(0,6080, this, this.bakeryOutsideWall)
-
+        this.outsideWall.setCollisionBetween(0, 6080, this, this.bakeryOutsideWall)
+        
         this.onFurniture = this.game.add.tilemap('onfurniture')
         this.onFurniture.addTilesetImage('bakerySet')
         this.bakeryOnFurniture = this.onFurniture.createLayer(0)
         this.game.physics.arcade.enable(this.onFurniture)
         this.onFurniture.setCollisionBetween(0, 6080, true, this.bakeryOnFurniture)
 
+        this.chimneytop = this.game.add.tilemap('chimneytop')
+        this.chimneytop.addTilesetImage('bakerySet')
+        this.bakeryChimneyTop = this.chimneytop.createLayer(0)
+        this.game.physics.arcade.enable(this.chimneytop)
+        this.chimneytop.setCollisionBetween(0, 6080, this, this.bakeryChimneyTop)
 
-        this.boy = this.game.add.sprite(this.world.centerX-100, this.world.centerY-100, 'boy')
+
+
+        this.boy = this.game.add.sprite(this.world.centerX-150, this.world.centerY+320, 'boy')
         // this.baker = this.game.add.sprite(this.world.centerX, this.world.centerY + 150)
         this.boy.scale.setTo(1)
         // this.baker.scale.setTo(1)
@@ -73,9 +85,10 @@ export default class extends Phaser.State {
 
     update(){
         this.game.physics.arcade.collide(this.boy, this.bakeryFurniture)
-        // this.game.physics.arcade.overlap(this.boy, this.baker, () => {
-        //     this.game.state.start('House')
-        // }, null, this)
+        this.game.physics.arcade.collide(this.boy, this.bakeryOutsideWall)
+        this.game.physics.arcade.overlap(this.boy, this.baker, () => {
+            this.game.state.start('House')
+         }, null, this)
 
         if (this.cursors.left.isDown) {
             this.boy.body.velocity.x = -200
