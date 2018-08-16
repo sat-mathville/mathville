@@ -26,6 +26,7 @@ export default class extends Phaser.State {
 
     // music
     this.music = this.add.audio('music')
+    this.music.volume = 0.5
     this.music.play()
 
     this.overlap = false
