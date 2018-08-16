@@ -6,6 +6,7 @@ import store from '../store'
 export default class extends Phaser.State {
   preload () {
     const state = store.getState()
+    console.log(state)
     this.questions = state.questions.filter(
       question => question.abilityId === state.currentAbility
     )

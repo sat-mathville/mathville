@@ -1,15 +1,13 @@
 import Phaser from 'phaser'
-import store from '../store'
+import store, {setCurrentAbilityId} from '../store'
+import makeChatbox from './helperFunctions/makeChatbox'
+import spriteUrl from './helperFunctions/spriteUrl'
 
 export default class extends Phaser.State {
   preload () {
-    const userCharacter = () => {
-      if (store.getState().user.character === 1) return '../assets/images/boy.png'
-      else if (store.getState().user.character === 2) return '../assets/images/girl.png'
-      else if (store.getState().user.character === 3) return '../assets/images/cat_fighter_sprite1.png'
-    }
+    store.dispatch(setCurrentAbilityId(3))
     // characters
-    this.load.spritesheet('boy', userCharacter(), 64, 64)
+    this.load.spritesheet('boy', spriteUrl(), 64, 64)
     this.load.spritesheet('baker', '../assets/images/bakersInside/littleBaker.png', 64, 64)
     // tilesheets
     this.load.image('bakerySet', '../assets/images/bakersInside/interior.png')
@@ -20,6 +18,7 @@ export default class extends Phaser.State {
     this.load.tilemap('onfurniture', '../assets/images/bakersInside/bakery_stuff on top of furniture.csv')
     this.load.tilemap('layer1', '../assets/images/bakersInside/bakery_Tile Layer 1')
     this.load.tilemap('insidewall', '../assets/images/bakersInside/bakery_wall.csv')
+    this.load.image('chatbox', '../assets/images/chatbox.jpg')
   }
 
   create () {
@@ -78,7 +77,10 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.bakeryFurniture)
     this.game.physics.arcade.collide(this.boy, this.bakeryOutsideWall)
     this.game.physics.arcade.overlap(this.boy, this.baker, () => {
-      this.game.state.start('House')
+      if (!this.overlap) {
+        makeChatbox(["I'm a baker", "Help me answer these math questions"], this, "House")
+        this.overlap = true
+      }
     }, null, this)
 
     if (this.boy.x < 372.7 && this.boy.x > 350 && this.boy.y < 886.0 && this.boy.y > 870) {
