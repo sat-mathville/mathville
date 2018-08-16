@@ -79,7 +79,13 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.bakeryOutsideWall)
     this.game.physics.arcade.overlap(this.boy, this.baker, () => {
       if (!this.overlap) {
-        makeChatbox(["I'm a baker", "Help me answer these math questions"], this, "House")
+        const name = store.getState().user.username
+        makeChatbox([
+          `Hello ${name}!`,
+          "I want to start selling some ice cream!",
+          "But I need to figure some numbers out...",
+          "Could you help me?"
+        ], 'Baker', this, "House")
         this.overlap = true
       }
     }, null, this)

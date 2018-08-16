@@ -20,7 +20,7 @@ export default class extends Phaser.State {
     this.currentQuestionText = {}
     this.score = 0
 
-    const opening = 'If you’re ready to answer some questions, click HERE!'
+    const opening = 'If you’re ready to solve some math problems, click HERE!'
     let banner = this.add.text(100, 100, opening, {
       font: '35px',
       fill: '#FFFFFF',
@@ -29,9 +29,5 @@ export default class extends Phaser.State {
     banner.inputEnabled = true
     banner.input.useHandCursor = true
     banner.events.onInputDown.add(() => { renderQuestion(banner, this) }, this)
-  }
-
-  render () {
-    this.game.debug.inputInfo(32, 32)
   }
 }
