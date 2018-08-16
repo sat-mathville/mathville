@@ -13,6 +13,9 @@ Category.hasOne(Ability)
 Category.hasMany(Question)
 Question.belongsTo(Category)
 
+Ability.hasMany(Question)
+Question.belongsTo(Ability)
+
 module.exports = {
   Ability,
   Category,
