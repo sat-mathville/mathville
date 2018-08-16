@@ -22,9 +22,11 @@ export default class extends Phaser.State {
   }
 
   create () {
-    // going to ignore windows for now since I didn't end up putting any windows
 
-    // add baker sprite somewhere
+    this.game.scale.pageAlignHorizontally = true;
+    this.game.scale.pageAlignVertically = true;
+    this.game.scale.refresh();
+
     this.insidewall = this.game.add.tilemap('insidewall')
     this.insidewall.addTilesetImage('bakerySet')
     this.bakeryInsideWall = this.insidewall.createLayer(0)
