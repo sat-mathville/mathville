@@ -20,9 +20,17 @@ export default class extends Phaser.State {
     this.load.spritesheet('villain', '../assets/images/villain_idle.png', 80, 80)
 
     this.load.image('chatbox', '../assets/images/chatbox.jpg')
+
+    //music
+    this.load.audio('music', '../assets/sounds/foggywoods.mp3');
   }
 
   create () {
+
+    //music
+    this.music = this.add.audio('music')
+    this.music.play()
+
     this.overlap = false
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0, 0, 960, 960)
@@ -73,6 +81,7 @@ export default class extends Phaser.State {
       if (!this.overlap) {
         makeChatbox(["I'm a villain", "Answer this"], this, "House")
         this.overlap = true
+        // this.music.stop()
       }
     }, null, this)
 
@@ -93,5 +102,9 @@ export default class extends Phaser.State {
       this.boy.body.velocity.y = 0
       this.boy.animations.stop()
     }
+  }
+
+  render(){
+    this.game.debug.soundInfo(this.music, 20, 32)
   }
 }
