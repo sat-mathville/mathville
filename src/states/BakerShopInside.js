@@ -10,7 +10,7 @@ export default class extends Phaser.State {
         }
         //characters
         this.load.spritesheet('boy', userCharacter(), 64, 64)
-        // this.load.spritesheet('baker', '../assets/images/bakersInside/littleBaker.png', 163, 185)
+        this.load.spritesheet('baker', '../assets/images/bakersInside/littleBaker.png', 64, 64)
         //tilesheets
         this.load.image('bakerySet', '../assets/images/bakersInside/interior.png')
         //tilemap layers
@@ -58,12 +58,12 @@ export default class extends Phaser.State {
         this.onFurniture.setCollisionBetween(0, 6080, true, this.bakeryOnFurniture)
 
         this.boy = this.game.add.sprite(this.world.centerX-150, this.world.centerY+320, 'boy')
-        // this.baker = this.game.add.sprite(this.world.centerX, this.world.centerY + 150)
+        this.baker = this.game.add.sprite(this.world.centerX-350, this.world.centerY -150, 'baker')
         this.boy.scale.setTo(1)
-        // this.baker.scale.setTo(1)
+        this.baker.scale.setTo(1)
         this.cursors = this.game.input.keyboard.createCursorKeys()
         this.game.physics.enable(this.boy, Phaser.Physics.ARCADE)
-        // this.game.physics.enable(this.baker, Phaser.Physics.ARCADE)
+        this.game.physics.enable(this.baker, Phaser.Physics.ARCADE)
         this.boy.body.collideWorldBounds = true
         this.camera.follow(this.boy)
 
@@ -71,7 +71,8 @@ export default class extends Phaser.State {
         this.boy.animations.add('walkLeft', [117, 118, 119, 120, 121, 122, 123, 124, 125], null, true)
         this.boy.animations.add('walkDown', [130, 131, 132, 133, 134, 135, 136, 137, 138], null, true)
         this.boy.animations.add('walkRight', [143, 144, 145, 146, 147, 148, 149, 150, 151], null, true)
-        //add animations for the baker?
+        
+        this.baker.animations.add('standing', [26,27], null, true)
     }
 
     update(){
@@ -80,6 +81,12 @@ export default class extends Phaser.State {
         this.game.physics.arcade.overlap(this.boy, this.baker, () => {
             this.game.state.start('House')
          }, null, this)
+
+        if(this.boy.x<372.7&&this.boy.x>350 && this.boy.y<886.0 && this.boy.y>870){
+          this.game.state.start('Game')
+        }
+
+        this.baker.animations.play('standing', 5, true)
 
         if (this.cursors.left.isDown) {
             this.boy.body.velocity.x = -200
@@ -99,5 +106,10 @@ export default class extends Phaser.State {
             this.boy.animations.stop()
           }
     }
+
+    render() {
+      this.game.debug.spriteInfo(this.boy, 20, 32);
+   
+   }
 
 }
