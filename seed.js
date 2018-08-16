@@ -5,6 +5,8 @@ async function seed () {
   await db.sync({force: true})
   console.log('db synced')
 
+  // QUESTIONS DATA
+
   const basicArithmetic = await Promise.all([
     Question.create({ content: '769 + 502 = ?', option1: '1,271', option2: '267', option3: '1,371', option4: '1,471'
     }),
@@ -43,28 +45,15 @@ async function seed () {
     Question.create({content: 'Suppose you buy a cookie from the bakery. How do you determine its circumference?', option1: 'πd', option2: 'πr^2', option3: '2π', option4: '2πd' })
   ])
 
+  // CATEGORIES DATA
   const categories = await Promise.all([
     Category.create({type: 'basicArithmetic'}),
     Category.create({type: 'advancedArithmetic'}),
     Category.create({type: 'basicGeometry'}),
     Category.create({type: 'basicProbability'})
   ])
-  console.log(`seeded ${basicArithmetic.length} basic arithmetic questions`)
-  console.log(`seeded ${advancedArithmetic.length} advanced arithmetic
-  questions`)
-  console.log(`seeded ${basicGeometry.length} basic geometry questions`)
-  console.log(`seeded ${basicProbability.length} basic probability questions`)
-  console.log(`seeded ${categories.length} categories`)
-  for (let i = 0; i < basicArithmetic.length; i++) {
-      await Promise.all([
-        basicArithmetic[i].setCategory(categories[0]),
-        advancedArithmetic[i].setCategory(categories[1]),
-        basicGeometry[i].setCategory(categories[2]),
-        basicProbability[i].setCategory(categories[3])
-      ])
-  }
-  await basicProbability[5].setCategory(categories[3])
 
+  // USERS DATA
   const users = await Promise.all([
     User.create({
       email: 'cody@email.com',
@@ -82,6 +71,7 @@ async function seed () {
     })
   ])
 
+  // ABILITIES DATA
   const abilities = await Promise.all([
     Ability.create({
       name: 'Fire spell',
@@ -90,12 +80,46 @@ async function seed () {
       value: 5
     }),
     Ability.create({
-      name: 'Avada Kedavra spell',
-      type: 'magic',
+      name: 'Protein Milk',
+      type: 'healing',
       image: 'https://i.ytimg.com/vi/Iu8vGpCxJUs/maxresdefault.jpg',
       value: 8
+    }),
+    Ability.create({
+      name: 'Bread',
+      type: 'strength',
+      image: 'https://images-na.ssl-images-amazon.com/images/I/5187j5bLdtL.jpg',
+      value: 3
+    }),
+    Ability.create({
+      name: 'sword',
+      type: 'weaponry',
+      image: 'https://images-na.ssl-images-amazon.com/images/I/5187j5bLdtL.jpg',
+      value: 4
     })
   ])
+
+
+  // SETTING ASSOCIATIONS
+  for (let i = 0; i < basicArithmetic.length; i++) {
+    await Promise.all([
+      basicArithmetic[i].setCategory(categories[0]),
+      advancedArithmetic[i].setCategory(categories[1]),
+      basicGeometry[i].setCategory(categories[2]),
+      basicProbability[i].setCategory(categories[3])
+    ])
+  }
+  await basicProbability[5].setCategory(categories[3])
+
+  for (let i = 0; i < basicArithmetic.length; i++) {
+    await Promise.all([
+      basicArithmetic[i].setAbility(abilities[0]),
+      advancedArithmetic[i].setAbility(abilities[1]),
+      basicGeometry[i].setAbility(abilities[2]),
+      basicProbability[i].setAbility(abilities[3])
+    ])
+  }
+  await basicProbability[5].setAbility(abilities[3])
 
   await abilities[0].setUsers(users[0])
   await abilities[1].setUsers(users[1])
@@ -103,10 +127,16 @@ async function seed () {
   await abilities[0].setCategory(categories[0])
   await abilities[1].setCategory(categories[1])
 
-  console.log(`seeded 1 user`)
-  console.log(`seeded 1 ability`)
-}
 
+console.log(`seeded ${basicArithmetic.length} basic arithmetic questions`)
+console.log(`seeded ${advancedArithmetic.length} advanced arithmetic
+questions`)
+console.log(`seeded ${basicGeometry.length} basic geometry questions`)
+console.log(`seeded ${basicProbability.length} basic probability questions`)
+console.log(`seeded ${categories.length} categories`)
+console.log(`seeded 1 user`)
+console.log(`seeded 1 ability`)
+}
 async function runSeed () {
   console.log('...seeding')
   try {
