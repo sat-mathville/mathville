@@ -18,13 +18,13 @@ export default class extends Phaser.State {
 
     this.load.image('chatbox', '../assets/images/chatbox.jpg')
 
-    //music
-    this.load.audio('music', '../assets/sounds/foggywoods.mp3');
+    // music
+    this.load.audio('music', '../assets/sounds/foggywoods.mp3')
   }
 
   create () {
 
-    //music
+    // music
     this.music = this.add.audio('music')
     this.music.play()
 
@@ -78,7 +78,6 @@ export default class extends Phaser.State {
       if (!this.overlap) {
         makeChatbox(["I'm a villain", "Answer this"], this, "House")
         this.overlap = true
-        // this.music.stop()
       }
     }, null, this)
 

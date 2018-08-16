@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import store from '../store'
-
+import makeChatbox from './helperFunctions/makeChatbox'
 export default class extends Phaser.State {
   preload () {
     const userCharacter = () => {
@@ -20,9 +20,13 @@ export default class extends Phaser.State {
     this.load.tilemap('onfurniture', '../assets/images/bakersInside/bakery_stuff on top of furniture.csv')
     this.load.tilemap('layer1', '../assets/images/bakersInside/bakery_Tile Layer 1')
     this.load.tilemap('insidewall', '../assets/images/bakersInside/bakery_wall.csv')
+
+    // chatbox
+    this.load.image('chatbox', '../assets/images/chatbox.jpg')
   }
 
   create () {
+    this.overlap = false
     // going to ignore windows for now since I didn't end up putting any windows
 
     // add baker sprite somewhere
@@ -78,7 +82,10 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.bakeryFurniture)
     this.game.physics.arcade.collide(this.boy, this.bakeryOutsideWall)
     this.game.physics.arcade.overlap(this.boy, this.baker, () => {
-      this.game.state.start('House')
+      if (!this.overlap) {
+        makeChatbox(["I'm a baker", "Answer this"], this, "House")
+        this.overlap = true
+      }
     }, null, this)
 
     if (this.boy.x < 372.7 && this.boy.x > 350 && this.boy.y < 886.0 && this.boy.y > 870) {
