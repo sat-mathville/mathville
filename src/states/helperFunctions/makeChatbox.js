@@ -3,12 +3,15 @@ import wrap from './wrap'
 export default function makeChatbox (dialogue, npc, gameState, newState, counter = 0) {
   if (counter < dialogue.length) {
     if (gameState.banner) {
+      gameState.chatbox.destroy()
+      delete gameState.chatbox
       gameState.banner.destroy()
+      delete gameState.banner
     }
     console.log(gameState)
     gameState.chatbox = gameState.add.sprite(
-      (gameState.world.bounds.width - 640) / 4,
-      gameState.world.bounds.height / 4,
+      gameState.camera.x + gameState.camera.width / 3,
+      gameState.camera.y + gameState.camera.height / 3,
       'chatbox'
     )
     gameState.chatbox.scale.setTo(2)

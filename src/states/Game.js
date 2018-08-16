@@ -90,7 +90,8 @@ export default class extends Phaser.State {
     this.warrior = this.game.add.sprite(127, 900, 'warrior')
     this.warrior.scale.setTo(0.85)
     this.game.physics.enable(this.warrior, Phaser.Physics.ARCADE)
-    this.warrior.animations.add('standing', [26, 27], null, true)
+    this.warrior.animations.add('standing', [39, 40, 41, 42], null, true)
+    this.warrior.body.immovable = true
 
     this.fisherman = this.game.add.sprite(1400, 760, 'fisherman')
     this.fisherman.scale.setTo(0.85)
@@ -153,18 +154,31 @@ export default class extends Phaser.State {
       this.game.state.start('BakerShopInside')
     })
 
-    // talk to famer
+    // talk to farmer
     this.farmer.animations.play('standing', 2, true)
-    this.game.physics.arcade.overlap(this.boy, this.baker, () => {
-      if (!this.overlap) {
-        makeChatbox(["I'm a baker", "Help me answer these math questions"], this, "House")
-        this.overlap = true
+    this.game.physics.arcade.overlap(this.boy, this.farmer, () => {
+      if (!this.farmerOverlap) {
+        makeChatbox(["Hi there!", "I have too many crops", "Let me give you some strawberries", "they are good for your health"], "farmer", this)
+        this.farmerOverlap = true
       }
     }, null, this)
 
+    // talk to warrior
+    this.warrior.animations.play('standing', 2, true)
+    this.game.physics.arcade.overlap(this.boy, this.warrior, () => {
+      if (!this.warriorOverlap) {
+        makeChatbox(["Hi!", "The forbidden forest is very dangerous", "Be prepared!", "Here is a sword"], "Warrior", this)
+        this.warriorOverlap = true
+      }
+    }, null, this)
 
-    this.warrior.animations.play('standing', 10, true)
-    this.fisherman.animations.play('standing', 10, true)
+    this.fisherman.animations.play('standing', 1, true)
+    this.game.physics.arcade.overlap(this.boy, this.fisherman, () => {
+      if (!this.fishermanOverlap) {
+        makeChatbox(["Hey!", "I have extra fish", "Let me give you some", "they are good for your strength"], "Fisherman", this)
+        this.fishermanOverlap = true
+      }
+    }, null, this)
 
     if (this.cursors.left.isDown) {
       this.boy.body.velocity.x = -200
