@@ -64,33 +64,31 @@ async function seed () {
   ])
 
   // ABILITIES DATA
-  const abilities = await Promise.all([
-    Ability.create({
-      name: 'Fire spell',
-      type: 'magic',
-      image: 'https://i.ytimg.com/vi/Iu8vGpCxJUs/maxresdefault.jpg',
-      value: 5
-    }),
-    Ability.create({
-      name: 'Protein Milk',
-      type: 'healing',
-      image: 'https://i.ytimg.com/vi/Iu8vGpCxJUs/maxresdefault.jpg',
-      value: 8
-    }),
-    Ability.create({
-      name: 'Bread',
-      type: 'strength',
-      image: 'https://images-na.ssl-images-amazon.com/images/I/5187j5bLdtL.jpg',
-      value: 3
-    }),
-    Ability.create({
-      name: 'sword',
-      type: 'weaponry',
-      image: 'https://images-na.ssl-images-amazon.com/images/I/5187j5bLdtL.jpg',
-      value: 4
-    })
-  ])
-
+  const abilities = new Array(4)
+  abilities[0] = await Ability.create({
+    name: 'Fire spell',
+    type: 'magic',
+    image: 'https://i.ytimg.com/vi/Iu8vGpCxJUs/maxresdefault.jpg',
+    value: 5
+  })
+  abilities[1] = await Ability.create({
+    name: 'Protein Milk',
+    type: 'healing',
+    image: 'https://i.ytimg.com/vi/Iu8vGpCxJUs/maxresdefault.jpg',
+    value: 8
+  })
+  abilities[2] = await Ability.create({
+    name: 'Bread',
+    type: 'strength',
+    image: 'https://images-na.ssl-images-amazon.com/images/I/5187j5bLdtL.jpg',
+    value: 3
+  })
+  abilities[3] = await Ability.create({
+    name: 'sword',
+    type: 'weaponry',
+    image: 'https://images-na.ssl-images-amazon.com/images/I/5187j5bLdtL.jpg',
+    value: 4
+  })
 
   // SETTING ASSOCIATIONS
   for (let i = 0; i < basicArithmetic.length; i++) {
