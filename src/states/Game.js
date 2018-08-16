@@ -1,7 +1,6 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import lang from '../lang'
-import store, {getProblems} from '../store'
+import store, {setCoord} from '../store'
 import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
@@ -11,7 +10,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('boy', spriteUrl(),64,64)
     this.load.spritesheet('door', '../assets/images/door.png',105, 111)
     this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png',105, 111)
-    //baker 
+    //baker
     this.load.image('bakerydoor', '../assets/images/bakersOutside/bakerydoor.png')
     this.load.spritesheet('bakery','../assets/images/bakersOutside/smallerHouse.png')
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv',null,Phaser.Tilemap.CSV)
@@ -65,7 +64,11 @@ export default class extends Phaser.State {
 
     // Create player's character
     // Make sure you set up the physics first before animating the character
-    this.boy = this.game.add.sprite(1200, 350, 'boy')
+    this.boy = this.game.add.sprite(
+      store.getState().coord[0],
+      store.getState().coord[1],
+      'boy'
+    )
     this.game.physics.arcade.enable(this.boy)
     this.camera.follow(this.boy) // Set up the camera to follow the character
     animate(this.boy)
@@ -94,12 +97,21 @@ export default class extends Phaser.State {
     this.bakery.body.immovable = true
 
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
+      store.dispatch(setCoord([
+        this.boy.x, this.boy.y + 20
+      ]))
       this.game.state.start('WizardHouse')
     }, null, this)
     this.game.physics.arcade.overlap(this.boy, this.forestDoor, () => {
+      store.dispatch(setCoord([
+        this.boy.x, this.boy.y + 20
+      ]))
       this.game.state.start('ForbiddenForest')
     }, null, this)
     this.game.physics.arcade.overlap(this.boy, this.bakerydoor, () => {
+      store.dispatch(setCoord([
+        this.boy.x, this.boy.y + 20
+      ]))
       this.game.state.start('BakerShopInside')
     })
     if (this.cursors.left.isDown) {

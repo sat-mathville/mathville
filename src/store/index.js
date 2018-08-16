@@ -5,8 +5,17 @@ import questions from './questions'
 import user from './user'
 import abilities from './abilities'
 import userAbilities from './userAbilities'
+import currentAbility from './currentAbility'
+import coord from './coord'
 
-const reducer = combineReducers({questions, user, abilities, userAbilities})
+const reducer = combineReducers({
+  questions,
+  user,
+  abilities,
+  userAbilities,
+  currentAbility,
+  coord
+})
 
 const logger = createLogger({collapsed: true})
 
@@ -17,3 +26,5 @@ export * from './questions'
 export * from './user'
 export * from './userAbilities'
 export * from './abilities'
+export * from './currentAbility'
+export * from './coord'

@@ -1,15 +1,17 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store from '../store'
 import renderQuestion from './helperFunctions/renderQuestion'
+import store from '../store'
 
 export default class extends Phaser.State {
   preload () {
-    this.questions = store.getState().questions
+    const state = store.getState()
+    this.questions = state.questions.filter(
+      question => question.abilityId === state.currentAbility
+    )
   }
   create () {
     this.currentQuestion = -1
-
     this.buttons = {}
     this.currentQuestionText = {}
     this.score = 0
@@ -20,7 +22,6 @@ export default class extends Phaser.State {
       fill: '#FFFFFF',
       smoothed: false
     })
-    // banner.anchor.setTo(0.5)
     banner.inputEnabled = true
     banner.input.useHandCursor = true
     banner.events.onInputDown.add(() => { renderQuestion(banner, this) }, this)

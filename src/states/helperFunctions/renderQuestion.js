@@ -42,7 +42,7 @@ export default function renderQuestion (text, gameState) {
       wrap(gameState.questions[gameState.currentQuestion].content, 60),
       {
         font: '35px',
-        fill: '#000000',
+        fill: '#FFFFFF',
         smoothed: false,
         align: 'left'
       })
