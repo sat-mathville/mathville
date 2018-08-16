@@ -2,6 +2,7 @@ import shuffle from './shuffle'
 import store, {addNewAbilityThunk} from '../../store'
 import correctAnswer from './correctAnswer'
 import renderFinalOutput from './renderFinalOutputMsg'
+import wrap from './wrap'
 
 export default function renderQuestion (text, gameState) {
   if (gameState.currentQuestion === -1) {
@@ -35,12 +36,16 @@ export default function renderQuestion (text, gameState) {
       gameState.currentQuestionText.destroy()
     }
     gameState.currentQuestion++
-    gameState.currentQuestionText = gameState.add.text(gameState.world.centerX, gameState.world.centerY - 50, gameState.questions[gameState.currentQuestion].content, {
-      font: '35px',
-      fill: '#000000',
-      smoothed: false,
-      align: 'left'
-    })
+    gameState.currentQuestionText = gameState.add.text(
+      gameState.world.centerX,
+      gameState.world.centerY - 50,
+      wrap(gameState.questions[gameState.currentQuestion].content, 60),
+      {
+        font: '35px',
+        fill: '#000000',
+        smoothed: false,
+        align: 'left'
+      })
     gameState.currentQuestionText.anchor.setTo(0.5)
     gameState.currentQuestionText.inputEnabled = true
     gameState.currentQuestionText.input.useHandCursor = true
