@@ -12,6 +12,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('starFire', '../assets/images/starFire.png', 31.8, 63)
     this.load.spritesheet('wizard', '../assets/images/wizard_idle.png', 163, 185)
     this.load.tilemap('house', '../assets/images/WizardHouse_background1.csv', null, Phaser.Tilemap.CSV)
+    this.load.tilemap('desk', '../assets/images/WizardHouse_desk.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('wall', '../assets/images/WizardHouse_wall2.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('furniture', '../assets/images/WizardHouse_furniture3.csv', null, Phaser.Tilemap.CSV)
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
@@ -28,6 +29,10 @@ export default class extends Phaser.State {
     this.house = this.game.add.tilemap('house')
     this.house.addTilesetImage('tileset')
     this.wizardHouse = this.house.createLayer(0)
+
+    this.desk = this.game.add.tilemap('desk')
+    this.desk.addTilesetImage('tileset')
+    this.wizardDesk = this.desk.createLayer(0)
 
     this.wall = this.game.add.tilemap('wall')
     this.wall.addTilesetImage('tileset')
@@ -70,7 +75,7 @@ export default class extends Phaser.State {
     this.starFire4 = this.game.add.sprite(792, 100, 'starFire')
     this.starFire4.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
 
-    this.boy = this.game.add.sprite(this.world.centerX, this.world.centerY, 'boy')
+    this.boy = this.game.add.sprite(this.world.centerX + 200, this.world.centerY + 150, 'boy')
     this.wizard = this.game.add.sprite(this.world.centerX - 50, this.world.centerY + 150, 'wizard')
     this.boy.scale.setTo(1)
     this.wizard.scale.setTo(0.35)

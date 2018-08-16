@@ -31,7 +31,7 @@ export default class extends Phaser.State {
 
     this.overlap = false
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    this.game.world.setBounds(0, 0, 960, 960)
+    this.game.world.setBounds(-320, 0, 1280, 960)
 
     this.ground = this.game.add.tilemap('ground')
     this.ground.addTilesetImage('tileset')
@@ -53,12 +53,12 @@ export default class extends Phaser.State {
     this.game.physics.arcade.enable(this.creature)
     this.creature.setCollisionBetween(0, 6080, true, this.forestCreature)
 
-    this.villain = this.game.add.sprite(20, 20, 'villain')
+    this.villain = this.game.add.sprite(90, 20, 'villain')
     this.villain.scale.setTo(1)
     this.game.physics.enable(this.villain, Phaser.Physics.ARCADE)
     this.villain.animations.add('idle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], null, true)
 
-    this.boy = this.game.add.sprite(this.world.centerX - 50, this.world.centerY, 'boy')
+    this.boy = this.game.add.sprite(this.world.centerX + 260, this.world.centerY, 'boy')
     this.boy.scale.setTo(0.75)
     this.cursors = this.game.input.keyboard.createCursorKeys()
     this.game.physics.enable(this.boy, Phaser.Physics.ARCADE)

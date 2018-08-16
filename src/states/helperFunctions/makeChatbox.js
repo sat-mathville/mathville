@@ -5,7 +5,7 @@ export default function makeChatbox (dialogue, gameState, newState, counter = 0)
       gameState.banner.destroy()
     }
     gameState.chatbox = gameState.add.sprite(
-      (gameState.world.bounds.width - 320) / 4,
+      (gameState.world.bounds.width - 640) / 4,
       gameState.world.bounds.height / 4,
       'chatbox'
     )

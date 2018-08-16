@@ -4,15 +4,23 @@ import store, {setCoord} from '../store'
 import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
+import makeChatbox from './helperFunctions/makeChatbox'
 
 export default class extends Phaser.State {
   preload () {
-    this.load.spritesheet('boy', spriteUrl(),64,64)
+    // characters
+    this.load.spritesheet('boy', spriteUrl(), 64, 64)
+    this.load.spritesheet('farmer', '../assets/images/characters/farmer.png', 64, 64)
+    this.load.spritesheet('warrior', '../assets/images/characters/warrior.png', 64, 64)
+    this.load.spritesheet('fisherman', '../assets/images/characters/fisherman.png', 64, 64)
+
+    //objects
     this.load.spritesheet('door', '../assets/images/door.png',105, 111)
     this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png',105, 111)
-    //baker
     this.load.image('bakerydoor', '../assets/images/bakersOutside/bakerydoor.png')
     this.load.spritesheet('bakery','../assets/images/bakersOutside/smallerHouse.png')
+
+    //tilemaps
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv',null,Phaser.Tilemap.CSV)
@@ -20,7 +28,11 @@ export default class extends Phaser.State {
     this.load.image('tileset','../assets/images/ProjectUtumno_full.png')
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
+    // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
+
+    // chatbox
+    this.load.image('chatbox', '../assets/images/chatbox.jpg')
   }
 
   create () {
@@ -68,6 +80,22 @@ export default class extends Phaser.State {
     this.forestDoor = this.game.add.sprite(127, 319, 'forestDoor')
     this.forestDoor.scale.setTo(0.35)
     this.game.physics.enable(this.forestDoor, Phaser.Physics.ARCADE)
+
+    // other characters
+    this.farmer = this.game.add.sprite(728, 750, 'farmer')
+    this.farmer.scale.setTo(0.85)
+    this.game.physics.enable(this.farmer, Phaser.Physics.ARCADE)
+    this.farmer.animations.add('standing', [120, 121, 122, 123, 124, 125, 126, 127], null, true)
+
+    this.warrior = this.game.add.sprite(127, 900, 'warrior')
+    this.warrior.scale.setTo(0.85)
+    this.game.physics.enable(this.warrior, Phaser.Physics.ARCADE)
+    this.warrior.animations.add('standing', [26, 27], null, true)
+
+    this.fisherman = this.game.add.sprite(1400, 760, 'fisherman')
+    this.fisherman.scale.setTo(0.85)
+    this.game.physics.enable(this.fisherman, Phaser.Physics.ARCADE)
+    this.fisherman.animations.add('standing', [26, 27], null, true)
 
     // Create player's character
     // Make sure you set up the physics first before animating the character
@@ -124,6 +152,20 @@ export default class extends Phaser.State {
       this.music.stop()
       this.game.state.start('BakerShopInside')
     })
+
+    // talk to famer
+    this.farmer.animations.play('standing', 2, true)
+    this.game.physics.arcade.overlap(this.boy, this.baker, () => {
+      if (!this.overlap) {
+        makeChatbox(["I'm a baker", "Help me answer these math questions"], this, "House")
+        this.overlap = true
+      }
+    }, null, this)
+
+
+    this.warrior.animations.play('standing', 10, true)
+    this.fisherman.animations.play('standing', 10, true)
+
     if (this.cursors.left.isDown) {
       this.boy.body.velocity.x = -200
       this.boy.animations.play('walkLeft', 40, true)
@@ -143,5 +185,9 @@ export default class extends Phaser.State {
     }
 
     navigate(this.cursors, this.boy)
+  }
+
+  render () {
+    this.game.debug.spriteInfo(this.boy, 20, 32)
   }
 }
