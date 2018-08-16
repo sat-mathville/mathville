@@ -98,6 +98,10 @@ export default class extends Phaser.State {
       }
     }, null, this)
 
+    if (this.boy.x < 675 && this.boy.x > 640 && this.boy.y < 580 && this.boy.y > 540) {
+      this.game.state.start('Game')
+    }
+
     this.purpleFire1.animations.play('move', 10, true)
     this.purpleFire2.animations.play('move', 10, true)
     this.purpleFire3.animations.play('move', 10, true)

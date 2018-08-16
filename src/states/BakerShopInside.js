@@ -2,7 +2,6 @@ import Phaser from 'phaser'
 import store, {setCurrentAbilityId} from '../store'
 import makeChatbox from './helperFunctions/makeChatbox'
 import spriteUrl from './helperFunctions/spriteUrl'
-
 export default class extends Phaser.State {
   preload () {
     store.dispatch(setCurrentAbilityId(3))
@@ -18,10 +17,12 @@ export default class extends Phaser.State {
     this.load.tilemap('onfurniture', '../assets/images/bakersInside/bakery_stuff on top of furniture.csv')
     this.load.tilemap('layer1', '../assets/images/bakersInside/bakery_Tile Layer 1')
     this.load.tilemap('insidewall', '../assets/images/bakersInside/bakery_wall.csv')
+
     this.load.image('chatbox', '../assets/images/chatbox.jpg')
   }
 
   create () {
+    this.overlap = false
     // going to ignore windows for now since I didn't end up putting any windows
 
     // add baker sprite somewhere
