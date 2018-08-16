@@ -11,6 +11,9 @@ export default class extends Phaser.State {
     this.load.spritesheet('boy', spriteUrl(),64,64)
     this.load.spritesheet('door', '../assets/images/door.png',105, 111)
     this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png',105, 111)
+    //baker 
+    this.load.image('bakerydoor', '../assets/images/bakersOutside/bakerydoor.png')
+    this.load.spritesheet('bakery','../assets/images/bakersOutside/smallerHouse.png')
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv',null,Phaser.Tilemap.CSV)
     this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv',null,Phaser.Tilemap.CSV)
@@ -37,6 +40,12 @@ export default class extends Phaser.State {
     this.stations_3 = this.stations.createLayer(0)
     this.details_4 = this.details.createLayer(0)
 
+    //set up barriers for the bakery
+    this.bakery = this.game.add.sprite(680,180, 'bakery')
+    this.bakery.scale.setTo(0.5)
+    this.game.physics.enable(this.bakery, Phaser.Physics.ARCADE)
+    this.bakery.immovable = true
+
     // Set up physics (barriers) for walls and trees and stuff
     this.game.physics.arcade.enable(this.stations)
     this.stations.setCollisionBetween(0, 6080, true, this.stations_3)
@@ -45,6 +54,10 @@ export default class extends Phaser.State {
     this.door = this.game.add.sprite(1265, 268, 'door')
     this.door.scale.setTo(0.5)
     this.game.physics.enable(this.door, Phaser.Physics.ARCADE)
+
+    this.bakerydoor = this.game.add.sprite(744,294,'bakerydoor')
+    this.bakerydoor.scale.setTo(1)
+    this.game.physics.enable(this.bakerydoor, Phaser.Physics.ARCADE)
 
     this.forestDoor = this.game.add.sprite(127, 319, 'forestDoor')
     this.forestDoor.scale.setTo(0.35)
@@ -66,8 +79,8 @@ export default class extends Phaser.State {
     function calculateScore () {
       const abilitiesIds = store.getState().userAbilities
       let sum = 0
-      for (let i = 0; i < abilitiesIds.length; i++) {
-        sum += store.getState().abilities.find(ability => ability.id === abilitiesIds[i]).value
+      for (let entry of abilitiesIds) {
+        sum += store.getState().abilities.find(ability => ability.id === entry).value
       }
       return sum
     }
@@ -77,12 +90,35 @@ export default class extends Phaser.State {
 
   update () {
     this.game.physics.arcade.collide(this.boy, this.stations_3)
+    this.game.physics.arcade.collide(this.boy, this.bakery)
+    this.bakery.body.immovable = true
+
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
       this.game.state.start('WizardHouse')
     }, null, this)
     this.game.physics.arcade.overlap(this.boy, this.forestDoor, () => {
       this.game.state.start('ForbiddenForest')
     }, null, this)
+    this.game.physics.arcade.overlap(this.boy, this.bakerydoor, () => {
+      this.game.state.start('BakerShopInside')
+    })
+    if (this.cursors.left.isDown) {
+      this.boy.body.velocity.x = -200
+      this.boy.animations.play('walkLeft', 40, true)
+    } else if (this.cursors.right.isDown) {
+      this.boy.body.velocity.x = 200
+      this.boy.animations.play('walkRight', 40, true)
+    } else if (this.cursors.up.isDown) {
+      this.boy.body.velocity.y = -200
+      this.boy.animations.play('walkUp', 40, true)
+    } else if (this.cursors.down.isDown) {
+      this.boy.body.velocity.y = 200
+      this.boy.animations.play('walkDown', 40, true)
+    } else {
+      this.boy.body.velocity.x = 0
+      this.boy.body.velocity.y = 0
+      this.boy.animations.stop()
+    }
 
     navigate(this.cursors, this.boy)
   }

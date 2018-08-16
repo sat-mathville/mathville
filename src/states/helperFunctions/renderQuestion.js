@@ -9,17 +9,21 @@ export default function renderQuestion (text, gameState) {
   }
   if (gameState.currentQuestion === gameState.questions.length - 1) {
     let id = 2
-    if (!(store.getState().userAbilities.find(ability => ability === id))) {
+    if (!(store.getState().userAbilities.has(id))) {
       store.dispatch(addNewAbilityThunk(id))
     }
     gameState.currentQuestionText.destroy()
     for (let key in gameState.buttons) {
       gameState.buttons[key].destroy()
     }
-    const finalOutput = gameState.add.text(gameState.chatbox.x + 200, gameState.chatbox.y + 150, renderFinalOutput(gameState.score, gameState.questions.length), {
+    const finalOutput = gameState.add.text(
+        gameState.world.centerX - 200, gameState.world.centerY,
+        renderFinalOutput(gameState.score, gameState.questions.length, id
+      ), {
       font: '35px',
-      fill: '#000000',
-      smoothed: false
+      fill: '#FFFFFF',
+      smoothed: false,
+      align: 'left'
     })
     finalOutput.inputEnabled = true
     finalOutput.input.useHandCursor = true
@@ -31,10 +35,11 @@ export default function renderQuestion (text, gameState) {
       gameState.currentQuestionText.destroy()
     }
     gameState.currentQuestion++
-    gameState.currentQuestionText = gameState.add.text(gameState.chatbox.x + 200, gameState.chatbox.y + 150, gameState.questions[gameState.currentQuestion].content, {
+    gameState.currentQuestionText = gameState.add.text(gameState.world.centerX, gameState.world.centerY - 50, gameState.questions[gameState.currentQuestion].content, {
       font: '35px',
-      fill: '#000000',
-      smoothed: false
+      fill: '#FFFFFF',
+      smoothed: false,
+      align: 'left'
     })
     gameState.currentQuestionText.anchor.setTo(0.5)
     gameState.currentQuestionText.inputEnabled = true
@@ -53,10 +58,11 @@ export default function renderQuestion (text, gameState) {
       if (gameState.buttons[i]) {
         gameState.buttons[i].destroy()
       }
-      gameState.buttons[i] = gameState.add.text(gameState.chatbox.x + 230, gameState.chatbox.y + 200 + (i * 50), answers[i], {
+      gameState.buttons[i] = gameState.add.text(gameState.world.centerX, gameState.world.centerY + (i * 50), answers[i], {
         font: '25px',
-        fill: '#000000',
-        smoothed: false
+        fill: '#FFFFFF',
+        smoothed: false,
+        align: 'left'
       })
       gameState.buttons[i].inputEnabled = true
       gameState.buttons[i].input.useHandCursor = true
