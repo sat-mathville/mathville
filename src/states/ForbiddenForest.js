@@ -100,8 +100,4 @@ export default class extends Phaser.State {
       this.boy.animations.stop()
     }
   }
-
-  render(){
-    this.game.debug.soundInfo(this.music, 20, 32)
-  }
 }

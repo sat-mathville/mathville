@@ -1,5 +1,5 @@
 const db = require('./server/db/')
-const {Category, Question, User, Ability} = require('./server/db/models')
+const {Question, User, Ability} = require('./server/db/models')
 
 async function seed () {
   await db.sync({force: true})
@@ -43,14 +43,6 @@ async function seed () {
     Question.create({content: 'What is the area of the roof of the bakery? It has a height of 8 feet and a base of 20 feet? What is the area?', option1: '80 feet', option2: '40 feet^2', option3: '-80 feet^2', option4: '100 feet^2' }),
     Question.create({content: 'Suppose the bakery has a width of 20 feet and a length of 15 feet. What is the area of the bakery?', option1: '300 feet^2', option2: '-300 feet^2', option3: '400 feet^2', option4: '1500 feet^2' }),
     Question.create({content: 'Suppose you buy a cookie from the bakery. How do you determine its circumference?', option1: 'πd', option2: 'πr^2', option3: '2π', option4: '2πd' })
-  ])
-
-  // CATEGORIES DATA
-  const categories = await Promise.all([
-    Category.create({type: 'basicArithmetic'}),
-    Category.create({type: 'advancedArithmetic'}),
-    Category.create({type: 'basicGeometry'}),
-    Category.create({type: 'basicProbability'})
   ])
 
   // USERS DATA
@@ -103,16 +95,6 @@ async function seed () {
   // SETTING ASSOCIATIONS
   for (let i = 0; i < basicArithmetic.length; i++) {
     await Promise.all([
-      basicArithmetic[i].setCategory(categories[0]),
-      advancedArithmetic[i].setCategory(categories[1]),
-      basicGeometry[i].setCategory(categories[2]),
-      basicProbability[i].setCategory(categories[3])
-    ])
-  }
-  await basicProbability[5].setCategory(categories[3])
-
-  for (let i = 0; i < basicArithmetic.length; i++) {
-    await Promise.all([
       basicArithmetic[i].setAbility(abilities[0]),
       advancedArithmetic[i].setAbility(abilities[1]),
       basicGeometry[i].setAbility(abilities[2]),
@@ -124,16 +106,12 @@ async function seed () {
   await abilities[0].setUsers(users[0])
   await abilities[1].setUsers(users[1])
 
-  await abilities[0].setCategory(categories[0])
-  await abilities[1].setCategory(categories[1])
-
 
 console.log(`seeded ${basicArithmetic.length} basic arithmetic questions`)
 console.log(`seeded ${advancedArithmetic.length} advanced arithmetic
 questions`)
 console.log(`seeded ${basicGeometry.length} basic geometry questions`)
 console.log(`seeded ${basicProbability.length} basic probability questions`)
-console.log(`seeded ${categories.length} categories`)
 console.log(`seeded 1 user`)
 console.log(`seeded 1 ability`)
 }
