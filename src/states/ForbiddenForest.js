@@ -77,7 +77,11 @@ export default class extends Phaser.State {
     this.villain.animations.play('idle', 20, true)
     this.game.physics.arcade.overlap(this.boy, this.villain, () => {
       if (!this.overlap) {
-        makeChatbox(["I'm a villain", "Answer this"], this, "House")
+        makeChatbox([
+          "Well I don’t know what the villian is supposed to say.",
+          "Whatever.",
+          "Here are some math problems for you to solve."
+        ], 'Ghost', this, "House")
         this.overlap = true
       }
     }, null, this)
