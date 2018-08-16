@@ -35,7 +35,14 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
     }
     counter++
   } else {
-    if (gameState.music) gameState.music.stop()
-    gameState.game.state.start(newState)
+    if (newState) {
+      if (gameState.music) gameState.music.stop()
+      gameState.game.state.start(newState)
+    } else {
+      gameState.chatbox.destroy()
+      delete gameState.chatbox
+      gameState.banner.destroy()
+      delete gameState.banner
+    }
   }
 }
