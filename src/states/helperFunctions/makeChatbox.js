@@ -31,9 +31,7 @@ export default function makeChatbox (dialogue, gameState, newState, counter = 0)
       makeChatbox(dialogue, gameState, newState, counter)
     }, gameState)
   } else {
-    if (gameState.music) {
-      gameState.music.stop()
-    }
+    if (gameState.music) gameState.music.stop()
     gameState.game.state.start(newState)
   }
 }
