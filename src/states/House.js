@@ -17,7 +17,7 @@ export default class extends Phaser.State {
     const opening = 'Ready to answer some questions?'
     let banner = this.add.text(this.world.centerX, this.world.centerY, opening, {
       font: '35px',
-      fill: '#000000',
+      fill: '#FFFFFF',
       smoothed: false
     })
     // banner.anchor.setTo(0.5)
