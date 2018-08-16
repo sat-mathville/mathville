@@ -21,7 +21,7 @@ export default function renderQuestion (text, gameState) {
         renderFinalOutput(gameState.score, gameState.questions.length, id
       ), {
       font: '35px',
-      fill: '#000000',
+      fill: '#FFFFFF',
       smoothed: false,
       align: 'left'
     })
@@ -37,7 +37,7 @@ export default function renderQuestion (text, gameState) {
     gameState.currentQuestion++
     gameState.currentQuestionText = gameState.add.text(gameState.world.centerX, gameState.world.centerY - 50, gameState.questions[gameState.currentQuestion].content, {
       font: '35px',
-      fill: '#000000',
+      fill: '#FFFFFF',
       smoothed: false,
       align: 'left'
     })
@@ -60,7 +60,7 @@ export default function renderQuestion (text, gameState) {
       }
       gameState.buttons[i] = gameState.add.text(gameState.world.centerX, gameState.world.centerY + (i * 50), answers[i], {
         font: '25px',
-        fill: '#000000',
+        fill: '#FFFFFF',
         smoothed: false,
         align: 'left'
       })
