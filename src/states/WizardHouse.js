@@ -24,7 +24,7 @@ export default class extends Phaser.State {
     this.overlap = false
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    this.game.world.setBounds(0, 0, 1024, 640)
+    this.game.world.setBounds(-320, 0, 1344, 640)
     this.house = this.game.add.tilemap('house')
     this.house.addTilesetImage('tileset')
     this.wizardHouse = this.house.createLayer(0)
@@ -71,7 +71,7 @@ export default class extends Phaser.State {
     this.starFire4.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
 
     this.boy = this.game.add.sprite(this.world.centerX, this.world.centerY, 'boy')
-    this.wizard = this.game.add.sprite(this.world.centerX - 250, this.world.centerY + 150, 'wizard')
+    this.wizard = this.game.add.sprite(this.world.centerX - 50, this.world.centerY + 150, 'wizard')
     this.boy.scale.setTo(1)
     this.wizard.scale.setTo(0.35)
     this.cursors = this.game.input.keyboard.createCursorKeys()
