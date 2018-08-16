@@ -10,6 +10,8 @@ export default class extends Phaser.State {
       else if (store.getState().user.character === 3) return '../assets/images/cat_fighter_sprite1.png'
     }
     this.load.spritesheet('boy', userCharacter(), 64, 64)
+    this.load.spritesheet('purpleFire', '../assets/images/purpleFire.png', 23.8, 48)
+    this.load.spritesheet('starFire', '../assets/images/starFire.png', 31.8, 63)
     this.load.spritesheet('wizard', '../assets/images/wizard_idle.png', 163, 185)
     this.load.tilemap('house', '../assets/images/WizardHouse_background1.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('wall', '../assets/images/WizardHouse_wall2.csv', null, Phaser.Tilemap.CSV)
@@ -42,6 +44,34 @@ export default class extends Phaser.State {
     this.furniture.setCollisionBetween(0, 6080, true, this.wizardFurniture)
     this.potions = this.game.add.sprite(0, 0, 'potions')
 
+    this.purpleFire1 = this.game.add.sprite(100, 105, 'purpleFire')
+    this.purpleFire1.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
+    this.purpleFire1.scale.setTo(1.2)
+
+    this.purpleFire2 = this.game.add.sprite(164, 105, 'purpleFire')
+    this.purpleFire2.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
+    this.purpleFire2.scale.setTo(1.2)
+
+    this.purpleFire3 = this.game.add.sprite(228, 105, 'purpleFire')
+    this.purpleFire3.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
+    this.purpleFire3.scale.setTo(1.2)
+
+    this.purpleFire4 = this.game.add.sprite(292, 105, 'purpleFire')
+    this.purpleFire4.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
+    this.purpleFire4.scale.setTo(1.2)
+
+    this.starFire1 = this.game.add.sprite(600, 100, 'starFire')
+    this.starFire1.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
+
+    this.starFire2 = this.game.add.sprite(664, 100, 'starFire')
+    this.starFire2.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
+
+    this.starFire3 = this.game.add.sprite(728, 100, 'starFire')
+    this.starFire3.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
+
+    this.starFire4 = this.game.add.sprite(792, 100, 'starFire')
+    this.starFire4.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
+
     this.boy = this.game.add.sprite(this.world.centerX, this.world.centerY, 'boy')
     this.wizard = this.game.add.sprite(this.world.centerX - 250, this.world.centerY + 150, 'wizard')
     this.boy.scale.setTo(1)
@@ -70,6 +100,15 @@ export default class extends Phaser.State {
       }
     }, null, this)
 
+    this.purpleFire1.animations.play('move', 10, true)
+    this.purpleFire2.animations.play('move', 10, true)
+    this.purpleFire3.animations.play('move', 10, true)
+    this.purpleFire4.animations.play('move', 10, true)
+
+    this.starFire1.animations.play('move', 10, true)
+    this.starFire2.animations.play('move', 10, true)
+    this.starFire3.animations.play('move', 10, true)
+    this.starFire4.animations.play('move', 10, true)
     this.wizard.animations.play('eyes', 40, true)
     if (this.cursors.left.isDown) {
       this.boy.body.velocity.x = -200
