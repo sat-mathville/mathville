@@ -33,7 +33,7 @@ export default class extends Phaser.State {
     this.insidewall.setCollisionBetween(0, 6080, true, this.bakeryInsideWall)
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    this.game.world.setBounds(0, 0, 1024, 1024)
+    this.game.world.setBounds(-320, 0, 1344, 960)
     this.floor = this.game.add.tilemap('floor')
     this.floor.addTilesetImage('bakerySet')
     this.bakeryFloor = this.floor.createLayer(0)
@@ -56,8 +56,8 @@ export default class extends Phaser.State {
     this.game.physics.arcade.enable(this.onFurniture)
     this.onFurniture.setCollisionBetween(0, 6080, true, this.bakeryOnFurniture)
 
-    this.boy = this.game.add.sprite(this.world.centerX - 150, this.world.centerY + 320, 'boy')
-    this.baker = this.game.add.sprite(this.world.centerX - 350, this.world.centerY - 150, 'baker')
+    this.boy = this.game.add.sprite(this.world.centerX - 50, this.world.centerY + 320, 'boy')
+    this.baker = this.game.add.sprite(this.world.centerX - 150, this.world.centerY - 150, 'baker')
     this.boy.scale.setTo(1)
     this.baker.scale.setTo(1)
     this.cursors = this.game.input.keyboard.createCursorKeys()
