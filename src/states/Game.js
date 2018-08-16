@@ -19,7 +19,10 @@ export default class extends Phaser.State {
     this.load.tilemap('details', '../assets/images/stations3_details_4.csv',null,Phaser.Tilemap.CSV)
     this.load.image('tileset','../assets/images/ProjectUtumno_full.png')
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
+
+    this.load.audio('music', '../assets/sounds/mapBGM.mp3')
   }
+
   create () {
     // Load main map/world
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
@@ -33,14 +36,18 @@ export default class extends Phaser.State {
     this.stations.addTilesetImage('tileset')
     this.details.addTilesetImage('tileset')
 
+    // Create BGM
+    this.music = this.add.audio('music')
+    this.music.play()
+
     // Create layers
     this.land_1 = this.map.createLayer(0)
     this.grass_2 = this.grass.createLayer(0)
     this.stations_3 = this.stations.createLayer(0)
     this.details_4 = this.details.createLayer(0)
 
-    //set up barriers for the bakery
-    this.bakery = this.game.add.sprite(680,180, 'bakery')
+    // set up barriers for the bakery
+    this.bakery = this.game.add.sprite(680, 180, 'bakery')
     this.bakery.scale.setTo(0.5)
     this.game.physics.enable(this.bakery, Phaser.Physics.ARCADE)
     this.bakery.immovable = true
@@ -54,7 +61,7 @@ export default class extends Phaser.State {
     this.door.scale.setTo(0.5)
     this.game.physics.enable(this.door, Phaser.Physics.ARCADE)
 
-    this.bakerydoor = this.game.add.sprite(744,294,'bakerydoor')
+    this.bakerydoor = this.game.add.sprite(744, 294, 'bakerydoor')
     this.bakerydoor.scale.setTo(1)
     this.game.physics.enable(this.bakerydoor, Phaser.Physics.ARCADE)
 
@@ -87,7 +94,7 @@ export default class extends Phaser.State {
       }
       return sum
     }
-    this.scoreNum = this.add.text(this.scoreboard.x+10,this.scoreboard.y+20,`Score: ${calculateScore()}`)
+    this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
     this.scoreNum.fixedToCamera = true
   }
 
@@ -100,18 +107,21 @@ export default class extends Phaser.State {
       store.dispatch(setCoord([
         this.boy.x, this.boy.y + 20
       ]))
+      this.music.stop()
       this.game.state.start('WizardHouse')
     }, null, this)
     this.game.physics.arcade.overlap(this.boy, this.forestDoor, () => {
       store.dispatch(setCoord([
         this.boy.x, this.boy.y + 20
       ]))
+      this.music.stop()
       this.game.state.start('ForbiddenForest')
     }, null, this)
     this.game.physics.arcade.overlap(this.boy, this.bakerydoor, () => {
       store.dispatch(setCoord([
         this.boy.x, this.boy.y + 20
       ]))
+      this.music.stop()
       this.game.state.start('BakerShopInside')
     })
     if (this.cursors.left.isDown) {
