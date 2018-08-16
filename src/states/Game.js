@@ -104,7 +104,7 @@ export default class extends Phaser.State {
     this.potion.fixedToCamera = true
     
     this.weapon = this.game.add.sprite(180,10, 'weapon')
-    this.potion.fixedToCamera = true
+    this.weapon.fixedToCamera = true
     
     this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
     this.scoreNum.fixedToCamera = true
