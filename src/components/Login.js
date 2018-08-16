@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import store, {logout, auth, me, fetchAllAbilities, getProblems} from '../store'
-import {Route} from 'react-router-dom'
 
 export default class Login extends Component {
   constructor () {

@@ -1,15 +1,13 @@
 import makeChatbox from './helperFunctions/makeChatbox'
 import Phaser from 'phaser'
-import store from '../store'
+import store, {setCurrentAbilityId} from '../store'
+import spriteUrl from './helperFunctions/spriteUrl'
 
 export default class extends Phaser.State {
   preload () {
-    const userCharacter = () => {
-      if (store.getState().user.character === 1) return '../assets/images/boy.png'
-      else if (store.getState().user.character === 2) return '../assets/images/girl.png'
-      else if (store.getState().user.character === 3) return '../assets/images/cat_fighter_sprite1.png'
-    }
-    this.load.spritesheet('boy', userCharacter(), 64, 64)
+    store.dispatch(setCurrentAbilityId(2))
+
+    this.load.spritesheet('boy', spriteUrl(), 64, 64)
     this.load.spritesheet('purpleFire', '../assets/images/purpleFire.png', 23.8, 48)
     this.load.spritesheet('starFire', '../assets/images/starFire.png', 31.8, 63)
     this.load.spritesheet('wizard', '../assets/images/wizard_idle.png', 163, 185)
