@@ -100,6 +100,9 @@ async function seed () {
   await abilities[0].setUsers(users[0])
   await abilities[1].setUsers(users[1])
 
+  await abilities[0].setCategory(categories[0])
+  await abilities[1].setCategory(categories[1])
+
   console.log(`seeded 1 user`)
   console.log(`seeded 1 ability`)
 }

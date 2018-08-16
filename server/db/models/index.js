@@ -8,7 +8,7 @@ User.belongsToMany(Ability, {through: 'user-abilities'})
 Ability.belongsToMany(User, {through: 'user-abilities'})
 
 Ability.belongsTo(Category)
-Category.hasMany(Ability)
+Category.hasOne(Ability)
 
 Category.hasMany(Question)
 Question.belongsTo(Category)
