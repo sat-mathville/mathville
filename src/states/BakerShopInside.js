@@ -19,7 +19,6 @@ export default class extends Phaser.State {
         this.load.tilemap('outsidewall','../assets/images/bakersInside/bakery_outside wall.csv')
         this.load.tilemap('onfurniture','../assets/images/bakersInside/bakery_stuff on top of furniture.csv')
         this.load.tilemap('layer1','../assets/images/bakersInside/bakery_Tile Layer 1')
-        this.load.tilemap('chimneytop','../assets/images/bakersInside/bakery_top of chimney.csv')
         this.load.tilemap('insidewall','../assets/images/bakersInside/bakery_wall.csv')
     }
 
@@ -57,14 +56,6 @@ export default class extends Phaser.State {
         this.bakeryOnFurniture = this.onFurniture.createLayer(0)
         this.game.physics.arcade.enable(this.onFurniture)
         this.onFurniture.setCollisionBetween(0, 6080, true, this.bakeryOnFurniture)
-
-        this.chimneytop = this.game.add.tilemap('chimneytop')
-        this.chimneytop.addTilesetImage('bakerySet')
-        this.bakeryChimneyTop = this.chimneytop.createLayer(0)
-        this.game.physics.arcade.enable(this.chimneytop)
-        this.chimneytop.setCollisionBetween(0, 6080, this, this.bakeryChimneyTop)
-
-
 
         this.boy = this.game.add.sprite(this.world.centerX-150, this.world.centerY+320, 'boy')
         // this.baker = this.game.add.sprite(this.world.centerX, this.world.centerY + 150)
