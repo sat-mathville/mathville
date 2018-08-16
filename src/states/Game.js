@@ -20,6 +20,10 @@ export default class extends Phaser.State {
     this.load.image('tileset','../assets/images/ProjectUtumno_full.png')
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
+    //abilities
+    this.load.image('potion', '../assets/images/supplies/wizardpotion1.png')
+    this.load.image('weapon', '../assets/images/supplies/glowingweapon.png')
+
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
   }
 
@@ -83,7 +87,7 @@ export default class extends Phaser.State {
     // Create keyboard input tracker
     this.cursors = this.game.input.keyboard.createCursorKeys()
 
-    // Import scorebard and calculate score
+    // Import scoreboard and calculate score
     this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
     this.scoreboard.fixedToCamera = true
     function calculateScore () {
@@ -94,8 +98,17 @@ export default class extends Phaser.State {
       }
       return sum
     }
+
+    //just put abilities up to see how they look on scoreboard
+    this.potion = this.game.add.sprite(145,10, 'potion')
+    this.potion.fixedToCamera = true
+    
+    this.weapon = this.game.add.sprite(180,10, 'weapon')
+    this.potion.fixedToCamera = true
+    
     this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
     this.scoreNum.fixedToCamera = true
+    
   }
 
   update () {
