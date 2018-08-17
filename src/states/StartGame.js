@@ -27,7 +27,7 @@ export default class extends Phaser.State {
     // this.button1.width = 300
     // this.button1.height = 150
 
-    this.txt = this.add.text (this.button1.x, this.button1.y, "START",  {font:"80px Times", fill:"#fff", align:"center"})
+    this.txt = this.add.text (this.button1.x, this.button1.y, "Start",  {font:"80px Cinzel", fill:"#fff", align:"center"})
 
     this.txt.anchor.setTo(0.5,0.5)
   }

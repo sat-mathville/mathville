@@ -22,7 +22,7 @@ export default class extends Phaser.State {
 
     const opening = 'If you’re ready to solve some math problems, click HERE!'
     let banner = this.add.text(100, 100, opening, {
-      font: '35px',
+      font: '45px Amatic SC',
       fill: '#FFFFFF',
       smoothed: false
     })
