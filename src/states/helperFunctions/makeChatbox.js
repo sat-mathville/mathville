@@ -1,6 +1,12 @@
 import wrap from './wrap'
 
 export default function makeChatbox (dialogue, npc, gameState, newState, counter = 0) {
+  if (!counter) {
+    gameState.spacebar = gameState.game.input.keyboard.addCallbacks(gameState, null, null, () => {
+      counter++
+      makeChatbox(dialogue, npc, gameState, newState, counter)
+    })
+  }
   if (counter < dialogue.length) {
     if (gameState.banner) {
       gameState.chatbox.destroy()
@@ -8,7 +14,6 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
       gameState.banner.destroy()
       delete gameState.banner
     }
-    console.log(gameState)
     gameState.chatbox = gameState.add.sprite(
       gameState.camera.x + gameState.camera.width / 3,
       gameState.camera.y + gameState.camera.height / 3,
@@ -28,6 +33,7 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
     gameState.banner.inputEnabled = true
     gameState.banner.input.useHandCursor = true
     gameState.banner.events.onInputDown.add(() => {
+      counter++
       makeChatbox(dialogue, npc, gameState, newState, counter)
     }, gameState)
     const words = wrap(dialogue[counter], 30).split(' ')
@@ -36,7 +42,7 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
         gameState.banner.text = npc + ': ' + words.slice(0, i + 1).join(' ')
       }, 200 * i)
     }
-    counter++
+
   } else {
     if (newState) {
       if (gameState.music) gameState.music.stop()
@@ -46,6 +52,7 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
       delete gameState.chatbox
       gameState.banner.destroy()
       delete gameState.banner
+      gameState.spacebar.destroy()
     }
   }
 }
