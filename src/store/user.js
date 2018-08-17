@@ -42,9 +42,9 @@ export const auth = (data, method) => async dispatch => {
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
-
   try {
-    dispatch(getUser(res.data))
+    console.log('AUTH THUNK:', res.data)
+    dispatch(getUser(res.data || defaultUser))
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }
@@ -62,7 +62,7 @@ export const logout = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.data.user

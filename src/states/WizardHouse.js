@@ -12,65 +12,78 @@ export default class extends Phaser.State {
     this.load.spritesheet('starFire', '../assets/images/starFire.png', 31.8, 63)
     this.load.spritesheet('wizard', '../assets/images/wizard_idle.png', 163, 185)
     this.load.tilemap('house', '../assets/images/WizardHouse_background1.csv', null, Phaser.Tilemap.CSV)
+    this.load.tilemap('desk', '../assets/images/WizardHouse_desk.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('wall', '../assets/images/WizardHouse_wall2.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('furniture', '../assets/images/WizardHouse_furniture3.csv', null, Phaser.Tilemap.CSV)
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
     this.load.image('elfhouse', '../assets/images/elfhouse.png')
     this.load.spritesheet('potions', '../assets/images/potions.png')
     this.load.image('chatbox', '../assets/images/chatbox.jpg')
+
+    //music
+    this.load.audio('music', '../assets/sounds/wizardshop.m4a')
   }
 
   create () {
     this.overlap = false
 
+    
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(-320, 0, 1344, 640)
     this.house = this.game.add.tilemap('house')
     this.house.addTilesetImage('tileset')
     this.wizardHouse = this.house.createLayer(0)
-
+    
+    this.desk = this.game.add.tilemap('desk')
+    this.desk.addTilesetImage('tileset')
+    this.wizardDesk = this.desk.createLayer(0)
+    
     this.wall = this.game.add.tilemap('wall')
     this.wall.addTilesetImage('tileset')
     this.wizardWall = this.wall.createLayer(0)
     this.game.physics.arcade.enable(this.wall)
     this.wall.setCollisionBetween(0, 6080, true, this.wizardWall)
-
+    
     this.furniture = this.game.add.tilemap('furniture')
     this.furniture.addTilesetImage('elfhouse')
     this.wizardFurniture = this.furniture.createLayer(0)
     this.game.physics.arcade.enable(this.furniture)
     this.furniture.setCollisionBetween(0, 6080, true, this.wizardFurniture)
     this.potions = this.game.add.sprite(0, 0, 'potions')
-
+    
     this.purpleFire1 = this.game.add.sprite(100, 105, 'purpleFire')
     this.purpleFire1.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
     this.purpleFire1.scale.setTo(1.2)
-
+    
     this.purpleFire2 = this.game.add.sprite(164, 105, 'purpleFire')
     this.purpleFire2.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
     this.purpleFire2.scale.setTo(1.2)
-
+    
     this.purpleFire3 = this.game.add.sprite(228, 105, 'purpleFire')
     this.purpleFire3.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
     this.purpleFire3.scale.setTo(1.2)
-
+    
     this.purpleFire4 = this.game.add.sprite(292, 105, 'purpleFire')
     this.purpleFire4.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
     this.purpleFire4.scale.setTo(1.2)
-
+    
     this.starFire1 = this.game.add.sprite(600, 100, 'starFire')
     this.starFire1.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
-
+    
     this.starFire2 = this.game.add.sprite(664, 100, 'starFire')
     this.starFire2.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
-
+    
     this.starFire3 = this.game.add.sprite(728, 100, 'starFire')
     this.starFire3.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
-
+    
     this.starFire4 = this.game.add.sprite(792, 100, 'starFire')
     this.starFire4.animations.add('move', [0, 3, 2, 1, 7, 4, 5, 6], null, true)
+    
+    //music
+    this.music = this.add.audio('music')
+    this.music.play()
 
-    this.boy = this.game.add.sprite(this.world.centerX, this.world.centerY, 'boy')
+    this.boy = this.game.add.sprite(this.world.centerX + 200, this.world.centerY + 150, 'boy')
     this.wizard = this.game.add.sprite(this.world.centerX - 50, this.world.centerY + 150, 'wizard')
     this.boy.scale.setTo(1)
     this.wizard.scale.setTo(0.35)
@@ -93,12 +106,19 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.wizardFurniture)
     this.game.physics.arcade.overlap(this.boy, this.wizard, () => {
       if (!this.overlap) {
-        makeChatbox(["I'm a wizard", "Help me answer these math questions"], this, "House")
+        const name = store.getState().user.username
+        makeChatbox([
+          `Hey ${name}!`,
+          "I have some math problems that I can’t solve...",
+          "I need to figure them out before I can mix some potions...",
+          "Could you give me some help?"
+        ], 'Wizard', this, "House")
         this.overlap = true
       }
     }, null, this)
 
     if (this.boy.x < 675 && this.boy.x > 640 && this.boy.y < 580 && this.boy.y > 540) {
+      this.music.stop()
       this.game.state.start('Game')
     }
 

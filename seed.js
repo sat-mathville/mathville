@@ -29,7 +29,6 @@ async function seed () {
   ])
 
   const basicProbability = await Promise.all([
-    Question.create({content: 'If you flip a fair coin 10 times, what is the probability of getting all heads?', option1: '0.5¹⁰', option2: '1¹⁰', option3: '0.25¹⁰', option4: '-1¹⁰'}),
     Question.create({content: 'If you flip a fair coin twice, what is the probability of getting at least 1 head?', option1: '0.75', option2: '0.5', option3: '1.25', option4: '-0.5'}),
     Question.create({content: 'If you will flip a fair die once, what is the probability of getting an odd number?', option1: '0.5', option2: '-0.5', option3: '1.5', option4: '0.25'}),
     Question.create({content: 'If you roll a pair of fair dice once, what is the probability of getting a sum of 5?', option1: '1/9', option2: '1/4', option3: '-1/4', option4: '5/4'}),
@@ -99,8 +98,6 @@ async function seed () {
       basicProbability[i].setAbility(abilities[3])
     ])
   }
-  await basicProbability[5].setAbility(abilities[3])
-
   await abilities[0].setUsers(users[0])
   await abilities[1].setUsers(users[1])
 
@@ -110,8 +107,8 @@ console.log(`seeded ${advancedArithmetic.length} advanced arithmetic
 questions`)
 console.log(`seeded ${basicGeometry.length} basic geometry questions`)
 console.log(`seeded ${basicProbability.length} basic probability questions`)
-console.log(`seeded 1 user`)
-console.log(`seeded 1 ability`)
+console.log(`seeded ${users.length} users`)
+console.log(`seeded ${abilities.length} abilities`)
 }
 async function runSeed () {
   console.log('...seeding')
