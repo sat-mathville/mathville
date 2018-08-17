@@ -25,7 +25,7 @@ export default function renderQuestion (text, gameState) {
         100, 100,
         renderFinalOutput(gameState.score, gameState.questions.length, id
       ), {
-      font: '35px',
+      font: '45px VT323',
       fill: '#FFFFFF',
       smoothed: false,
       align: 'left'
@@ -47,7 +47,7 @@ export default function renderQuestion (text, gameState) {
       100,
       wrap(gameState.questions[gameState.currentQuestion].content, 45),
       {
-        font: '35px',
+        font: '35px VT323',
         fill: colors[gameState.currentQuestion],
         smoothed: false,
         align: 'left'
@@ -61,7 +61,7 @@ export default function renderQuestion (text, gameState) {
       500,
       'Drag your answer here: _____________',
       {
-        font: '35px',
+        font: '45px VT323',
         fill: colors[gameState.currentQuestion],
         smoothed: false,
         align: 'left'
@@ -85,7 +85,7 @@ export default function renderQuestion (text, gameState) {
         100 + (i * 50),
         answers[i],
         {
-          font: '35px',
+          font: '35px VT323',
           fill: '#FFFFFF',
           smoothed: false,
           align: 'left'
