@@ -134,11 +134,15 @@ export default class extends Phaser.State {
     //just put abilities up to see how they look on scoreboard
     this.potion = this.game.add.sprite(145,10, 'potion')
     this.potion.fixedToCamera = true
-    
+
     this.weapon = this.game.add.sprite(180,10, 'weapon')
     this.weapon.fixedToCamera = true
-    
-    this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
+
+    this.scoreNum = this.add.text(
+      this.scoreboard.x + 10,
+      this.scoreboard.y + 25,
+      `Score: ${calculateScore()}`,
+      {font: '25px Cinzel', fill: '#000', align: 'left'})
     this.scoreNum.fixedToCamera = true
 
     // Logout Button
@@ -146,7 +150,7 @@ export default class extends Phaser.State {
     this.logoutBtn.fixedToCamera = true
     this.logoutBtn.width = 100
     this.logoutBtn.height = 30
-    this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Times', fill: '#fff', align: 'center'})
+    this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
   }
 
