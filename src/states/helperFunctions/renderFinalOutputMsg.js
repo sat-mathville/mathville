@@ -7,6 +7,6 @@ export default function renderFinalOutput (score,questionsLength,id) {
     return 'Congratulations! You have leveled up!' + str
   } else {
     const abilityName = store.getState().abilities.find(ability => ability.id===id)
-    return `I'm sorry. You have not answered enough questions correctly. \nPlease come back to get ${abilityName.name}.` + str
+    return `I'm sorry. You have not answered enough questions correctly. \nPlease come back to get ${abilityName.name.toLowerCase()}.` + str
   }
 }
