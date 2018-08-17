@@ -152,8 +152,8 @@ export default class extends Phaser.State {
     this.cursors = this.game.input.keyboard.createCursorKeys()
 
     // Import scoreboard and calculate score
-    // this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
-    // this.scoreboard.fixedToCamera = true
+    this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
+    this.scoreboard.fixedToCamera = true
     
     function calculateScore () {
       const abilitiesIds = store.getState().userAbilities
@@ -171,24 +171,18 @@ export default class extends Phaser.State {
       for(let entry of abilitiesIds) {
         images.push(store.getState().abilities.find(ability => ability.id === entry).image)
       }
-      // images.map(image => {
-      //   sprite = this.add.image(100,100, image)
-      //   return sprite
-      // })
       console.log(images)
       return images
     }
 
     // fetchSupplies()
     
-    // this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
-    // this.scoreNum.fixedToCamera = true
+    this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
+    this.scoreNum.fixedToCamera = true
 
-    this.abilityImages = this.add.image(100, 100, fetchSupplies())
+    this.abilityImages = this.add.image(200, 20, fetchSupplies())
     console.log('I wonder what this will log', this.abilityImages)
     this.abilityImages.fixedToCamera = true
-
-    // let image = this.add.image(100,100, 'ring')
 
 
 
