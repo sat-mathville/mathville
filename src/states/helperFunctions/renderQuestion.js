@@ -95,12 +95,13 @@ export default function renderQuestion (text, gameState) {
         () => {
           if (gameState.buttons[i].x > 450 && gameState.buttons[i].x < 650 &&
               gameState.buttons[i].y > 470 && gameState.buttons[i].y < 530) {
-                gameState.buttons[i].fill = '#00FF00'
             if (answers[i] === gameState.questions[gameState.currentQuestion].option1) {
               gameState.yay.play()
+              gameState.buttons[i].fill = '#00FF00'
               setTimeout(() => correctAnswer(text,gameState), 1500)
             } else {
               gameState.scream.play()
+              gameState.buttons[i].fill = '#FF0000'
               setTimeout(() => renderQuestion(text,gameState), 1500)
             }
           }
