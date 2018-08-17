@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import store, {logout, auth, me, fetchAllAbilities, getProblems} from '../store'
+import Game from '../main'
+
 
 export default class Login extends Component {
   constructor () {
@@ -61,15 +63,15 @@ export default class Login extends Component {
     })
   }
   render () {
-    if (this.state.isLoggedIn)
-    {
-return (<div className='container'>Welcome, {store.getState().user.username}<button id='logoutButton' type='submit'onClick={this.handleLogout}>Logout</button></div>
-    )
-}
+    if (this.state.isLoggedIn) {
+      if(!window.game)window.game = new Game()
+      return (<div className='container'>Welcome, {store.getState().user.username}<button id='logoutButton' type='submit'onClick={this.handleLogout}>Logout</button></div>
+      )
+    }
     if (this.state.signUp === 'false') {
       return (
         <div className='container'>
-        <h1>Welcome to Mathville!</h1>
+          <h1>Welcome to Mathville!</h1>
           <form className='loginForm' onSubmit={this.handleSubmit}>
             <label>Email:
             <input placeholder='Enter Email'name='email' type='text' value={this.state.email} onChange={this.handleChange}/>
@@ -85,7 +87,7 @@ return (<div className='container'>Welcome, {store.getState().user.username}<but
     }
     return (
       <div className='container'>
-      <h1>Welcome to Mathville!</h1>
+        <h1>Welcome to Mathville!</h1>
         <form className='signInForm' onSubmit={this.handleSubmitSignUp}>
           <label>Username:
           <input placeholder='Enter Username' name='username' type='text' value={this.state.username} onChange={this.handleChange}/>

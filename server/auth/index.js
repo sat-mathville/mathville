@@ -40,15 +40,24 @@ router.post('/signup', async (req, res, next) => {
 router.post('/logout', (req, res) => {
   req.logout()
   req.session.destroy()
-  res.redirect('/')
+  res.json({user:{},abilities:[]})
 })
 
 router.get('/me', async (req, res) => {
-  const user = await User.findById(req.user.id)
-  const abilities = await user.getAbilities()
-  const data = {
-    user: req.user,
-    abilities: abilities.map(ability => ability.id)
+  if(req.user){
+    try{
+      const user = await User.findById(req.user.id)
+      const abilities = await user.getAbilities()
+      const data = {
+        user: req.user,
+        abilities: abilities.map(ability => ability.id)
+      }
+      res.json(data)
+    } catch (error) {
+      next(error)
+    }
   }
-  res.json(data)
+  else{
+    res.json({user:{},abilities:[]})
+  }
 })
