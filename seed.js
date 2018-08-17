@@ -30,7 +30,7 @@ async function seed () {
 
   const basicProbability = await Promise.all([
     Question.create({content: 'If you flip a fair coin twice, what is the probability of getting at least 1 head?', option1: '0.75', option2: '0.5', option3: '1.25', option4: '-0.5'}),
-    Question.create({content: 'If you will flip a fair die once, what is the probability of getting an odd number?', option1: '0.5', option2: '-0.5', option3: '1.5', option4: '0.25'}),
+    Question.create({content: 'If you roll a fair die once, what is the probability of getting an odd number?', option1: '0.5', option2: '-0.5', option3: '1.5', option4: '0.25'}),
     Question.create({content: 'If you roll a pair of fair dice once, what is the probability of getting a sum of 5?', option1: '1/9', option2: '1/4', option3: '-1/4', option4: '5/4'}),
     Question.create({content: 'If you roll a fair die twice, what is the probability of getting the same number twice?', option1: '1/6', option2: '-1/6', option3: '1/12', option4: '7/6'}),
     Question.create({content: 'If you roll a fair die twice, what is the probability of getting 2 different numbers?', option1: '5/6', option2: '1/6', option3: '-5/6', option4: '7/6'})
@@ -39,7 +39,7 @@ async function seed () {
   const basicGeometry = await Promise.all([
     Question.create({content: 'Suppose you have a scoop of ice cream that is a perfect sphere and the scoop has a radius of 3 inches. What is the volume?', option1: '4/3πr³', option2: '3/4πr³', option3: '4/3πr²', option4: '3/4πr²' }),
     Question.create({content: 'Suppose you have a cone to put your ice cream in. How can you determine the surface area for your cone?', option1: '2πr', option2: '3πr', option3: '2πr²', option4: '-3πr²' }),
-    Question.create({content: 'What is the area of the roof of the bakery? It has a height of 8 feet and a base of 20 feet? What is the area?', option1: '80 feet', option2: '40 feet²', option3: '-80 feet²', option4: '100 feet²' }),
+    Question.create({content: 'What is the area of the triangular roof of the bakery? It has a height of 8 feet and a base of 20 feet? What is the area?', option1: '80 feet²', option2: '40 feet²', option3: '-80 feet²', option4: '100 feet²' }),
     Question.create({content: 'Suppose the bakery has a width of 20 feet and a length of 15 feet. What is the area of the bakery?', option1: '300 feet²', option2: '-300 feet²', option3: '400 feet²', option4: '1500 feet²' }),
     Question.create({content: 'Suppose you buy a cookie from the bakery. How do you determine its circumference?', option1: 'πd', option2: 'πr²', option3: '2π', option4: '2πd' })
   ])
