@@ -28,6 +28,9 @@ export default class extends Phaser.State {
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
+    //ability sprites
+    this.load.image('')
+
     // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
 
