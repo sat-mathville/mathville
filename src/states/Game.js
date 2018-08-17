@@ -139,6 +139,7 @@ export default class extends Phaser.State {
   }
 
   update () {
+    // this.keys(()=>{console.log(`TEST KEYS`)})
     this.game.physics.arcade.collide(this.boy, this.stations_3)
     this.game.physics.arcade.collide(this.boy, this.bakery)
     this.bakery.body.immovable = true
