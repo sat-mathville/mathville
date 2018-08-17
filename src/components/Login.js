@@ -32,11 +32,9 @@ export default class Login extends Component {
     })
   }
   handleChange (event) {
-    console.log('handle Change name', event.target.name, 'event.target.value:', event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log('handleChange', this.state)
   }
   handleSubmit (event) {
     event.preventDefault()
@@ -95,14 +93,13 @@ export default class Login extends Component {
           <input placeholder='Enter Email' name='email' type='text' value={this.state.email} onChange={this.handleChange}/>
           </label>
           <label>Password:
-          <input placeholder='Enter Password'name='password' type='text' value={this.state.password} onChange={this.handleChange}/>
+          <input placeholder='Enter Password'name='password' type='password' value={this.state.password} onChange={this.handleChange}/>
           </label>
           <label>Select Character:
           <select id='characterDropdown' name='character' onChange={this.handleChange}>
             <option value='default'>--</option>
             <option value='1'>Boy</option>
             <option value='2'>Girl</option>
-            <option value='3'>Animal</option>
           </select>
           </label>
           <button className='submitButton' type='submit'>Submit</button>
