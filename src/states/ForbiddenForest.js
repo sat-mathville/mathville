@@ -7,27 +7,37 @@ import spriteUrl from './helperFunctions/spriteUrl'
 export default class extends Phaser.State {
   preload () {
     store.dispatch(setCurrentAbilityId(4))
+
+    // characters and creatures
+    this.load.spritesheet('gnome', '../assets/images/creatures/gnome.png', 32, 32)
+    this.load.spritesheet('livingTree', '../assets/images/creatures/livingTree.png', 32, 32)
+    this.load.spritesheet('rose', '../assets/images/creatures/rose.png', 32, 32)
+    this.load.spritesheet('snakeman', '../assets/images/creatures/snakeman.png', 32, 32)
+    this.load.spritesheet('spider', '../assets/images/creatures/spider.png', 32, 32)
+
     this.load.spritesheet('boy', spriteUrl(), 64, 64)
+    this.load.spritesheet('villain', '../assets/images/villain_idle.png', 80, 80)
+
     this.load.tilemap('ground', '../assets/images/forest_ground1.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('holes', '../assets/images/forest_holes2.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('trees', '../assets/images/forest_trees3.csv', null, Phaser.Tilemap.CSV)
-    this.load.tilemap('creature', '../assets/images/forest_creature4.csv', null, Phaser.Tilemap.CSV)
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
-
-    this.load.spritesheet('villain', '../assets/images/villain_idle.png', 80, 80)
 
     this.load.image('chatbox', '../assets/images/chatbox.jpg')
 
     // music
     this.load.audio('music', '../assets/sounds/foggywoods.mp3')
+    this.load.audio('scream', '../assets/sounds/scream.m4a')
   }
 
   create () {
-
     // music
     this.music = this.add.audio('music')
     this.music.volume = 0.5
     this.music.play()
+
+    this.scream = this.add.audio('scream')
+    this.scream.volume = 0.5
 
     this.overlap = false
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
@@ -47,11 +57,24 @@ export default class extends Phaser.State {
     this.game.physics.arcade.enable(this.trees)
     this.trees.setCollisionBetween(0, 6080, true, this.forestTrees)
 
-    this.creature = this.game.add.tilemap('creature')
-    this.creature.addTilesetImage('tileset')
-    this.forestCreature = this.creature.createLayer(0)
-    this.game.physics.arcade.enable(this.creature)
-    this.creature.setCollisionBetween(0, 6080, true, this.forestCreature)
+    // creatures
+    this.snakeman = this.game.add.sprite(178, 912, 'snakeman')
+    this.createMonsters(this.snakeman, 'vertical', -150)
+
+    this.rose = this.game.add.sprite(627, 368, 'rose')
+    this.createMonsters(this.rose, 'horizontal', 50)
+
+    this.gnome = this.game.add.sprite(32, 485, 'gnome')
+    this.createMonsters(this.gnome, 'horizontal', 50)
+
+    this.spider = this.game.add.sprite(448, 131, 'spider')
+    this.createMonsters(this.spider, 'horizontal', 50)
+
+    this.livingTree = this.game.add.sprite(608, 701, 'livingTree')
+    this.game.physics.enable(this.livingTree, Phaser.Physics.ARCADE)
+    this.livingTree.body.collideWorldBounds = true
+    this.livingTree.body.bounce.setTo(1, 1)
+    this.livingTree.body.velocity.x = 50
 
     this.villain = this.game.add.sprite(90, 20, 'villain')
     this.villain.scale.setTo(1)
@@ -73,7 +96,22 @@ export default class extends Phaser.State {
 
   update () {
     this.game.physics.arcade.collide(this.boy, this.forestTrees)
-    this.game.physics.arcade.collide(this.boy, this.forestCreature)
+
+    this.game.physics.arcade.collide(this.rose, this.forestTrees)
+    this.game.physics.arcade.overlap(this.boy, this.rose, () => this.restart(), null, this)
+
+    this.game.physics.arcade.collide(this.snakeman, this.forestTrees)
+    this.game.physics.arcade.overlap(this.boy, this.snakeman, () => this.restart(), null, this)
+
+    this.game.physics.arcade.collide(this.livingTree, this.forestTrees)
+    this.game.physics.arcade.overlap(this.boy, this.livingTree, () => this.restart(), null, this)
+
+    this.game.physics.arcade.collide(this.spider, this.forestTrees)
+    this.game.physics.arcade.overlap(this.boy, this.spider, () => this.restart(), null, this)
+
+    this.game.physics.arcade.collide(this.gnome, this.forestTrees)
+    this.game.physics.arcade.overlap(this.boy, this.gnome, () => this.restart(), null, this)
+
     this.villain.animations.play('idle', 20, true)
     this.game.physics.arcade.overlap(this.boy, this.villain, () => {
       if (!this.overlap) {
@@ -103,5 +141,30 @@ export default class extends Phaser.State {
       this.boy.body.velocity.y = 0
       this.boy.animations.stop()
     }
+  }
+
+  createMonsters (creature, direction, speed) {
+    this.game.physics.enable(creature, Phaser.Physics.ARCADE)
+    creature.body.collideWorldBounds = true
+    creature.body.bounce.setTo(1, 1)
+    if (direction === 'horizontal') {
+      creature.body.velocity.x = speed
+    } else {
+      creature.body.velocity.y = speed
+    }
+  }
+
+  restart () {
+    this.scream.play()
+    this.camera.fade(0xff0000, 1500)
+    setTimeout(() => {
+      this.music.restart()
+      this.game.camera.resetFX()
+      this.boy.x = this.world.centerX + 260
+      this.boy.y = this.world.centerY }, 2000)
+  }
+
+  render () {
+    this.game.debug.spriteInfo(this.boy, 20, 32)
   }
 }
