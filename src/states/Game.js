@@ -35,7 +35,7 @@ export default class extends Phaser.State {
     this.load.image('chatbox', '../assets/images/chatbox.jpg')
 
     // logout button
-    this.load.image('logoutBtn', '../assets/images/playBtn.png')
+    this.load.image('logoutBtn', '../assets/images/exit.png')
   }
 
   create () {
@@ -130,8 +130,12 @@ export default class extends Phaser.State {
     this.scoreNum.fixedToCamera = true
 
     // Logout Button
-    this.logoutBtn = this.game.add.button(300, 0, 'logoutBtn', this.actionOnLogout, this)
-    this.txt = this.add.text(this.logoutBtn.x, this.logoutBtn.y, 'LOGOUT', {font: '50px Times', fill: '#fff', align: 'center'})
+    this.logoutBtn = this.game.add.button(0, 80, 'logoutBtn', this.actionOnLogout, this)
+    this.logoutBtn.fixedToCamera = true
+    this.logoutBtn.width = 100
+    this.logoutBtn.height = 30
+    this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Times', fill: '#fff', align: 'center'})
+    this.txt.fixedToCamera = true
   }
 
   update () {
@@ -215,5 +219,5 @@ export default class extends Phaser.State {
     this.game.destroy()
   }
 
-  
+
 }
