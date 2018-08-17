@@ -25,7 +25,7 @@ export default function renderQuestion (text, gameState) {
         100, 100,
         renderFinalOutput(gameState.score, gameState.questions.length, id
       ), {
-      font: '35px',
+      font: '45px VT323',
       fill: '#FFFFFF',
       smoothed: false,
       align: 'left'
@@ -36,8 +36,10 @@ export default function renderQuestion (text, gameState) {
       gameState.game.state.start('Game')
     }, gameState)
   } else {
+    const colors = ['#33ffff','#33ccff','#9933ff','#ff33ff','#ff99ff']
     if (Object.keys(gameState.currentQuestionText).length > 0) {
       gameState.currentQuestionText.destroy()
+      gameState.choice.destroy()
     }
     gameState.currentQuestion++
     gameState.currentQuestionText = gameState.add.text(
@@ -45,8 +47,8 @@ export default function renderQuestion (text, gameState) {
       100,
       wrap(gameState.questions[gameState.currentQuestion].content, 45),
       {
-        font: '35px',
-        fill: '#FFFFFF',
+        font: '35px VT323',
+        fill: colors[gameState.currentQuestion],
         smoothed: false,
         align: 'left'
       })
@@ -54,14 +56,13 @@ export default function renderQuestion (text, gameState) {
     gameState.currentQuestionText.input.useHandCursor = true
     gameState.currentQuestionText.events.onInputDown.add(()=>{renderQuestion(text,gameState)}, gameState)
 
-    console.log(gameState.choice)
-    if (!gameState.choice) gameState.choice = gameState.add.text(
+    gameState.choice = gameState.add.text(
       100,
       500,
       'Drag your answer here: _____________',
       {
-        font: '35px',
-        fill: '#00FF00',
+        font: '45px VT323',
+        fill: colors[gameState.currentQuestion],
         smoothed: false,
         align: 'left'
       }
@@ -84,8 +85,8 @@ export default function renderQuestion (text, gameState) {
         100 + (i * 50),
         answers[i],
         {
-          font: '35px',
-          fill: '#FFFF00',
+          font: '35px VT323',
+          fill: '#FFFFFF',
           smoothed: false,
           align: 'left'
         })

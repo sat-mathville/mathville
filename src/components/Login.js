@@ -63,10 +63,9 @@ export default class Login extends Component {
     })
   }
   render () {
-    if (this.state.isLoggedIn) {
+    if (store.getState().user.id) {
       if(!window.game)window.game = new Game()
-      return (<div className='container'>Welcome, {store.getState().user.username}<button id='logoutButton' type='submit'onClick={this.handleLogout}>Logout</button></div>
-      )
+      return (<div></div>)
     }
     if (this.state.signUp === 'false') {
       return (

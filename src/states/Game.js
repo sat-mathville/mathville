@@ -134,11 +134,15 @@ export default class extends Phaser.State {
     //just put abilities up to see how they look on scoreboard
     this.potion = this.game.add.sprite(145,10, 'potion')
     this.potion.fixedToCamera = true
-    
+
     this.weapon = this.game.add.sprite(180,10, 'weapon')
     this.weapon.fixedToCamera = true
-    
-    this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
+
+    this.scoreNum = this.add.text(
+      this.scoreboard.x + 10,
+      this.scoreboard.y + 25,
+      `Score: ${calculateScore()}`,
+      {font: '25px Cinzel', fill: '#000', align: 'left'})
     this.scoreNum.fixedToCamera = true
 
     // Logout Button
@@ -146,11 +150,12 @@ export default class extends Phaser.State {
     this.logoutBtn.fixedToCamera = true
     this.logoutBtn.width = 100
     this.logoutBtn.height = 30
-    this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Times', fill: '#fff', align: 'center'})
+    this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
   }
 
   update () {
+    // this.keys(()=>{console.log(`TEST KEYS`)})
     this.game.physics.arcade.collide(this.boy, this.stations_3)
     this.game.physics.arcade.collide(this.boy, this.bakery)
     this.bakery.body.immovable = true
@@ -225,10 +230,10 @@ export default class extends Phaser.State {
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
-    const canvas = document.getElementsByTagName('canvas')[0]
-    canvas.remove()
-
+    // const canvas = document.getElementsByTagName('canvas')[0]
+    // canvas.remove()
     this.game.destroy()
+    delete window.game
   }
 
 
