@@ -1,6 +1,6 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store, {setCoord} from '../store'
+import store, {auth, setCoord} from '../store'
 import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
@@ -14,18 +14,18 @@ export default class extends Phaser.State {
     this.load.spritesheet('warrior', '../assets/images/characters/warrior.png', 64, 64)
     this.load.spritesheet('fisherman', '../assets/images/characters/fisherman.png', 64, 64)
 
-    //objects
-    this.load.spritesheet('door', '../assets/images/door.png',105, 111)
-    this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png',105, 111)
+    // objects
+    this.load.spritesheet('door', '../assets/images/door.png', 105, 111)
+    this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png', 105, 111)
     this.load.image('bakerydoor', '../assets/images/bakersOutside/bakerydoor.png')
-    this.load.spritesheet('bakery','../assets/images/bakersOutside/smallerHouse.png')
+    this.load.spritesheet('bakery', '../assets/images/bakersOutside/smallerHouse.png')
 
-    //tilemaps
-    this.load.tilemap('map', '../assets/images/stations3_land_1.csv',null,Phaser.Tilemap.CSV)
-    this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv',null,Phaser.Tilemap.CSV)
-    this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv',null,Phaser.Tilemap.CSV)
-    this.load.tilemap('details', '../assets/images/stations3_details_4.csv',null,Phaser.Tilemap.CSV)
-    this.load.image('tileset','../assets/images/ProjectUtumno_full.png')
+    // tilemaps
+    this.load.tilemap('map', '../assets/images/stations3_land_1.csv', null, Phaser.Tilemap.CSV)
+    this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv', null, Phaser.Tilemap.CSV)
+    this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv', null, Phaser.Tilemap.CSV)
+    this.load.tilemap('details', '../assets/images/stations3_details_4.csv', null, Phaser.Tilemap.CSV)
+    this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
     // music
@@ -33,6 +33,9 @@ export default class extends Phaser.State {
 
     // chatbox
     this.load.image('chatbox', '../assets/images/chatbox.jpg')
+
+    // logout button
+    this.load.image('logoutBtn', '../assets/images/playBtn.png')
   }
 
   create () {
@@ -125,6 +128,10 @@ export default class extends Phaser.State {
     }
     this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
     this.scoreNum.fixedToCamera = true
+
+    // Logout Button
+    this.logoutBtn = this.game.add.button(300, 0, 'logoutBtn', this.actionOnLogout, this)
+    this.txt = this.add.text(this.logoutBtn.x, this.logoutBtn.y, 'LOGOUT', {font: '50px Times', fill: '#fff', align: 'center'})
   }
 
   update () {
@@ -158,7 +165,7 @@ export default class extends Phaser.State {
     this.farmer.animations.play('standing', 2, true)
     this.game.physics.arcade.overlap(this.boy, this.farmer, () => {
       if (!this.farmerOverlap) {
-        makeChatbox(["Hi there!", "I have too many crops", "Let me give you some strawberries", "they are good for your health"], "farmer", this)
+        makeChatbox(['Hi there!', 'I have too many crops', 'Let me give you some strawberries', 'they are good for your health'], 'farmer', this)
         this.farmerOverlap = true
       }
     }, null, this)
@@ -167,7 +174,7 @@ export default class extends Phaser.State {
     this.warrior.animations.play('standing', 2, true)
     this.game.physics.arcade.overlap(this.boy, this.warrior, () => {
       if (!this.warriorOverlap) {
-        makeChatbox(["Hi!", "The forbidden forest is very dangerous", "Be prepared!", "Here is a sword"], "Warrior", this)
+        makeChatbox(['Hi!', 'The forbidden forest is very dangerous', 'Be prepared!', 'Here is a sword'], 'Warrior', this)
         this.warriorOverlap = true
       }
     }, null, this)
@@ -175,7 +182,7 @@ export default class extends Phaser.State {
     this.fisherman.animations.play('standing', 1, true)
     this.game.physics.arcade.overlap(this.boy, this.fisherman, () => {
       if (!this.fishermanOverlap) {
-        makeChatbox(["Hey!", "I have extra fish", "Let me give you some", "they are good for your strength"], "Fisherman", this)
+        makeChatbox(['Hey!', 'I have extra fish', 'Let me give you some', 'they are good for your strength'], 'Fisherman', this)
         this.fishermanOverlap = true
       }
     }, null, this)
@@ -200,8 +207,11 @@ export default class extends Phaser.State {
 
     navigate(this.cursors, this.boy)
   }
+  actionOnLogout () {
+    store.dispatch(auth({}, 'logout'))
+    const canvas = document.getElementsByTagName('canvas')[0]
+    canvas.remove()
 
-  render () {
-    this.game.debug.spriteInfo(this.boy, 20, 32)
+    this.game.destroy()
   }
 }
