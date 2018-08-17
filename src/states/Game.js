@@ -30,7 +30,7 @@ export default class extends Phaser.State {
 
     //scoreboard supplies
     this.load.image('bread', '../assets/images/supplies/bread.png')
-    this.load.image('potion', '../assets/images/supplies/wizardpotion1.png')
+    this.load.image('potion', '../assets/images/supplies/potion.png')
     this.load.image('strawberry', '../assets/images/supplies/strawberry2.png')
     this.load.image('sword', '../assets/images/supplies/sword.png')
 
@@ -151,11 +151,16 @@ export default class extends Phaser.State {
     let y
     
     for(let i = 1; i <= store.getState().userAbilities.size; i++){
-      x = (i * 50) + 130
-      y = 30
+      x = (i * 50) + 110
+      // y = 30
+
+      i>4 ? y=50: y=10
+
+      // if(i>4){
+      //   y = 70
+      // }
 
       this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
-      this.abilityImages.scale.setTo(0.75)
       this.abilityImages.fixedToCamera = true
     }
     
