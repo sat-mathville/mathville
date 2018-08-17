@@ -213,10 +213,10 @@ export default class extends Phaser.State {
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
-    const canvas = document.getElementsByTagName('canvas')[0]
-    canvas.remove()
-
+    // const canvas = document.getElementsByTagName('canvas')[0]
+    // canvas.remove()
     this.game.destroy()
+    delete window.game
   }
 
 
