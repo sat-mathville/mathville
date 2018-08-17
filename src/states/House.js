@@ -30,4 +30,7 @@ export default class extends Phaser.State {
     banner.input.useHandCursor = true
     banner.events.onInputDown.add(() => { renderQuestion(banner, this) }, this)
   }
+  start(){
+    music.fadeOut(4000);
+  }
 }
