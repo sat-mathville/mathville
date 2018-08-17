@@ -28,6 +28,10 @@ export default class extends Phaser.State {
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
+    //abilities
+    this.load.image('potion', '../assets/images/supplies/wizardpotion1.png')
+    this.load.image('weapon', '../assets/images/supplies/glowingweapon.png')
+
     // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
 
@@ -115,7 +119,7 @@ export default class extends Phaser.State {
     // Create keyboard input tracker
     this.cursors = this.game.input.keyboard.createCursorKeys()
 
-    // Import scorebard and calculate score
+    // Import scoreboard and calculate score
     this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
     this.scoreboard.fixedToCamera = true
     function calculateScore () {
@@ -126,7 +130,19 @@ export default class extends Phaser.State {
       }
       return sum
     }
-    this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
+
+    //just put abilities up to see how they look on scoreboard
+    this.potion = this.game.add.sprite(145,10, 'potion')
+    this.potion.fixedToCamera = true
+
+    this.weapon = this.game.add.sprite(180,10, 'weapon')
+    this.weapon.fixedToCamera = true
+
+    this.scoreNum = this.add.text(
+      this.scoreboard.x + 10,
+      this.scoreboard.y + 25,
+      `Score: ${calculateScore()}`,
+      {font: '25px Cinzel', fill: '#000', align: 'left'})
     this.scoreNum.fixedToCamera = true
 
     // Logout Button
@@ -134,7 +150,7 @@ export default class extends Phaser.State {
     this.logoutBtn.fixedToCamera = true
     this.logoutBtn.width = 100
     this.logoutBtn.height = 30
-    this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Times', fill: '#fff', align: 'center'})
+    this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
   }
 
