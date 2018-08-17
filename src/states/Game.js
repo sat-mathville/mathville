@@ -28,9 +28,41 @@ export default class extends Phaser.State {
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
-    //abilities
+    //supplies
+    this.load.image('apple', '../assets/images/supplies/apple.png')
+    // this.load.image('blacksmithglove1', '../assets/images/supplies/blacksmithglove1.png')
+    // this.load.image('blacksmithglove2', '../assets/images/supplies/blacksmithglove2.png')
+    // this.load.image('blacksmithshield1', '../assets/images/supplies/blacksmithshield1.png')
+    // this.load.image('blacksmithshield2', '../assets/images/supplies/blacksmithshield2.png')
+    // this.load.image('blacksmithshield3', '../assets/images/supplies/blacksmithshield3.png')
+    // this.load.image('blacksmithshield4', '../assets/images/supplies/blacksmithshield4.png')
+    // this.load.image('blacksmithweapon1', '../assets/images/supplies/blacksmithweapon1.png')
+    // this.load.image('blacksmithweapon2', '../assets/images/supplies/blacksmithweapon2.png')
+    this.load.image('bread', '../assets/images/supplies/bread.png')
+    // this.load.image('bread2', '../assets/images/supplies/bread2.png')
+    // this.load.image('coins', '../assets/images/supplies/coins.png')
+    // this.load.image('demon', '../assets/images/supplies/demon.png')
+    // this.load.image('fruitcollection', '../assets/images/supplies/fruitcollection.png')
+    // this.load.image('ghost', '../assets/images/supplies/ghostcreature.png')
+    // this.load.image('glowingweapon', '../assets/images/supplies/glowingweapon.png')
+    // this.load.image('glowingweapon2', '../assets/images/supplies/glowingweapon.png')
+    // this.load.image('grapes', '../assets/images/supplies/grapes.png')
+    // this.load.image('magicstone', '../assets/images/supplies/magicstone.png')
+    // this.load.image('magicstone2', '../assets/images/supplies/magicstone2.png')
+    // this.load.image('meat', '../assets/images/supplies/meat.png')
+    // this.load.image('pear', '../assets/images/supplies/pear.png')
     this.load.image('potion', '../assets/images/supplies/wizardpotion1.png')
-    this.load.image('weapon', '../assets/images/supplies/glowingweapon.png')
+    this.load.image('potion2', '../assets/images/supplies/wizardpotion2.png')
+    // this.load.image('ring', '../assets/images/supplies/ring.png')
+    this.load.image('strawberry1', '../assets/images/supplies/strawberry1.png')
+    this.load.image('strawberry2', '../assets/images/supplies/strawberry2.png')
+    // this.load.image('wand1', '../assets/images/supplies/wand1.png')
+    // this.load.image('wand2', '../assets/images/supplies/wand2.png')
+    // this.load.image('wand3', '../assets/images/supplies/wand3.png')
+    // this.load.image('weapon', '../assets/images/supplies/glowingweapon.png')
+    // this.load.image('wizardnecklace1', '../assets/images/supplies/wizardnecklace1.png')
+    // this.load.image('wolf', '../assets/images/supplies/wolf.png')
+
 
     // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
@@ -122,6 +154,7 @@ export default class extends Phaser.State {
     // Import scoreboard and calculate score
     this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
     this.scoreboard.fixedToCamera = true
+    
     function calculateScore () {
       const abilitiesIds = store.getState().userAbilities
       let sum = 0
@@ -131,19 +164,39 @@ export default class extends Phaser.State {
       return sum
     }
 
-    //just put abilities up to see how they look on scoreboard
-    this.potion = this.game.add.sprite(145,10, 'potion')
-    this.potion.fixedToCamera = true
+    //pull in supplies
+    function fetchSupplies() {
+      const abilitiesIds = store.getState().userAbilities
+      let images = []
+      for(let entry of abilitiesIds) {
+        images.push(store.getState().abilities.find(ability => ability.id === entry).image)
+      }
+      console.log('the images', images)
+      return images
+    }
 
-    this.weapon = this.game.add.sprite(180,10, 'weapon')
-    this.weapon.fixedToCamera = true
+    let x 
+    let y
+    
+    for(let i = 1; i <= store.getState().userAbilities.size; i++){
+      x = (i * 50) + 130
+      y = i * 20
+      this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
+      this.abilityImages.scale.setTo(0.75)
+      this.abilityImages.fixedToCamera = true
+    }
+    
 
     this.scoreNum = this.add.text(
       this.scoreboard.x + 10,
       this.scoreboard.y + 25,
       `Score: ${calculateScore()}`,
       {font: '25px Cinzel', fill: '#000', align: 'left'})
-    this.scoreNum.fixedToCamera = true
+    
+      this.scoreNum.fixedToCamera = true
+
+
+
 
     // Logout Button
     this.logoutBtn = this.game.add.button(0, 80, 'logoutBtn', this.actionOnLogout, this)
