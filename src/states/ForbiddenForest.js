@@ -155,16 +155,12 @@ export default class extends Phaser.State {
   }
 
   restart () {
-    this.scream.play()
-    this.camera.fade(0xff0000, 1500)
+    this.music.stop()
+    this.camera.fade(0xff0000, 2000)
     setTimeout(() => {
       this.music.restart()
       this.game.camera.resetFX()
       this.boy.x = this.world.centerX + 260
-      this.boy.y = this.world.centerY }, 2000)
-  }
-
-  render () {
-    this.game.debug.spriteInfo(this.boy, 20, 32)
+      this.boy.y = this.world.centerY }, 1500)
   }
 }
