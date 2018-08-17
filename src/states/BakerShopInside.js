@@ -19,13 +19,14 @@ export default class extends Phaser.State {
     this.load.tilemap('insidewall', '../assets/images/bakersInside/bakery_wall.csv')
 
     this.load.image('chatbox', '../assets/images/chatbox.jpg')
+
+    //music
+    this.load.audio('music', '../assets/sounds/bakery.m4a')
   }
 
   create () {
     this.overlap = false
-    // going to ignore windows for now since I didn't end up putting any windows
 
-    // add baker sprite somewhere
     this.insidewall = this.game.add.tilemap('insidewall')
     this.insidewall.addTilesetImage('bakerySet')
     this.bakeryInsideWall = this.insidewall.createLayer(0)
@@ -72,6 +73,10 @@ export default class extends Phaser.State {
     this.boy.animations.add('walkRight', [143, 144, 145, 146, 147, 148, 149, 150, 151], null, true)
 
     this.baker.animations.add('standing', [26, 27], null, true)
+
+    //music
+    this.music = this.add.audio('music')
+    this.music.play()
   }
 
   update () {
@@ -92,6 +97,7 @@ export default class extends Phaser.State {
 
     if (this.boy.x < 372.7 && this.boy.x > 350 && this.boy.y < 886.0 && this.boy.y > 870) {
       this.game.state.start('Game')
+      this.music.stop()
     }
 
     this.baker.animations.play('standing', 5, true)
