@@ -25,7 +25,7 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
       gameState.chatbox.y + 20,
       '',
       {
-        font: '35px',
+        font: '40px VT323',
         fill: '#060606',
         smoothed: false
       }
