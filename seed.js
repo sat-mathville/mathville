@@ -65,27 +65,27 @@ async function seed () {
   // ABILITIES DATA
   const abilities = new Array(4)
   abilities[0] = await Ability.create({
-    name: 'Fire spell',
+    name: 'Magic Potion',
     type: 'magic',
-    image: 'https://i.ytimg.com/vi/Iu8vGpCxJUs/maxresdefault.jpg',
+    image: 'potion',
     value: 5
   })
   abilities[1] = await Ability.create({
-    name: 'Protein Milk',
+    name: 'Strawberry',
     type: 'healing',
-    image: 'https://i.ytimg.com/vi/Iu8vGpCxJUs/maxresdefault.jpg',
+    image: 'strawberry1',
     value: 8
   })
   abilities[2] = await Ability.create({
     name: 'Bread',
     type: 'strength',
-    image: 'https://images-na.ssl-images-amazon.com/images/I/5187j5bLdtL.jpg',
+    image: 'bread',
     value: 3
   })
   abilities[3] = await Ability.create({
     name: 'sword',
     type: 'weaponry',
-    image: 'https://images-na.ssl-images-amazon.com/images/I/5187j5bLdtL.jpg',
+    image: 'weapon',
     value: 4
   })
 

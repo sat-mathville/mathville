@@ -28,7 +28,7 @@ export default class extends Phaser.State {
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
-    //abilities
+    //supplies
     this.load.image('apple', '../assets/images/supplies/apple.png')
     this.load.image('blacksmithglove1', '../assets/images/supplies/blacksmithglove1.png')
     this.load.image('blacksmithglove2', '../assets/images/supplies/blacksmithglove2.png')
@@ -61,8 +61,8 @@ export default class extends Phaser.State {
     this.load.image('wand3', '../assets/images/supplies/wand3.png')
     this.load.image('weapon', '../assets/images/supplies/glowingweapon.png')
     this.load.image('wizardnecklace1', '../assets/images/supplies/wizardnecklace1.png')
-    this.load.image('wizardnecklace2', '../assets/images/supplies/wizardnecklace2.png')
     this.load.image('wolf', '../assets/images/supplies/wolf.png')
+
 
     // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
@@ -152,8 +152,9 @@ export default class extends Phaser.State {
     this.cursors = this.game.input.keyboard.createCursorKeys()
 
     // Import scoreboard and calculate score
-    this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
-    this.scoreboard.fixedToCamera = true
+    // this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
+    // this.scoreboard.fixedToCamera = true
+    
     function calculateScore () {
       const abilitiesIds = store.getState().userAbilities
       let sum = 0
@@ -163,15 +164,33 @@ export default class extends Phaser.State {
       return sum
     }
 
-    //just put abilities up to see how they look on scoreboard
-    this.potion = this.game.add.sprite(145,10, 'potion')
-    this.potion.fixedToCamera = true
+    //pull in supplies
+    function fetchSupplies() {
+      const abilitiesIds = store.getState().userAbilities
+      let images = []
+      for(let entry of abilitiesIds) {
+        images.push(store.getState().abilities.find(ability => ability.id === entry).image)
+      }
+      // images.map(image => {
+      //   sprite = this.add.image(100,100, image)
+      //   return sprite
+      // })
+      console.log(images)
+      return images
+    }
+
+    // fetchSupplies()
     
-    this.weapon = this.game.add.sprite(180,10, 'weapon')
-    this.weapon.fixedToCamera = true
-    
-    this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
-    this.scoreNum.fixedToCamera = true
+    // this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
+    // this.scoreNum.fixedToCamera = true
+
+    this.abilityImages = this.add.image(100, 100, fetchSupplies())
+    console.log('I wonder what this will log', this.abilityImages)
+    this.abilityImages.fixedToCamera = true
+
+    // let image = this.add.image(100,100, 'ring')
+
+
 
     // Logout Button
     this.logoutBtn = this.game.add.button(0, 80, 'logoutBtn', this.actionOnLogout, this)
