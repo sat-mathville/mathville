@@ -171,28 +171,30 @@ export default class extends Phaser.State {
       for(let entry of abilitiesIds) {
         images.push(store.getState().abilities.find(ability => ability.id === entry).image)
       }
+      console.log('the images', images)
       return images
     }
 
-    function imageX(x) {
-     return x+=150
-    }
-
-    function imageY(y) {
-      return y+=20
-    }
-
-    // fetchSupplies()
-
+    let x 
+    let y
     
-    let x = (store.getState().userAbilities.size) ? (store.getState().userAbilities.size)*150 : 150
-    let y = (store.getState().userAbilities.size) ? (store.getState().userAbilities.size)*20 : 20
+    for(let i = 1; i <= store.getState().userAbilities.size; i++){
+      x = (i * 50) + 130
+      y = i * 20
+      this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
+      this.abilityImages.scale.setTo(0.75)
+      this.abilityImages.fixedToCamera = true
+    }
     
-    this.scoreNum = this.add.text(this.scoreboard.x + 10, this.scoreboard.y + 20, `Score: ${calculateScore()}`)
-    this.scoreNum.fixedToCamera = true
 
-    this.abilityImages = this.add.image(imageX(x), imageY(y), fetchSupplies())
-    this.abilityImages.fixedToCamera = true
+    this.scoreNum = this.add.text(
+      this.scoreboard.x + 10,
+      this.scoreboard.y + 25,
+      `Score: ${calculateScore()}`,
+      {font: '25px Cinzel', fill: '#000', align: 'left'})
+    
+      this.scoreNum.fixedToCamera = true
+
 
 
 
@@ -201,11 +203,12 @@ export default class extends Phaser.State {
     this.logoutBtn.fixedToCamera = true
     this.logoutBtn.width = 100
     this.logoutBtn.height = 30
-    this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Times', fill: '#fff', align: 'center'})
+    this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
   }
 
   update () {
+    // this.keys(()=>{console.log(`TEST KEYS`)})
     this.game.physics.arcade.collide(this.boy, this.stations_3)
     this.game.physics.arcade.collide(this.boy, this.bakery)
     this.bakery.body.immovable = true
@@ -280,10 +283,10 @@ export default class extends Phaser.State {
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
-    const canvas = document.getElementsByTagName('canvas')[0]
-    canvas.remove()
-
+    // const canvas = document.getElementsByTagName('canvas')[0]
+    // canvas.remove()
     this.game.destroy()
+    delete window.game
   }
 
 
