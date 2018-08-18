@@ -28,40 +28,12 @@ export default class extends Phaser.State {
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
-    //supplies
-    this.load.image('apple', '../assets/images/supplies/apple.png')
-    // this.load.image('blacksmithglove1', '../assets/images/supplies/blacksmithglove1.png')
-    // this.load.image('blacksmithglove2', '../assets/images/supplies/blacksmithglove2.png')
-    // this.load.image('blacksmithshield1', '../assets/images/supplies/blacksmithshield1.png')
-    // this.load.image('blacksmithshield2', '../assets/images/supplies/blacksmithshield2.png')
-    // this.load.image('blacksmithshield3', '../assets/images/supplies/blacksmithshield3.png')
-    // this.load.image('blacksmithshield4', '../assets/images/supplies/blacksmithshield4.png')
-    // this.load.image('blacksmithweapon1', '../assets/images/supplies/blacksmithweapon1.png')
-    // this.load.image('blacksmithweapon2', '../assets/images/supplies/blacksmithweapon2.png')
+    //scoreboard supplies
     this.load.image('bread', '../assets/images/supplies/bread.png')
-    // this.load.image('bread2', '../assets/images/supplies/bread2.png')
-    // this.load.image('coins', '../assets/images/supplies/coins.png')
-    // this.load.image('demon', '../assets/images/supplies/demon.png')
-    // this.load.image('fruitcollection', '../assets/images/supplies/fruitcollection.png')
-    // this.load.image('ghost', '../assets/images/supplies/ghostcreature.png')
-    // this.load.image('glowingweapon', '../assets/images/supplies/glowingweapon.png')
-    // this.load.image('glowingweapon2', '../assets/images/supplies/glowingweapon.png')
-    // this.load.image('grapes', '../assets/images/supplies/grapes.png')
-    // this.load.image('magicstone', '../assets/images/supplies/magicstone.png')
-    // this.load.image('magicstone2', '../assets/images/supplies/magicstone2.png')
-    // this.load.image('meat', '../assets/images/supplies/meat.png')
-    // this.load.image('pear', '../assets/images/supplies/pear.png')
-    this.load.image('potion', '../assets/images/supplies/wizardpotion1.png')
-    this.load.image('potion2', '../assets/images/supplies/wizardpotion2.png')
-    // this.load.image('ring', '../assets/images/supplies/ring.png')
-    this.load.image('strawberry1', '../assets/images/supplies/strawberry1.png')
-    this.load.image('strawberry2', '../assets/images/supplies/strawberry2.png')
-    // this.load.image('wand1', '../assets/images/supplies/wand1.png')
-    // this.load.image('wand2', '../assets/images/supplies/wand2.png')
-    // this.load.image('wand3', '../assets/images/supplies/wand3.png')
-    // this.load.image('weapon', '../assets/images/supplies/glowingweapon.png')
-    // this.load.image('wizardnecklace1', '../assets/images/supplies/wizardnecklace1.png')
-    // this.load.image('wolf', '../assets/images/supplies/wolf.png')
+    this.load.image('potion', '../assets/images/supplies/potion.png')
+    this.load.image('strawberry', '../assets/images/supplies/strawberry2.png')
+    this.load.image('sword', '../assets/images/supplies/sword.png')
+
 
 
     // music
@@ -77,7 +49,7 @@ export default class extends Phaser.State {
   create () {
     // Load main map/world
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    this.game.world.setBounds(0, 0, 1920, 1080)
+    this.game.world.setBounds(0, 0, 1920, 1024)
     this.map = this.game.add.tilemap('map')
     this.grass = this.game.add.tilemap('grass')
     this.stations = this.game.add.tilemap('stations')
@@ -179,10 +151,16 @@ export default class extends Phaser.State {
     let y
     
     for(let i = 1; i <= store.getState().userAbilities.size; i++){
-      x = (i * 50) + 130
-      y = i * 20
+      x = (i * 50) + 110
+      // y = 30
+
+      i>4 ? y=50: y=10
+
+      // if(i>4){
+      //   y = 70
+      // }
+
       this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
-      this.abilityImages.scale.setTo(0.75)
       this.abilityImages.fixedToCamera = true
     }
     
@@ -239,7 +217,7 @@ export default class extends Phaser.State {
     this.farmer.animations.play('standing', 2, true)
     this.game.physics.arcade.overlap(this.boy, this.farmer, () => {
       if (!this.farmerOverlap) {
-        makeChatbox(['Hi there!', 'I have too many crops', 'Let me give you some strawberries', 'they are good for your health'], 'farmer', this)
+        makeChatbox(['Hi there!', 'I have too many crops', 'Let me give you some strawberries', 'they are good for your health'], 'Farmer', this)
         this.farmerOverlap = true
       }
     }, null, this)
