@@ -23,18 +23,21 @@ export default class extends Phaser.State {
     // tilemaps
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv', null, Phaser.Tilemap.CSV)
+    this.load.tilemap('bridge', '../assets/images/stations3_bridge_7.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('details', '../assets/images/stations3_details_4.csv', null, Phaser.Tilemap.CSV)
+    this.load.tilemap('flowers', '../assets/images/stations3_plants_5.csv', null, Phaser.Tilemap.CSV)
+    this.load.tilemap('trees', '../assets/images/stations3_plants_6.csv', null, Phaser.Tilemap.CSV)
+
     this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
+    this.load.image('towntrees', '../assets/images/townTrees.png')
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
-    //scoreboard supplies
+    // scoreboard supplies
     this.load.image('bread', '../assets/images/supplies/bread.png')
     this.load.image('potion', '../assets/images/supplies/potion.png')
     this.load.image('strawberry', '../assets/images/supplies/strawberry.png')
     this.load.image('sword', '../assets/images/supplies/sword.png')
-
-
 
     // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
@@ -52,12 +55,18 @@ export default class extends Phaser.State {
     this.game.world.setBounds(0, 0, 1920, 1024)
     this.map = this.game.add.tilemap('map')
     this.grass = this.game.add.tilemap('grass')
+    this.bridge = this.game.add.tilemap('bridge')
     this.stations = this.game.add.tilemap('stations')
     this.details = this.game.add.tilemap('details')
+    this.flowers = this.game.add.tilemap('flowers')
+    this.trees = this.game.add.tilemap('trees')
     this.map.addTilesetImage('tileset')
     this.grass.addTilesetImage('tileset')
     this.stations.addTilesetImage('tileset')
     this.details.addTilesetImage('tileset')
+    this.bridge.addTilesetImage('towntrees')
+    this.flowers.addTilesetImage('towntrees')
+    this.trees.addTilesetImage('towntrees')
 
     // Create BGM
     this.music = this.add.audio('music')
@@ -66,8 +75,11 @@ export default class extends Phaser.State {
     // Create layers
     this.land_1 = this.map.createLayer(0)
     this.grass_2 = this.grass.createLayer(0)
+    this.bridge_7 = this.bridge.createLayer(0)
     this.stations_3 = this.stations.createLayer(0)
     this.details_4 = this.details.createLayer(0)
+    this.flowers_5 = this.flowers.createLayer(0)
+    this.trees_6 = this.trees.createLayer(0)
 
     // set up barriers for the bakery
     this.bakery = this.game.add.sprite(680, 180, 'bakery')
@@ -78,6 +90,10 @@ export default class extends Phaser.State {
     // Set up physics (barriers) for walls and trees and stuff
     this.game.physics.arcade.enable(this.stations)
     this.stations.setCollisionBetween(0, 6080, true, this.stations_3)
+    this.game.physics.arcade.enable(this.flowers)
+    this.flowers.setCollisionBetween(0, 6080, true, this.flowers_5)
+    this.game.physics.arcade.enable(this.trees)
+    this.trees.setCollisionBetween(0, 6080, true, this.trees_6)
 
     // Create entrances to other game scenes
     this.door = this.game.add.sprite(1265, 268, 'door')
@@ -137,7 +153,7 @@ export default class extends Phaser.State {
       return sum
     }
 
-    //pull in supplies
+    // pull in supplies
     function fetchSupplies() {
       const abilitiesIds = store.getState().userAbilities
       let images = []
@@ -191,6 +207,8 @@ export default class extends Phaser.State {
   update () {
     // this.keys(()=>{console.log(`TEST KEYS`)})
     this.game.physics.arcade.collide(this.boy, this.stations_3)
+    this.game.physics.arcade.collide(this.boy, this.flowers_5)
+    this.game.physics.arcade.collide(this.boy, this.trees_6)
     this.game.physics.arcade.collide(this.boy, this.bakery)
     this.bakery.body.immovable = true
 
