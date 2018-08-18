@@ -1,15 +1,11 @@
 
 import Phaser from 'phaser'
 import store from '../store'
+import spriteUrl from './helperFunctions/spriteUrl'
 
 export default class extends Phaser.State {
   preload () {
-    const userCharacter = () => {
-      if (store.getState().user.character === 1) return '../assets/images/boy.png'
-      else if (store.getState().user.character === 2) return '../assets/images/girl.png'
-      else if (store.getState().user.character === 3) return '../assets/images/cat_fighter_sprite1.png'
-    }
-    this.load.spritesheet('boy', userCharacter(), 64, 64)
+    this.load.spritesheet('boy', spriteUrl(), 64, 64)
     this.load.spritesheet('wizard', '../assets/images/wizard_idle.png', 163, 185)
     this.load.tilemap('house', '../assets/images/WizardHouse_background1.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('wall', '../assets/images/WizardHouse_wall2.csv', null, Phaser.Tilemap.CSV)
