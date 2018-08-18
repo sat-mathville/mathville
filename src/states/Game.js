@@ -126,7 +126,7 @@ export default class extends Phaser.State {
     // Import scoreboard and calculate score
     this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
     this.scoreboard.fixedToCamera = true
-    
+
     function calculateScore () {
       const abilitiesIds = store.getState().userAbilities
       let sum = 0
@@ -147,9 +147,9 @@ export default class extends Phaser.State {
       return images
     }
 
-    let x 
+    let x
     let y
-    
+
     for(let i = 1; i <= store.getState().userAbilities.size; i++){
       x = (i * 50) + 110
       // y = 30
@@ -163,14 +163,14 @@ export default class extends Phaser.State {
       this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
       this.abilityImages.fixedToCamera = true
     }
-    
+
 
     this.scoreNum = this.add.text(
       this.scoreboard.x + 10,
       this.scoreboard.y + 25,
       `Score: ${calculateScore()}`,
       {font: '25px Cinzel', fill: '#000', align: 'left'})
-    
+
       this.scoreNum.fixedToCamera = true
 
 
@@ -217,7 +217,12 @@ export default class extends Phaser.State {
     this.farmer.animations.play('standing', 2, true)
     this.game.physics.arcade.overlap(this.boy, this.farmer, () => {
       if (!this.farmerOverlap) {
-        makeChatbox(['Hi there!', 'I have too many crops', 'Let me give you some strawberries', 'they are good for your health'], 'Farmer', this)
+        makeChatbox([
+          'Hi there!',
+          'I have too many crops.',
+          'Let me give you some strawberries.',
+          'They are good for your health.'
+        ], 'Farmer', this)
         this.farmerOverlap = true
       }
     }, null, this)
@@ -226,7 +231,7 @@ export default class extends Phaser.State {
     this.warrior.animations.play('standing', 2, true)
     this.game.physics.arcade.overlap(this.boy, this.warrior, () => {
       if (!this.warriorOverlap) {
-        makeChatbox(['Hi!', 'The forbidden forest is very dangerous', 'Be prepared!', 'Here is a sword'], 'Warrior', this)
+        makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a sword.'], 'Warrior', this)
         this.warriorOverlap = true
       }
     }, null, this)
@@ -234,7 +239,7 @@ export default class extends Phaser.State {
     this.fisherman.animations.play('standing', 1, true)
     this.game.physics.arcade.overlap(this.boy, this.fisherman, () => {
       if (!this.fishermanOverlap) {
-        makeChatbox(['Hey!', 'I have extra fish', 'Let me give you some', 'they are good for your strength'], 'Fisherman', this)
+        makeChatbox(['Hey!', 'I have extra fish.', 'Let me give you some.', 'They are good for your strength.'], 'Fisherman', this)
         this.fishermanOverlap = true
       }
     }, null, this)
@@ -261,8 +266,6 @@ export default class extends Phaser.State {
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
-    // const canvas = document.getElementsByTagName('canvas')[0]
-    // canvas.remove()
     this.game.destroy()
     delete window.game
   }
