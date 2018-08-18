@@ -27,7 +27,6 @@ export default class extends Phaser.State {
 
     // music
     this.load.audio('music', '../assets/sounds/foggywoods.mp3')
-    this.load.audio('scream', '../assets/sounds/scream.m4a')
   }
 
   create () {
@@ -35,9 +34,6 @@ export default class extends Phaser.State {
     this.music = this.add.audio('music')
     this.music.volume = 0.5
     this.music.play()
-
-    this.scream = this.add.audio('scream')
-    this.scream.volume = 0.5
 
     this.overlap = false
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
@@ -64,7 +60,7 @@ export default class extends Phaser.State {
     this.rose = this.game.add.sprite(627, 368, 'rose')
     this.createMonsters(this.rose, 'horizontal', 50)
 
-    this.gnome = this.game.add.sprite(32, 485, 'gnome')
+    this.gnome = this.game.add.sprite(32, 215, 'gnome')
     this.createMonsters(this.gnome, 'horizontal', 50)
 
     this.spider = this.game.add.sprite(448, 131, 'spider')
@@ -162,5 +158,9 @@ export default class extends Phaser.State {
       this.game.camera.resetFX()
       this.boy.x = this.world.centerX + 260
       this.boy.y = this.world.centerY }, 1500)
+  }
+
+  render () {
+    this.game.debug.spriteInfo(this.boy, 20, 32)
   }
 }
