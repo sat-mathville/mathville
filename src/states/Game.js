@@ -34,10 +34,12 @@ export default class extends Phaser.State {
     this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
     // scoreboard supplies
+    this.load.image('bag', '../assets/images/supplies/bag.png')
     this.load.image('bread', '../assets/images/supplies/bread.png')
-    this.load.image('potion', '../assets/images/supplies/potion.png')
+    this.load.image('potion', '../assets/images/supplies/potion2.png')
     this.load.image('strawberry', '../assets/images/supplies/strawberry.png')
     this.load.image('sword', '../assets/images/supplies/sword.png')
+    this.load.image('wand', '../assets/images/supplies/wand2.png')
 
     // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
@@ -142,7 +144,10 @@ export default class extends Phaser.State {
     // Import scoreboard and calculate score
     this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
     this.scoreboard.fixedToCamera = true
-    this.scoreboard.scale.setTo(1.3)
+    this.scoreboard.scale.setTo(1)
+    this.bag = this.game.add.sprite(173,5, 'bag')
+    this.bag.fixedToCamera = true
+    this.bag.scale.setTo(1.11)
 
     function calculateScore () {
       const abilitiesIds = store.getState().userAbilities
@@ -168,15 +173,15 @@ export default class extends Phaser.State {
     let y
 
     for(let i = 1; i <= store.getState().userAbilities.size; i++){
-      x = (i * 50) + 110
+      x = (i * 35) + 140
       let xcount = 0
 
       if(i>4){
-        y=50
-        x=(xcount*50) + 160
+        y=45
+        x=(xcount*35) + 174
         xcount++
       } else {
-        y=10
+        y=9
       }
 
       this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
