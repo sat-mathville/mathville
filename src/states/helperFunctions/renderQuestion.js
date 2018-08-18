@@ -46,7 +46,7 @@ export default function renderQuestion (text, gameState) {
     gameState.currentQuestionText = gameState.add.text(
       gameState.game.camera.width / 2 - 830,
       gameState.game.camera.height / 6,
-      wrap(gameState.questions[gameState.currentQuestion].content, 45),
+      wrap(`${gameState.currentQuestion + 1}. ${gameState.questions[gameState.currentQuestion].content}`, 45),
       {
         font: '35px VT323',
         fill: colors[gameState.currentQuestion],
@@ -64,6 +64,18 @@ export default function renderQuestion (text, gameState) {
       {
         font: '45px VT323',
         fill: colors[gameState.currentQuestion],
+        smoothed: false,
+        align: 'left'
+      }
+    )
+
+    gameState.percentage = gameState.add.text(
+      gameState.game.camera.width / 2 + 50,
+      gameState.game.camera.height / 5 + 500,
+      `SCORE: ${gameState.score}/${gameState.questions.length}`,
+      {
+        font: '45px VT323',
+        fill: '#29AB87',
         smoothed: false,
         align: 'left'
       }
