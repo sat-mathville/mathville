@@ -18,6 +18,7 @@ export default function renderQuestion (text, gameState) {
       store.dispatch(addNewAbilityThunk(id))
     }
     gameState.currentQuestionText.destroy()
+    gameState.percentage.destroy()
     for (let key in gameState.buttons) {
       gameState.buttons[key].destroy()
     }
@@ -41,6 +42,7 @@ export default function renderQuestion (text, gameState) {
     if (Object.keys(gameState.currentQuestionText).length > 0) {
       gameState.currentQuestionText.destroy()
       gameState.choice.destroy()
+      gameState.percentage.destroy()
     }
     gameState.currentQuestion++
     gameState.currentQuestionText = gameState.add.text(
@@ -107,7 +109,6 @@ export default function renderQuestion (text, gameState) {
       gameState.buttons[i].input.enableDrag()
       gameState.buttons[i].events.onInputUp.add(
         () => {
-          console.log(gameState.buttons[i].x, gameState.buttons[i].y)
           if (gameState.buttons[i].x > gameState.choice.x + 400 &&
               gameState.buttons[i].x < gameState.choice.x + 600 &&
               gameState.buttons[i].y > gameState.choice.y - 30 &&
@@ -124,7 +125,6 @@ export default function renderQuestion (text, gameState) {
           }
         }
       )
-      console.log(gameState.buttons[i])
     }
   }
 }
