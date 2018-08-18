@@ -107,8 +107,11 @@ export default function renderQuestion (text, gameState) {
       gameState.buttons[i].input.enableDrag()
       gameState.buttons[i].events.onInputUp.add(
         () => {
-          if (gameState.buttons[i].x > 450 && gameState.buttons[i].x < 650 &&
-              gameState.buttons[i].y > 470 && gameState.buttons[i].y < 530) {
+          console.log(gameState.buttons[i].x, gameState.buttons[i].y)
+          if (gameState.buttons[i].x > gameState.choice.x + 400 &&
+              gameState.buttons[i].x < gameState.choice.x + 600 &&
+              gameState.buttons[i].y > gameState.choice.y - 30 &&
+              gameState.buttons[i].y < gameState.choice.y + 30) {
             if (answers[i] === gameState.questions[gameState.currentQuestion].option1) {
               gameState.yay.play()
               gameState.buttons[i].fill = '#00FF00'
@@ -121,6 +124,7 @@ export default function renderQuestion (text, gameState) {
           }
         }
       )
+      console.log(gameState.buttons[i])
     }
   }
 }
