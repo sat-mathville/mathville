@@ -88,6 +88,12 @@ async function seed () {
     image: 'sword',
     value: 4
   })
+  abilities[4] = await Ability.create({
+    name: 'wand',
+    type: 'magic',
+    image: 'wand2',
+    value: 5
+  })
 
   // SETTING ASSOCIATIONS
   for (let i = 0; i < basicArithmetic.length; i++) {
