@@ -22,7 +22,8 @@ export default function renderQuestion (text, gameState) {
       gameState.buttons[key].destroy()
     }
     const finalOutput = gameState.add.text(
-      100, 100,
+      gameState.game.camera.width / 2 - 825,
+      gameState.game.camera.height / 3,
       renderFinalOutput(gameState.score, gameState.questions.length, id
       ), {
         font: '45px VT323',
@@ -43,8 +44,8 @@ export default function renderQuestion (text, gameState) {
     }
     gameState.currentQuestion++
     gameState.currentQuestionText = gameState.add.text(
-      100,
-      100,
+      gameState.game.camera.width / 2 - 830,
+      gameState.game.camera.height / 6,
       wrap(gameState.questions[gameState.currentQuestion].content, 45),
       {
         font: '35px VT323',
@@ -57,8 +58,8 @@ export default function renderQuestion (text, gameState) {
     gameState.currentQuestionText.events.onInputDown.add(() => { renderQuestion(text, gameState) }, gameState)
 
     gameState.choice = gameState.add.text(
-      100,
-      500,
+      gameState.game.camera.width / 2 - 830,
+      gameState.game.camera.height / 5 + 500,
       'Drag your answer here: _____________',
       {
         font: '45px VT323',
@@ -81,8 +82,8 @@ export default function renderQuestion (text, gameState) {
         gameState.buttons[i].destroy()
       }
       gameState.buttons[i] = gameState.add.text(
-        900,
-        100 + (i * 50),
+        gameState.game.camera.width / 2 + 100,
+        gameState.game.camera.height / 6 + (i * 50),
         answers[i],
         {
           font: '35px VT323',

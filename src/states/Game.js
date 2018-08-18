@@ -36,7 +36,7 @@ export default class extends Phaser.State {
     // scoreboard supplies
     this.load.image('bread', '../assets/images/supplies/bread.png')
     this.load.image('potion', '../assets/images/supplies/potion.png')
-    this.load.image('strawberry', '../assets/images/supplies/strawberry2.png')
+    this.load.image('strawberry', '../assets/images/supplies/strawberry.png')
     this.load.image('sword', '../assets/images/supplies/sword.png')
 
     // music
@@ -142,6 +142,7 @@ export default class extends Phaser.State {
     // Import scoreboard and calculate score
     this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
     this.scoreboard.fixedToCamera = true
+    this.scoreboard.scale.setTo(1.3)
 
     function calculateScore () {
       const abilitiesIds = store.getState().userAbilities
@@ -168,13 +169,15 @@ export default class extends Phaser.State {
 
     for(let i = 1; i <= store.getState().userAbilities.size; i++){
       x = (i * 50) + 110
-      // y = 30
+      let xcount = 0
 
-      i>4 ? y=50: y=10
-
-      // if(i>4){
-      //   y = 70
-      // }
+      if(i>4){
+        y=50
+        x=(xcount*50) + 160
+        xcount++
+      } else {
+        y=10
+      }
 
       this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
       this.abilityImages.fixedToCamera = true
@@ -193,7 +196,7 @@ export default class extends Phaser.State {
 
 
     // Logout Button
-    this.logoutBtn = this.game.add.button(0, 80, 'logoutBtn', this.actionOnLogout, this)
+    this.logoutBtn = this.game.add.button(0, 100, 'logoutBtn', this.actionOnLogout, this)
     this.logoutBtn.fixedToCamera = true
     this.logoutBtn.width = 100
     this.logoutBtn.height = 30
