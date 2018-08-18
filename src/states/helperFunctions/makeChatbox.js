@@ -1,11 +1,14 @@
 import wrap from './wrap'
+import { Key } from 'phaser-ce';
 
 export default function makeChatbox (dialogue, npc, gameState, newState, counter = 0) {
   if (!counter) {
-    gameState.spacebar = gameState.game.input.keyboard.addCallbacks(gameState, null, null, () => {
+    gameState.spacebar = gameState.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+    gameState.spacebar.onDown.add(() => {
       counter++
       makeChatbox(dialogue, npc, gameState, newState, counter)
-    })
+    }, gameState)
+
   }
   if (counter < dialogue.length) {
     if (gameState.banner) {
@@ -42,8 +45,8 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
         gameState.banner.text = npc + ': ' + words.slice(0, i + 1).join(' ')
       }, 200 * i)
     }
-
   } else {
+    gameState.game.input.keyboard.removeKey(Phaser.KeyCode.SPACEBAR)
     if (newState) {
       if (gameState.music) gameState.music.stop()
       gameState.game.state.start(newState)
@@ -52,7 +55,6 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
       delete gameState.chatbox
       gameState.banner.destroy()
       delete gameState.banner
-      gameState.spacebar.destroy()
     }
   }
 }

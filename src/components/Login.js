@@ -32,11 +32,9 @@ export default class Login extends Component {
     })
   }
   handleChange (event) {
-    console.log('handle Change name', event.target.name, 'event.target.value:', event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log('handleChange', this.state)
   }
   handleSubmit (event) {
     event.preventDefault()
@@ -71,15 +69,13 @@ export default class Login extends Component {
       return (
         <div className='container'>
           <h1>Welcome to Mathville!</h1>
+          <h2>Login</h2>
           <form className='loginForm' onSubmit={this.handleSubmit}>
-            <label>Email:
             <input placeholder='Enter Email'name='email' type='text' value={this.state.email} onChange={this.handleChange}/>
-            </label>
-            <label>Password:
             <input placeholder='Enter Password' name='password' type='password' value={this.state.password} onChange={this.handleChange}/>
-            </label>
             <button className='submitButton' type='submit'>Submit</button>
           </form>
+          <h2>Don’t have an account? You can...</h2>
           <button className='signUpButton' name='signUp' value='true' onClick={this.handleChange}>Sign-Up</button>
         </div>
       )
@@ -87,26 +83,19 @@ export default class Login extends Component {
     return (
       <div className='container'>
         <h1>Welcome to Mathville!</h1>
+        <h2>Sign Up</h2>
         <form className='signInForm' onSubmit={this.handleSubmitSignUp}>
-          <label>Username:
           <input placeholder='Enter Username' name='username' type='text' value={this.state.username} onChange={this.handleChange}/>
-          </label>
-          <label>Email:
           <input placeholder='Enter Email' name='email' type='text' value={this.state.email} onChange={this.handleChange}/>
-          </label>
-          <label>Password:
-          <input placeholder='Enter Password'name='password' type='text' value={this.state.password} onChange={this.handleChange}/>
-          </label>
-          <label>Select Character:
+          <input placeholder='Enter Password'name='password' type='password' value={this.state.password} onChange={this.handleChange}/>
           <select id='characterDropdown' name='character' onChange={this.handleChange}>
-            <option value='default'>--</option>
+            <option value='default'>Select Character</option>
             <option value='1'>Boy</option>
             <option value='2'>Girl</option>
-            <option value='3'>Animal</option>
           </select>
-          </label>
           <button className='submitButton' type='submit'>Submit</button>
         </form>
+        <h2>Have an account already? You can...</h2>
         <button className='submitButton'name='signUp' value='false' onClick={this.handleChange}>Login</button>
       </div>
     )

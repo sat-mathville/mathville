@@ -73,7 +73,7 @@ async function seed () {
   abilities[1] = await Ability.create({
     name: 'Strawberry',
     type: 'healing',
-    image: 'strawberry1',
+    image: 'strawberry',
     value: 8
   })
   abilities[2] = await Ability.create({
@@ -85,7 +85,7 @@ async function seed () {
   abilities[3] = await Ability.create({
     name: 'sword',
     type: 'weaponry',
-    image: 'weapon',
+    image: 'sword',
     value: 4
   })
 
