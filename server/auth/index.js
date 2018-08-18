@@ -26,7 +26,8 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    const user = await User.create(req.body)
+    const {username, email, password, character} = req.body
+    const user = await User.create({username, email, password, character})
     const abilities = []
       const data = {
         user,

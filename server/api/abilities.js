@@ -12,6 +12,7 @@ router.get('/', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
+  if (!req.user) res.sendStatus(401)
   try {
     const [user, ability] = await Promise.all([
       User.findById(req.user.id),
