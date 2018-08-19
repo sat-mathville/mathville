@@ -25,6 +25,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('wizardhouse', '../assets/images/wizardHouse/wizardhouse.png')
     this.load.spritesheet('sign1', '../assets/images/signPosts/signpost1.png')
     this.load.spritesheet('sign2', '../assets/images/signPosts/signpost2.png')
+    this.load.spritesheet('sign3', '../assets/images/signPosts/signpost1.png')
     
     // tilemaps
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv', null, Phaser.Tilemap.CSV)
@@ -124,6 +125,11 @@ export default class extends Phaser.State {
     this.signpost2.scale.setTo(1.8)
     this.game.physics.enable(this.signpost2, Phaser.Physics.ARCADE)
     this.game.physics.arcade.enable(this.signpost2)
+
+    this.signpost3 = this.game.add.sprite(350, 326, 'sign3')
+    this.signpost3.scale.setTo(1.4)
+    this.game.physics.enable(this.signpost3, Phaser.Physics.ARCADE)
+    this.game.physics.arcade.enable(this.signpost3)
 
     //reducing the collision size around wizard house to let character get closer to the door
     this.wizardhouse.body.width = 140;    
@@ -250,6 +256,7 @@ export default class extends Phaser.State {
     //sign post text
     this.txt = this.add.text(655, 274, "Bakery",  {font:"12px Baloo Bhai", fill:"#000", align:"center"})
     this.txt = this.add.text(1040, 255, "Wizard",  {font:"12px Baloo Bhai", fill:"#000", align:"center"})
+    this.txt = this.add.text(355, 340, "Forest",  {font:"12px Baloo Bhai", fill:"#000", align:"center"})
     
   }
 
@@ -266,6 +273,7 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.wizardhouse)
     this.game.physics.arcade.collide(this.boy, this.signpost1)
     this.game.physics.arcade.collide(this.boy, this.signpost2)
+    this.game.physics.arcade.collide(this.boy, this.signpost3)
     this.bakery.body.immovable = true
     this.house1.body.immovable = true
     this.house2.body.immovable = true
@@ -274,6 +282,7 @@ export default class extends Phaser.State {
     this.wizardhouse.body.immovable = true
     this.signpost1.body.immovable = true
     this.signpost2.body.immovable = true
+    this.signpost3.body.immovable = true
 
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
       store.dispatch(setCoord([
@@ -354,7 +363,4 @@ export default class extends Phaser.State {
     delete window.game
   }
 
-  render(){
-    this.game.debug.body(this.house2);
-  }
 }
