@@ -23,6 +23,8 @@ export default class extends Phaser.State {
     this.load.spritesheet('house2', '../assets/images/houses/house2.png')
     this.load.spritesheet('house3', '../assets/images/houses/house3.png')
     this.load.spritesheet('wizardhouse', '../assets/images/wizardHouse/wizardhouse.png')
+    this.load.spritesheet('sign1', '../assets/images/signPosts/signpost1.png')
+    this.load.spritesheet('sign2', '../assets/images/signPosts/signpost2.png')
     
     // tilemaps
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv', null, Phaser.Tilemap.CSV)
@@ -113,6 +115,15 @@ export default class extends Phaser.State {
     this.game.physics.enable(this.wizardhouse, Phaser.Physics.ARCADE)
     this.game.physics.arcade.enable(this.wizardhouse)
 
+    this.signpost1 = this.game.add.sprite(650, 258, 'sign1')
+    this.signpost1.scale.setTo(1.5)
+    this.game.physics.enable(this.signpost1, Phaser.Physics.ARCADE)
+    this.game.physics.arcade.enable(this.signpost1)
+
+    this.signpost2 = this.game.add.sprite(1030, 244, 'sign2')
+    this.signpost2.scale.setTo(1.8)
+    this.game.physics.enable(this.signpost2, Phaser.Physics.ARCADE)
+    this.game.physics.arcade.enable(this.signpost2)
 
     //reducing the collision size around wizard house to let character get closer to the door
     this.wizardhouse.body.width = 140;    
@@ -194,7 +205,6 @@ export default class extends Phaser.State {
       for(let entry of abilitiesIds) {
         images.push(store.getState().abilities.find(ability => ability.id === entry).image)
       }
-      console.log('the images', images)
       return images
     }
 
@@ -236,6 +246,11 @@ export default class extends Phaser.State {
     this.logoutBtn.height = 30
     this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
+
+    //sign post text
+    this.txt = this.add.text(655, 274, "Bakery",  {font:"12px Baloo Bhai", fill:"#000", align:"center"})
+    this.txt = this.add.text(1040, 255, "Wizard",  {font:"12px Baloo Bhai", fill:"#000", align:"center"})
+    
   }
 
   update () {
@@ -249,12 +264,16 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.house3)
     this.game.physics.arcade.collide(this.boy, this.house4)
     this.game.physics.arcade.collide(this.boy, this.wizardhouse)
+    this.game.physics.arcade.collide(this.boy, this.signpost1)
+    this.game.physics.arcade.collide(this.boy, this.signpost2)
     this.bakery.body.immovable = true
     this.house1.body.immovable = true
     this.house2.body.immovable = true
     this.house3.body.immovable = true
     this.house4.body.immovable = true
     this.wizardhouse.body.immovable = true
+    this.signpost1.body.immovable = true
+    this.signpost2.body.immovable = true
 
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
       store.dispatch(setCoord([
@@ -333,5 +352,9 @@ export default class extends Phaser.State {
     store.dispatch(auth({}, 'logout'))
     this.game.destroy()
     delete window.game
+  }
+
+  render(){
+    this.game.debug.body(this.house2);
   }
 }
