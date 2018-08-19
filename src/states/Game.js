@@ -13,7 +13,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('farmer', '../assets/images/characters/farmer.png', 64, 64)
     this.load.spritesheet('warrior', '../assets/images/characters/warrior.png', 64, 64)
     this.load.spritesheet('fisherman', '../assets/images/characters/fisherman.png', 64, 64)
-
+    
     // objects
     this.load.spritesheet('door', '../assets/images/door.png', 105, 111)
     this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png', 105, 111)
@@ -22,7 +22,8 @@ export default class extends Phaser.State {
     this.load.spritesheet('house1', '../assets/images/houses/house.png')
     this.load.spritesheet('house2', '../assets/images/houses/house2.png')
     this.load.spritesheet('house3', '../assets/images/houses/house3.png')
-
+    this.load.spritesheet('wizardhouse', '../assets/images/wizardHouse/wizardhouse.png')
+    
     // tilemaps
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv', null, Phaser.Tilemap.CSV)
@@ -107,6 +108,16 @@ export default class extends Phaser.State {
     this.game.physics.enable(this.house4, Phaser.Physics.ARCADE)
     this.game.physics.arcade.enable(this.house4)
 
+    this.wizardhouse = this.game.add.sprite(890,10, 'wizardhouse')
+    this.wizardhouse.scale.setTo(0.35)
+    this.game.physics.enable(this.wizardhouse, Phaser.Physics.ARCADE)
+    this.game.physics.arcade.enable(this.wizardhouse)
+
+
+    //reducing the collision size around wizard house to let character get closer to the door
+    this.wizardhouse.body.width = 140;    
+    this.wizardhouse.body.height = 250;
+
     // Set up physics (barriers) for walls and trees and stuff
     this.game.physics.arcade.enable(this.stations)
     this.stations.setCollisionBetween(0, 6080, true, this.stations_3)
@@ -116,8 +127,8 @@ export default class extends Phaser.State {
     this.trees.setCollisionBetween(0, 6080, true, this.trees_6)
 
     // Create entrances to other game scenes
-    this.door = this.game.add.sprite(1265, 268, 'door')
-    this.door.scale.setTo(0.5)
+    this.door = this.game.add.sprite(952, 255, 'door')
+    this.door.scale.setTo(0.3)
     this.game.physics.enable(this.door, Phaser.Physics.ARCADE)
 
     this.bakerydoor = this.game.add.sprite(744, 277, 'bakerydoor')
@@ -237,11 +248,13 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.house2)
     this.game.physics.arcade.collide(this.boy, this.house3)
     this.game.physics.arcade.collide(this.boy, this.house4)
+    this.game.physics.arcade.collide(this.boy, this.wizardhouse)
     this.bakery.body.immovable = true
     this.house1.body.immovable = true
     this.house2.body.immovable = true
     this.house3.body.immovable = true
     this.house4.body.immovable = true
+    this.wizardhouse.body.immovable = true
 
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
       store.dispatch(setCoord([
@@ -321,5 +334,4 @@ export default class extends Phaser.State {
     this.game.destroy()
     delete window.game
   }
-
 }
