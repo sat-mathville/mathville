@@ -1,9 +1,10 @@
 import store, {addNewAbilityThunk} from '../../store'
-import correctAnswer from './correctAnswer'
-import renderFinalOutput from './renderFinalOutputMsg'
 import wrap from './wrap'
 
-export default function renderGift(){
-    if(!(store.getState().userAbilities.has(id)))
+export default function renderGift(id){
+    if(!(store.getState().userAbilities.has(id))){
         store.dispatch(addNewAbilityThunk(id))
+    }
+        console.log('woops')
+        // return 'I am not undefined'
 }

@@ -5,7 +5,7 @@ import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
-import villagerGifts from './helperFunctions/villagerGifts'
+import renderGift from './helperFunctions/villagerGifts'
 
 export default class extends Phaser.State {
   preload () {
@@ -48,6 +48,7 @@ export default class extends Phaser.State {
     this.load.image('strawberry', '../assets/images/supplies/strawberry.png')
     this.load.image('sword', '../assets/images/supplies/sword.png')
     this.load.image('wand', '../assets/images/supplies/wand2.png')
+    this.load.image('fish', '../assets/images/supplies/fish.png')
 
     // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
@@ -313,6 +314,7 @@ export default class extends Phaser.State {
           'They are good for your health.'
         ], 'Farmer', this)
         this.farmerOverlap = true
+        //this.renderGift()
       }
     }, null, this)
 
@@ -322,7 +324,7 @@ export default class extends Phaser.State {
       if (!this.warriorOverlap) {
         makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a sword.'], 'Warrior', this)
         this.warriorOverlap = true
-        this.villagerGifts()
+        // this.renderGift()
       }
     }, null, this)
 
@@ -331,6 +333,7 @@ export default class extends Phaser.State {
       if (!this.fishermanOverlap) {
         makeChatbox(['Hey!', 'I have extra fish.', 'Let me give you some.', 'They are good for your strength.'], 'Fisherman', this)
         this.fishermanOverlap = true
+        renderGift(6)
       }
     }, null, this)
 

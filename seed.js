@@ -94,6 +94,12 @@ async function seed () {
     image: 'wand2',
     value: 5
   })
+  abilities[5] = await Ability.create({
+    name: 'fish',
+    type: 'strength',
+    image: 'fish',
+    value: 5
+  })
 
   // SETTING ASSOCIATIONS
   for (let i = 0; i < basicArithmetic.length; i++) {
