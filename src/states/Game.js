@@ -1,11 +1,10 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store, {auth, setCoord} from '../store'
+import store, {auth, setCoord, addNewAbilityThunk} from '../store'
 import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
-import renderGift from './helperFunctions/villagerGifts'
 
 export default class extends Phaser.State {
   preload () {
@@ -47,6 +46,7 @@ export default class extends Phaser.State {
     this.load.image('potion', '../assets/images/supplies/potion2.png')
     this.load.image('strawberry', '../assets/images/supplies/strawberry.png')
     this.load.image('sword', '../assets/images/supplies/sword.png')
+    this.load.image('sword2', '../assets/images/supplies/sword2.png')
     this.load.image('wand', '../assets/images/supplies/wand2.png')
     this.load.image('fish', '../assets/images/supplies/fish.png')
 
@@ -206,36 +206,6 @@ export default class extends Phaser.State {
       return sum
     }
 
-    // pull in supplies
-    function fetchSupplies() {
-      const abilitiesIds = store.getState().userAbilities
-      let images = []
-      for(let entry of abilitiesIds) {
-        images.push(store.getState().abilities.find(ability => ability.id === entry).image)
-      }
-      return images
-    }
-
-    let x
-    let y
-
-    for(let i = 1; i <= store.getState().userAbilities.size; i++){
-      x = (i * 35) + 140
-      let xcount = 0
-
-      if(i>4){
-        y=45
-        x=(xcount*35) + 174
-        xcount++
-      } else {
-        y=9
-      }
-
-      this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
-      this.abilityImages.fixedToCamera = true
-    }
-
-
     this.scoreNum = this.add.text(
       this.scoreboard.x + 10,
       this.scoreboard.y + 25,
@@ -314,7 +284,8 @@ export default class extends Phaser.State {
           'They are good for your health.'
         ], 'Farmer', this)
         this.farmerOverlap = true
-        //this.renderGift()
+        store.dispatch(addNewAbilityThunk(2))
+
       }
     }, null, this)
 
@@ -324,7 +295,7 @@ export default class extends Phaser.State {
       if (!this.warriorOverlap) {
         makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a sword.'], 'Warrior', this)
         this.warriorOverlap = true
-        // this.renderGift()
+        store.dispatch(addNewAbilityThunk(7))
       }
     }, null, this)
 
@@ -333,9 +304,39 @@ export default class extends Phaser.State {
       if (!this.fishermanOverlap) {
         makeChatbox(['Hey!', 'I have extra fish.', 'Let me give you some.', 'They are good for your strength.'], 'Fisherman', this)
         this.fishermanOverlap = true
-        renderGift(6)
+        store.dispatch(addNewAbilityThunk(6))
       }
     }, null, this)
+
+
+      // pull in supplies
+      function fetchSupplies() {
+        const abilitiesIds = store.getState().userAbilities
+        let images = []
+        for(let entry of abilitiesIds) {
+          images.push(store.getState().abilities.find(ability => ability.id === entry).image)
+        }
+        return images
+      }
+  
+      let x
+      let y
+  
+      for(let i = 1; i <= store.getState().userAbilities.size; i++){
+        x = (i * 35) + 140
+        let xcount = 0
+  
+        if(i>4){
+          y=45
+          x=(xcount*35) + 174
+          xcount++
+        } else {
+          y=9
+        }
+  
+        this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
+        this.abilityImages.fixedToCamera = true
+      }
 
     if (this.cursors.left.isDown) {
       this.boy.body.velocity.x = -200
