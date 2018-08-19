@@ -25,7 +25,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('wizardhouse', '../assets/images/wizardHouse/wizardhouse.png')
     this.load.spritesheet('sign1', '../assets/images/signPosts/signpost1.png')
     this.load.spritesheet('sign2', '../assets/images/signPosts/signpost2.png')
-    this.load.spritesheet('sign3', '../assets/images/signPosts/signpost1.png')
+    this.load.spritesheet('sign3', '../assets/images/signPosts/signpost3.png')
     
     // tilemaps
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv', null, Phaser.Tilemap.CSV)
@@ -117,17 +117,17 @@ export default class extends Phaser.State {
     this.game.physics.arcade.enable(this.wizardhouse)
 
     this.signpost1 = this.game.add.sprite(650, 258, 'sign1')
-    this.signpost1.scale.setTo(1.5)
+    this.signpost1.scale.setTo(1)
     this.game.physics.enable(this.signpost1, Phaser.Physics.ARCADE)
     this.game.physics.arcade.enable(this.signpost1)
 
     this.signpost2 = this.game.add.sprite(1030, 244, 'sign2')
-    this.signpost2.scale.setTo(1.8)
+    this.signpost2.scale.setTo(0.9)
     this.game.physics.enable(this.signpost2, Phaser.Physics.ARCADE)
     this.game.physics.arcade.enable(this.signpost2)
 
     this.signpost3 = this.game.add.sprite(350, 326, 'sign3')
-    this.signpost3.scale.setTo(1.4)
+    this.signpost3.scale.setTo(1)
     this.game.physics.enable(this.signpost3, Phaser.Physics.ARCADE)
     this.game.physics.arcade.enable(this.signpost3)
 
@@ -246,18 +246,13 @@ export default class extends Phaser.State {
 
 
     // Logout Button
-    this.logoutBtn = this.game.add.button(0, 100, 'logoutBtn', this.actionOnLogout, this)
+    this.logoutBtn = this.game.add.button(0, 80, 'logoutBtn', this.actionOnLogout, this)
     this.logoutBtn.fixedToCamera = true
     this.logoutBtn.width = 100
     this.logoutBtn.height = 30
     this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
 
-    //sign post text
-    this.txt = this.add.text(655, 274, "Bakery",  {font:"12px Baloo Bhai", fill:"#000", align:"center"})
-    this.txt = this.add.text(1040, 255, "Wizard",  {font:"12px Baloo Bhai", fill:"#000", align:"center"})
-    this.txt = this.add.text(355, 340, "Forest",  {font:"12px Baloo Bhai", fill:"#000", align:"center"})
-    
   }
 
   update () {
