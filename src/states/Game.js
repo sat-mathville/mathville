@@ -13,7 +13,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('farmer', '../assets/images/characters/farmer.png', 64, 64)
     this.load.spritesheet('warrior', '../assets/images/characters/warrior.png', 64, 64)
     this.load.spritesheet('fisherman', '../assets/images/characters/fisherman.png', 64, 64)
-
+    
     // objects
     this.load.spritesheet('door', '../assets/images/door.png', 105, 111)
     this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png', 105, 111)
@@ -22,7 +22,11 @@ export default class extends Phaser.State {
     this.load.spritesheet('house1', '../assets/images/houses/house.png')
     this.load.spritesheet('house2', '../assets/images/houses/house2.png')
     this.load.spritesheet('house3', '../assets/images/houses/house3.png')
-
+    this.load.spritesheet('wizardhouse', '../assets/images/wizardHouse/wizardhouse.png')
+    this.load.spritesheet('sign1', '../assets/images/signPosts/signpost1.png')
+    this.load.spritesheet('sign2', '../assets/images/signPosts/signpost2.png')
+    this.load.spritesheet('sign3', '../assets/images/signPosts/signpost3.png')
+    
     // tilemaps
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv', null, Phaser.Tilemap.CSV)
@@ -107,6 +111,30 @@ export default class extends Phaser.State {
     this.game.physics.enable(this.house4, Phaser.Physics.ARCADE)
     this.game.physics.arcade.enable(this.house4)
 
+    this.wizardhouse = this.game.add.sprite(890,10, 'wizardhouse')
+    this.wizardhouse.scale.setTo(0.35)
+    this.game.physics.enable(this.wizardhouse, Phaser.Physics.ARCADE)
+    this.game.physics.arcade.enable(this.wizardhouse)
+
+    this.signpost1 = this.game.add.sprite(650, 258, 'sign1')
+    this.signpost1.scale.setTo(1)
+    this.game.physics.enable(this.signpost1, Phaser.Physics.ARCADE)
+    this.game.physics.arcade.enable(this.signpost1)
+
+    this.signpost2 = this.game.add.sprite(1030, 244, 'sign2')
+    this.signpost2.scale.setTo(0.9)
+    this.game.physics.enable(this.signpost2, Phaser.Physics.ARCADE)
+    this.game.physics.arcade.enable(this.signpost2)
+
+    this.signpost3 = this.game.add.sprite(350, 326, 'sign3')
+    this.signpost3.scale.setTo(1)
+    this.game.physics.enable(this.signpost3, Phaser.Physics.ARCADE)
+    this.game.physics.arcade.enable(this.signpost3)
+
+    //reducing the collision size around wizard house to let character get closer to the door
+    this.wizardhouse.body.width = 140;    
+    this.wizardhouse.body.height = 250;
+
     // Set up physics (barriers) for walls and trees and stuff
     this.game.physics.arcade.enable(this.stations)
     this.stations.setCollisionBetween(0, 6080, true, this.stations_3)
@@ -116,8 +144,8 @@ export default class extends Phaser.State {
     this.trees.setCollisionBetween(0, 6080, true, this.trees_6)
 
     // Create entrances to other game scenes
-    this.door = this.game.add.sprite(1265, 268, 'door')
-    this.door.scale.setTo(0.5)
+    this.door = this.game.add.sprite(952, 255, 'door')
+    this.door.scale.setTo(0.3)
     this.game.physics.enable(this.door, Phaser.Physics.ARCADE)
 
     this.bakerydoor = this.game.add.sprite(744, 277, 'bakerydoor')
@@ -183,7 +211,6 @@ export default class extends Phaser.State {
       for(let entry of abilitiesIds) {
         images.push(store.getState().abilities.find(ability => ability.id === entry).image)
       }
-      console.log('the images', images)
       return images
     }
 
@@ -219,12 +246,13 @@ export default class extends Phaser.State {
 
 
     // Logout Button
-    this.logoutBtn = this.game.add.button(0, 100, 'logoutBtn', this.actionOnLogout, this)
+    this.logoutBtn = this.game.add.button(0, 80, 'logoutBtn', this.actionOnLogout, this)
     this.logoutBtn.fixedToCamera = true
     this.logoutBtn.width = 100
     this.logoutBtn.height = 30
     this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
+
   }
 
   update () {
@@ -237,11 +265,19 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.house2)
     this.game.physics.arcade.collide(this.boy, this.house3)
     this.game.physics.arcade.collide(this.boy, this.house4)
+    this.game.physics.arcade.collide(this.boy, this.wizardhouse)
+    this.game.physics.arcade.collide(this.boy, this.signpost1)
+    this.game.physics.arcade.collide(this.boy, this.signpost2)
+    this.game.physics.arcade.collide(this.boy, this.signpost3)
     this.bakery.body.immovable = true
     this.house1.body.immovable = true
     this.house2.body.immovable = true
     this.house3.body.immovable = true
     this.house4.body.immovable = true
+    this.wizardhouse.body.immovable = true
+    this.signpost1.body.immovable = true
+    this.signpost2.body.immovable = true
+    this.signpost3.body.immovable = true
 
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
       store.dispatch(setCoord([
