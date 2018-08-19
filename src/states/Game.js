@@ -19,6 +19,9 @@ export default class extends Phaser.State {
     this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png', 105, 111)
     this.load.image('bakerydoor', '../assets/images/bakersOutside/bakerydoor.png')
     this.load.spritesheet('bakery', '../assets/images/bakersOutside/smallerHouse.png')
+    this.load.spritesheet('house1', '../assets/images/houses/house.png')
+    this.load.spritesheet('house2', '../assets/images/houses/house2.png')
+    this.load.spritesheet('house3', '../assets/images/houses/house3.png')
 
     // tilemaps
     this.load.tilemap('map', '../assets/images/stations3_land_1.csv', null, Phaser.Tilemap.CSV)
@@ -87,7 +90,27 @@ export default class extends Phaser.State {
     this.bakery = this.game.add.sprite(680, 180, 'bakery')
     this.bakery.scale.setTo(0.5)
     this.game.physics.enable(this.bakery, Phaser.Physics.ARCADE)
-    this.bakery.immovable = true
+
+    //set up physics (barriers) for houses in town
+    this.house1 = this.game.add.sprite(800,430, 'house1')
+    this.game.physics.enable(this.house1, Phaser.Physics.ARCADE)
+
+    this.game.physics.arcade.enable(this.house1)
+
+    this.house2 = this.game.add.sprite(660,391, 'house2')
+    this.game.physics.enable(this.house2, Phaser.Physics.ARCADE)
+
+    this.game.physics.arcade.enable(this.house2)
+
+    this.house3 = this.game.add.sprite(993,455, 'house3')
+    this.game.physics.enable(this.house3, Phaser.Physics.ARCADE)
+
+    this.game.physics.arcade.enable(this.house3)
+
+    this.house3 = this.game.add.sprite(543,455, 'house3')
+    this.game.physics.enable(this.house3, Phaser.Physics.ARCADE)
+
+
 
     // Set up physics (barriers) for walls and trees and stuff
     this.game.physics.arcade.enable(this.stations)
@@ -215,7 +238,13 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.flowers_5)
     this.game.physics.arcade.collide(this.boy, this.trees_6)
     this.game.physics.arcade.collide(this.boy, this.bakery)
+    this.game.physics.arcade.collide(this.boy, this.house1)
+    this.game.physics.arcade.collide(this.boy, this.house2)
+    this.game.physics.arcade.collide(this.boy, this.house3)
     this.bakery.body.immovable = true
+    this.house1.body.immovable = true
+    this.house2.body.immovable = true
+    this.house3.body.immovable = true
 
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
       store.dispatch(setCoord([
@@ -295,6 +324,11 @@ export default class extends Phaser.State {
     this.game.destroy()
     delete window.game
   }
+
+  render() {
+    this.game.debug.spriteInfo(this.boy, 20, 32);
+
+ }
 
 
 }
