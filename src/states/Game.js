@@ -5,6 +5,7 @@ import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
+import villagerGifts from './helperFunctions/villagerGifts'
 
 export default class extends Phaser.State {
   preload () {
@@ -321,6 +322,7 @@ export default class extends Phaser.State {
       if (!this.warriorOverlap) {
         makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a sword.'], 'Warrior', this)
         this.warriorOverlap = true
+        this.villagerGifts()
       }
     }, null, this)
 
