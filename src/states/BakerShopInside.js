@@ -95,7 +95,7 @@ export default class extends Phaser.State {
       }
     }, null, this)
 
-    if (this.boy.x < 372.7 && this.boy.x > 350 && this.boy.y < 886.0 && this.boy.y > 870) {
+    if (this.boy.x < 380 && this.boy.x > 350 && this.boy.y < 886.0 && this.boy.y > 870) {
       this.game.state.start('Game')
       this.music.stop()
     }
