@@ -72,7 +72,7 @@ const createApp = () => {
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 
-  // any remaining requests with an extension (.js, .css, etc.) send 404
+  // any remaining requests with an extension (.js, .css, etc) send 404
   app.use((req, res, next) => {
     if (path.extname(req.path).length) {
       const err = new Error('Not found')
