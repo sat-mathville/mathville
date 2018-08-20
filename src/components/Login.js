@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import store, {logout, auth, me, fetchAllAbilities, getProblems} from '../store'
 import Game from '../main'
-
+import {isMobile} from 'react-device-detect'
 
 export default class Login extends Component {
   constructor () {
@@ -61,13 +61,18 @@ export default class Login extends Component {
     })
   }
   render () {
+    if (isMobile) {
+      return (
+        <p>Please view this program from your computer</p>)
+    }
     if (store.getState().user.id) {
-      if(!window.game)window.game = new Game()
+      if (!window.game)window.game = new Game()
       return (<div></div>)
     }
     if (this.state.signUp === 'false') {
       return (
         <div className='container'>
+
           <h1>Welcome to Mathville!</h1>
           <h2>Login</h2>
           <form className='loginForm' onSubmit={this.handleSubmit}>
