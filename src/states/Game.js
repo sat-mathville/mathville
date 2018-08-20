@@ -5,7 +5,7 @@ import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
-import {images} from './preloadData'
+import {images, characters} from './preloadData'
 
 export default class extends Phaser.State {
   preload () {
@@ -13,18 +13,16 @@ export default class extends Phaser.State {
     //images
     for(let image in images){
       this.load.image(image,images[image])
-      console.log('image name', image)
     }
-    // characters
-    this.load.spritesheet('boy', spriteUrl(), 64, 64)
-    this.load.spritesheet('farmer', '../assets/images/characters/farmer.png', 64, 64)
-    this.load.spritesheet('warrior', '../assets/images/characters/warrior.png', 64, 64)
-    this.load.spritesheet('fisherman', '../assets/images/characters/fisherman.png', 64, 64)
+
+    //character spritesheets
+    for(let character in characters){
+      this.load.spritesheet(character, characters[character], 64, 64)
+    }
     
     // objects
     this.load.spritesheet('door', '../assets/images/door.png')
     this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png')
-    // this.load.image('bakerydoor', '../assets/images/bakersOutside/bakerydoor.png')
     this.load.spritesheet('bakery', '../assets/images/houses/house2.png')
     this.load.spritesheet('house1', '../assets/images/houses/house.png')
     this.load.spritesheet('house2', '../assets/images/houses/house2.png')
@@ -43,28 +41,9 @@ export default class extends Phaser.State {
     this.load.tilemap('flowers', '../assets/images/stations3_plants_5.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('trees', '../assets/images/stations3_plants_6.csv', null, Phaser.Tilemap.CSV)
 
-    // this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
-    // this.load.image('towntrees', '../assets/images/townTrees.png')
-    // this.load.image('scoreboard', '../assets/images/scoreboard.png')
-
-    // scoreboard supplies
-    // this.load.image('bag', '../assets/images/supplies/bag.png')
-    // this.load.image('bread', '../assets/images/supplies/bread.png')
-    // this.load.image('potion', '../assets/images/supplies/potion2.png')
-    // this.load.image('strawberry', '../assets/images/supplies/strawberry.png')
-    // this.load.image('sword', '../assets/images/supplies/sword.png')
-    // this.load.image('sword2', '../assets/images/supplies/sword2.png')
-    // this.load.image('wand', '../assets/images/supplies/wand2.png')
-    // this.load.image('fish', '../assets/images/supplies/fish.png')
 
     // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
-
-    // chatbox
-    // this.load.image('chatbox', '../assets/images/chatbox.jpg')
-
-    // logout button
-    // this.load.image('logoutBtn', '../assets/images/exit.png')
   }
 
   create () {

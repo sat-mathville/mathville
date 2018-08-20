@@ -17,4 +17,13 @@ export const images = {
 
 // export const tilemaps
 
-// export const spritesheets
+export const characters = {
+    'boy': spriteUrl(),
+    'farmer': '../assets/images/characters/farmer.png',
+    'warrior': '../assets/images/characters/warrior.png',
+    'fisherman': '../assets/images/characters/fisherman.png'
+}
+
+export const spritesheets = {
+    
+}
