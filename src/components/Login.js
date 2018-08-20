@@ -63,7 +63,11 @@ export default class Login extends Component {
   render () {
     if (isMobile) {
       return (
-        <p>Please view this program from your computer</p>)
+        <div>
+        <h3>None shall enter from a mobile device!</h3>
+        <p>Please view this website from your computer.</p>
+        </div>
+      )
     }
     if (store.getState().user.id) {
       if (!window.game)window.game = new Game()
