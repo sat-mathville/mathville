@@ -27,7 +27,7 @@ export default class extends Phaser.State {
 
     //tilemaps
     for(let tilemap in tilemaps){
-      this.load.tilemap(tilemap, tilemaps[tilemap], null, Phaser.Tilemap.CSV)
+      this.load.tilemap(tilemap, tilemaps[tilemap]['imageUrl'], null, Phaser.Tilemap.CSV)
     }
 
     // music
@@ -39,33 +39,19 @@ export default class extends Phaser.State {
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0, 0, 1920, 1024)
     
+    //the loop below used preload data and not create data
     for(let tileset in tilemaps){
+      //add tilemap
       this[tileset] = this.game.add.tilemap(tileset)
-      this[tileset].addTilesetImage('tileset')
+      //add tile image
+      this[tileset].addTilesetImage(tilemaps[tileset]['tilesetImage'])
+      //create tile layer
+      this[tilemaps[tileset]['createLayerName']] = this[tileset].createLayer(0)
     }
-
-    
-    this.map.addTilesetImage('tileset')
-    this.grass.addTilesetImage('tileset')
-    this.stations.addTilesetImage('tileset')
-    this.details.addTilesetImage('tileset')
-    
-    this.bridge.addTilesetImage('towntrees')
-    this.flowers.addTilesetImage('towntrees')
-    this.trees.addTilesetImage('towntrees')
 
     // Create BGM
     this.music = this.add.audio('music')
     this.music.play()
-
-    // Create layers
-    this.land_1 = this.map.createLayer(0)
-    this.grass_2 = this.grass.createLayer(0)
-    this.bridge_7 = this.bridge.createLayer(0)
-    this.stations_3 = this.stations.createLayer(0)
-    this.details_4 = this.details.createLayer(0)
-    this.flowers_5 = this.flowers.createLayer(0)
-    this.trees_6 = this.trees.createLayer(0)
 
     // set up barriers for the bakery
     this.bakery = this.game.add.sprite(710, 170, 'bakery')
