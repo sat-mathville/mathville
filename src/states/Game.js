@@ -5,7 +5,7 @@ import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
-import {images, characters} from './preloadData'
+import {images, characters, spritesheets, tilemaps} from './preloadData'
 
 export default class extends Phaser.State {
   preload () {
@@ -16,31 +16,20 @@ export default class extends Phaser.State {
     }
 
     //character spritesheets
+    this.load.spritesheet('boy', spriteUrl(),64,64)
     for(let character in characters){
       this.load.spritesheet(character, characters[character], 64, 64)
+      console.log('where is the boooyyyy', characters[character])
     }
-    
-    // objects
-    this.load.spritesheet('door', '../assets/images/door.png')
-    this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png')
-    this.load.spritesheet('bakery', '../assets/images/houses/house2.png')
-    this.load.spritesheet('house1', '../assets/images/houses/house.png')
-    this.load.spritesheet('house2', '../assets/images/houses/house2.png')
-    this.load.spritesheet('house3', '../assets/images/houses/house3.png')
-    this.load.spritesheet('wizardhouse', '../assets/images/wizardHouse/wizardhouse.png')
-    this.load.spritesheet('sign1', '../assets/images/signPosts/signpost1.png')
-    this.load.spritesheet('sign2', '../assets/images/signPosts/signpost2.png')
-    this.load.spritesheet('sign3', '../assets/images/signPosts/signpost3.png')
-    
-    // tilemaps
-    this.load.tilemap('map', '../assets/images/stations3_land_1.csv', null, Phaser.Tilemap.CSV)
-    this.load.tilemap('grass', '../assets/images/stations3_grass_2.csv', null, Phaser.Tilemap.CSV)
-    this.load.tilemap('bridge', '../assets/images/stations3_bridge_7.csv', null, Phaser.Tilemap.CSV)
-    this.load.tilemap('stations', '../assets/images/stations3_stations_3.csv', null, Phaser.Tilemap.CSV)
-    this.load.tilemap('details', '../assets/images/stations3_details_4.csv', null, Phaser.Tilemap.CSV)
-    this.load.tilemap('flowers', '../assets/images/stations3_plants_5.csv', null, Phaser.Tilemap.CSV)
-    this.load.tilemap('trees', '../assets/images/stations3_plants_6.csv', null, Phaser.Tilemap.CSV)
 
+    for(let spritesheet in spritesheets){
+      this.load.spritesheet(spritesheet, spritesheets[spritesheet])
+    }
+
+    //tilemaps
+    for(let tilemap in tilemaps){
+      this.load.tilemap(tilemap, tilemaps[tilemap], null, Phaser.Tilemap.CSV)
+    }
 
     // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
