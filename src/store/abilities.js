@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // Action types
-const GET_ALL_ABILITIES = 'GET_ALL_ABILITIES'
+export const GET_ALL_ABILITIES = 'GET_ALL_ABILITIES'
 
 // Action creators
 const getAllAbilities = abilities => ({type: GET_ALL_ABILITIES, abilities})

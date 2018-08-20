@@ -5,7 +5,7 @@ import store, {setCoord} from '../store'
 export default class extends Phaser.State {
  preload() {
   this.load.image('playBtn', '../assets/images/playBtn.png')
-  store.dispatch(setCoord([this.world.centerX, this.world.centerY]))
+  store.dispatch(setCoord([450, 500]))
  }
 
  update() {
@@ -24,8 +24,6 @@ export default class extends Phaser.State {
   if(!this.button1){
     this.button1 = this.add.button(this.world.centerX,this.world.centerY, 'playBtn', this.actionOnClick, this, 2, 1, 0);
     this.button1.anchor.setTo(0.5,0.5)
-    // this.button1.width = 300
-    // this.button1.height = 150
 
     this.txt = this.add.text (this.button1.x, this.button1.y, "Start",  {font:"80px Cinzel", fill:"#fff", align:"center"})
 
