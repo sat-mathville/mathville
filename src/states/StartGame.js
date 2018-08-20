@@ -5,7 +5,7 @@ import store, {setCoord} from '../store'
 export default class extends Phaser.State {
  preload() {
   this.load.image('playBtn', '../assets/images/playBtn.png')
-  store.dispatch(setCoord([this.world.centerX, this.world.centerY]))
+  store.dispatch(setCoord([450, 500]))
  }
 
  update() {
