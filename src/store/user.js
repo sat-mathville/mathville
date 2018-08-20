@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { getUserAbilities } from './userAbilities'
+import { loginError } from './loginError';
 
 /**
  * ACTION TYPES
  */
 export const GET_USER = 'GET_USER'
-const REMOVE_USER = 'REMOVE_USER'
+export const REMOVE_USER = 'REMOVE_USER'
 
 /**
  * INITIAL STATE
@@ -28,7 +29,6 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    // dispatch(getUserAbilities(res.data.abilities))
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)
@@ -39,8 +39,9 @@ export const auth = (data, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, data)
+    dispatch(loginError(false))
   } catch (authError) {
-    return dispatch(getUser({error: authError}))
+    if (authError) { return dispatch(loginError(true)) }
   }
   try {
     dispatch(getUser(res.data || defaultUser))

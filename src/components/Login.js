@@ -12,7 +12,8 @@ export default class Login extends Component {
       password: '',
       character: 0,
       isLoggedIn: false,
-      signUp: 'false'
+      signUp: 'false',
+      hasError: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -21,14 +22,21 @@ export default class Login extends Component {
   }
   componentDidMount () {
     store.dispatch(me())
-    store.dispatch(fetchAllAbilities())
-    store.dispatch(getProblems())
     store.subscribe(() => {
       if (store.getState().user.id) {
         this.setState({
           isLoggedIn: true
         })
       } else this.setState({isLoggedIn: false})
+    })
+    store.subscribe(() => {
+      const hasError = store.getState().hasError
+      console.log('received from store',hasError)
+      if (hasError !== this.state.hasError) {
+        this.setState({
+          hasError: hasError
+        })
+      }
     })
   }
   handleChange (event) {
@@ -61,11 +69,12 @@ export default class Login extends Component {
     })
   }
   render () {
+    console.log('STATE HASERROR',this.state.hasError)
     if (isMobile) {
       return (
         <div>
-        <h3>None shall enter from a mobile device!</h3>
-        <p>Please view this website from your computer.</p>
+          <h3>None shall enter from a mobile device!</h3>
+          <p>Please view this website from your computer.</p>
         </div>
       )
     }
@@ -76,13 +85,13 @@ export default class Login extends Component {
     if (this.state.signUp === 'false') {
       return (
         <div className='container'>
-
           <h1>Welcome to Mathville!</h1>
           <h2>Login</h2>
           <form className='loginForm' onSubmit={this.handleSubmit}>
             <input placeholder='Enter Email'name='email' type='text' value={this.state.email} onChange={this.handleChange}/>
             <input placeholder='Enter Password' name='password' type='password' value={this.state.password} onChange={this.handleChange}/>
             <button className='submitButton' type='submit'>Submit</button>
+            {this.state.hasError ? <span>Wrong email / password</span>:null}
           </form>
           <h2>Don’t have an account? You can...</h2>
           <button className='signUpButton' name='signUp' value='true' onClick={this.handleChange}>Sign-Up</button>
