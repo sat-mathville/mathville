@@ -19,7 +19,6 @@ export default class extends Phaser.State {
     this.load.spritesheet('boy', spriteUrl(),64,64)
     for(let character in characters){
       this.load.spritesheet(character, characters[character], 64, 64)
-      console.log('where is the boooyyyy', characters[character])
     }
 
     for(let spritesheet in spritesheets){
@@ -39,13 +38,10 @@ export default class extends Phaser.State {
     // Load main map/world
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0, 0, 1920, 1024)
-    this.map = this.game.add.tilemap('map')
-    this.grass = this.game.add.tilemap('grass')
-    this.bridge = this.game.add.tilemap('bridge')
-    this.stations = this.game.add.tilemap('stations')
-    this.details = this.game.add.tilemap('details')
-    this.flowers = this.game.add.tilemap('flowers')
-    this.trees = this.game.add.tilemap('trees')
+    for(let tileset in tilemaps){
+      this[tileset] = this.game.add.tilemap(tileset)
+    }
+
     this.map.addTilesetImage('tileset')
     this.grass.addTilesetImage('tileset')
     this.stations.addTilesetImage('tileset')
