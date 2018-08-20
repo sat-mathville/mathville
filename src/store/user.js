@@ -43,7 +43,6 @@ export const auth = (data, method) => async dispatch => {
     return dispatch(getUser({error: authError}))
   }
   try {
-    console.log('AUTH THUNK:', res.data)
     dispatch(getUser(res.data || defaultUser))
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
