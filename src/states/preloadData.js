@@ -38,11 +38,39 @@ export const spritesheets = {
 }
 
 export const tilemaps = {
-    'map': '../assets/images/stations3_land_1.csv',
-    'grass': '../assets/images/stations3_grass_2.csv',
-    'bridge': '../assets/images/stations3_bridge_7.csv',
-    'stations': '../assets/images/stations3_stations_3.csv',
-    'details': '../assets/images/stations3_details_4.csv',
-    'flowers': '../assets/images/stations3_plants_5.csv',
-    'trees': '../assets/images/stations3_plants_6.csv'
+    'map': {
+        imageUrl: '../assets/images/stations3_land_1.csv',
+        tilesetImage: 'tileset',
+        createLayerName: 'land_1'
+    },
+    'grass': {
+        imageUrl:'../assets/images/stations3_grass_2.csv',
+        tilesetImage: 'tileset',
+        createLayerName: 'grass_2'
+    },
+    'bridge': {
+        imageUrl:'../assets/images/stations3_bridge_7.csv',
+        tilesetImage: 'towntrees',
+        createLayerName: 'bridge_7'
+    },
+    'stations': {
+        imageUrl:'../assets/images/stations3_stations_3.csv',
+        tilesetImage: 'tileset',
+        createLayerName: 'stations_3'
+    },
+    'details': {
+        imageUrl:'../assets/images/stations3_details_4.csv',
+        tilesetImage: 'tileset',
+        createLayerName: 'details_4'
+    },
+    'flowers': {
+        imageUrl:'./assets/images/stations3_plants_5.csv',
+        tilesetImage: 'towntrees',
+        createLayerName: 'flowers_5'
+    },
+    'trees': {
+        imageUrl:'./assets/images/stations3_plants_6.csv',
+        tilesetImage: 'towntrees',
+        createLayerName: 'trees_6'
+    }
 }

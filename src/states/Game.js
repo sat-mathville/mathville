@@ -38,14 +38,18 @@ export default class extends Phaser.State {
     // Load main map/world
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0, 0, 1920, 1024)
+    
     for(let tileset in tilemaps){
       this[tileset] = this.game.add.tilemap(tileset)
+      this[tileset].addTilesetImage('tileset')
     }
 
+    
     this.map.addTilesetImage('tileset')
     this.grass.addTilesetImage('tileset')
     this.stations.addTilesetImage('tileset')
     this.details.addTilesetImage('tileset')
+    
     this.bridge.addTilesetImage('towntrees')
     this.flowers.addTilesetImage('towntrees')
     this.trees.addTilesetImage('towntrees')
