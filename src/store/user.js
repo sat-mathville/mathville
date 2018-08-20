@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { getUserAbilities } from './userAbilities'
-import { loginError } from './loginError';
+import { getError } from './handleError'
 
 /**
  * ACTION TYPES
@@ -39,9 +39,10 @@ export const auth = (data, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, data)
-    dispatch(loginError(false))
+    dispatch(getError(false))
   } catch (authError) {
-    if (authError) { return dispatch(loginError(true)) }
+    const str = (method === 'login') ? 'Bad login' : 'Bad signup'
+    if (authError) { return dispatch(getError(str)) }
   }
   try {
     dispatch(getUser(res.data || defaultUser))

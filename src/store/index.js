@@ -7,7 +7,7 @@ import abilities from './abilities'
 import userAbilities from './userAbilities'
 import currentAbility from './currentAbility'
 import coord from './coord'
-import hasError from './loginError'
+import hasError from './handleError'
 
 const reducer = combineReducers({
   questions,
@@ -30,4 +30,4 @@ export * from './userAbilities'
 export * from './abilities'
 export * from './currentAbility'
 export * from './coord'
-export * from './loginError'
+export * from './handleError'
