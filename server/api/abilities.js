@@ -3,6 +3,7 @@ const {User, Ability} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
+  if (!req.user) res.sendStatus(401)
   try {
     const abilities = await Ability.findAll()
     res.json(abilities)
