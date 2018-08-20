@@ -5,9 +5,16 @@ import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
+import {images} from './preloadData'
 
 export default class extends Phaser.State {
   preload () {
+
+    //images
+    for(let image in images){
+      this.load.image(image,images[image])
+      console.log('image name', image)
+    }
     // characters
     this.load.spritesheet('boy', spriteUrl(), 64, 64)
     this.load.spritesheet('farmer', '../assets/images/characters/farmer.png', 64, 64)
@@ -15,9 +22,9 @@ export default class extends Phaser.State {
     this.load.spritesheet('fisherman', '../assets/images/characters/fisherman.png', 64, 64)
     
     // objects
-    this.load.spritesheet('door', '../assets/images/door.png', 105, 111)
-    this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png', 105, 111)
-    this.load.image('bakerydoor', '../assets/images/bakersOutside/bakerydoor.png')
+    this.load.spritesheet('door', '../assets/images/door.png')
+    this.load.spritesheet('forestDoor', '../assets/images/forestDoor.png')
+    // this.load.image('bakerydoor', '../assets/images/bakersOutside/bakerydoor.png')
     this.load.spritesheet('bakery', '../assets/images/houses/house2.png')
     this.load.spritesheet('house1', '../assets/images/houses/house.png')
     this.load.spritesheet('house2', '../assets/images/houses/house2.png')
@@ -36,28 +43,28 @@ export default class extends Phaser.State {
     this.load.tilemap('flowers', '../assets/images/stations3_plants_5.csv', null, Phaser.Tilemap.CSV)
     this.load.tilemap('trees', '../assets/images/stations3_plants_6.csv', null, Phaser.Tilemap.CSV)
 
-    this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
-    this.load.image('towntrees', '../assets/images/townTrees.png')
-    this.load.image('scoreboard', '../assets/images/scoreboard.png')
+    // this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
+    // this.load.image('towntrees', '../assets/images/townTrees.png')
+    // this.load.image('scoreboard', '../assets/images/scoreboard.png')
 
     // scoreboard supplies
-    this.load.image('bag', '../assets/images/supplies/bag.png')
-    this.load.image('bread', '../assets/images/supplies/bread.png')
-    this.load.image('potion', '../assets/images/supplies/potion2.png')
-    this.load.image('strawberry', '../assets/images/supplies/strawberry.png')
-    this.load.image('sword', '../assets/images/supplies/sword.png')
-    this.load.image('sword2', '../assets/images/supplies/sword2.png')
-    this.load.image('wand', '../assets/images/supplies/wand2.png')
-    this.load.image('fish', '../assets/images/supplies/fish.png')
+    // this.load.image('bag', '../assets/images/supplies/bag.png')
+    // this.load.image('bread', '../assets/images/supplies/bread.png')
+    // this.load.image('potion', '../assets/images/supplies/potion2.png')
+    // this.load.image('strawberry', '../assets/images/supplies/strawberry.png')
+    // this.load.image('sword', '../assets/images/supplies/sword.png')
+    // this.load.image('sword2', '../assets/images/supplies/sword2.png')
+    // this.load.image('wand', '../assets/images/supplies/wand2.png')
+    // this.load.image('fish', '../assets/images/supplies/fish.png')
 
     // music
     this.load.audio('music', '../assets/sounds/mapBGM.mp3')
 
     // chatbox
-    this.load.image('chatbox', '../assets/images/chatbox.jpg')
+    // this.load.image('chatbox', '../assets/images/chatbox.jpg')
 
     // logout button
-    this.load.image('logoutBtn', '../assets/images/exit.png')
+    // this.load.image('logoutBtn', '../assets/images/exit.png')
   }
 
   create () {
@@ -225,6 +232,37 @@ export default class extends Phaser.State {
     this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
 
+
+          // pull in supplies
+          function fetchSupplies() {
+            const abilitiesIds = store.getState().userAbilities
+            // console.log('ability ids', abilitiesIds)
+            let images = []
+            for(let entry of abilitiesIds) {
+              images.push(store.getState().abilities.find(ability => ability.id === entry).image)
+            }
+            return images
+          }
+      
+          let x
+          let y
+      
+          for(let i = 1; i <= store.getState().userAbilities.size; i++){
+            x = (i * 35) + 140
+            let xcount = 0
+      
+            if(i>4){
+              y=45
+              x=(xcount*35) + 174
+              xcount++
+            } else {
+              y=9
+            }
+      
+            this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
+            this.abilityImages.fixedToCamera = true
+          }
+
   }
 
   update () {
@@ -285,7 +323,7 @@ export default class extends Phaser.State {
         ], 'Farmer', this)
         this.farmerOverlap = true
         store.dispatch(addNewAbilityThunk(2))
-
+        // store.subscribe(addNewAbilityThunk.bind(null,2))
       }
     }, null, this)
 
@@ -296,6 +334,7 @@ export default class extends Phaser.State {
         makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a sword.'], 'Warrior', this)
         this.warriorOverlap = true
         store.dispatch(addNewAbilityThunk(7))
+        // store.subscribe(addNewAbilityThunk.bind(null,7))
       }
     }, null, this)
 
@@ -305,38 +344,14 @@ export default class extends Phaser.State {
         makeChatbox(['Hey!', 'I have extra fish.', 'Let me give you some.', 'They are good for your strength.'], 'Fisherman', this)
         this.fishermanOverlap = true
         store.dispatch(addNewAbilityThunk(6))
+        // store.subscribe(addNewAbilityThunk.bind(null,6))
       }
     }, null, this)
 
+    store.subscribe(()=> {
+      
+    })
 
-      // pull in supplies
-      function fetchSupplies() {
-        const abilitiesIds = store.getState().userAbilities
-        let images = []
-        for(let entry of abilitiesIds) {
-          images.push(store.getState().abilities.find(ability => ability.id === entry).image)
-        }
-        return images
-      }
-  
-      let x
-      let y
-  
-      for(let i = 1; i <= store.getState().userAbilities.size; i++){
-        x = (i * 35) + 140
-        let xcount = 0
-  
-        if(i>4){
-          y=45
-          x=(xcount*35) + 174
-          xcount++
-        } else {
-          y=9
-        }
-  
-        this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
-        this.abilityImages.fixedToCamera = true
-      }
 
     if (this.cursors.left.isDown) {
       this.boy.body.velocity.x = -200

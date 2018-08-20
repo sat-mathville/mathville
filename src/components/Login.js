@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import store, {logout, auth, me, fetchAllAbilities, getProblems} from '../store'
+import store, {logout, auth, me, fetchAllAbilities, getProblems, getLatestAbility} from '../store'
 import Game from '../main'
 import {isMobile} from 'react-device-detect'
 
@@ -30,6 +30,13 @@ export default class Login extends Component {
         })
       } else this.setState({isLoggedIn: false})
     })
+    // store.subscribe(() => {
+    //   let userAbilitiesArr = store.getState().userAbilities
+    //   if(userAbilitiesArr.length) {
+    //     let latestAbilityId = userAbilitiesArr[userAbilitiesArr.length-1]
+    //     store.dispatch(getLatestAbility(latestAbilityId))
+    //   }
+    // })
   }
   handleChange (event) {
     this.setState({

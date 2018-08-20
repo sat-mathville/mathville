@@ -7,6 +7,7 @@ import abilities from './abilities'
 import userAbilities from './userAbilities'
 import currentAbility from './currentAbility'
 import coord from './coord'
+// import latestAbility from './latestAbility'
 
 const reducer = combineReducers({
   questions,
@@ -14,7 +15,8 @@ const reducer = combineReducers({
   abilities,
   userAbilities,
   currentAbility,
-  coord
+  coord,
+  // latestAbility
 })
 
 const logger = createLogger({collapsed: true})
@@ -28,3 +30,4 @@ export * from './userAbilities'
 export * from './abilities'
 export * from './currentAbility'
 export * from './coord'
+// export * from './latestAbility'
