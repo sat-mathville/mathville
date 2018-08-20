@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Hello, welcome to a bash script.
+# Hello, welcome to a bash script
 
 # This bash script deploys your boilermaker application.
 
