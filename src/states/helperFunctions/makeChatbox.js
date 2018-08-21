@@ -1,6 +1,8 @@
 import wrap from './wrap'
 import Phaser from 'phaser'
 import pressSpacebar from './pressSpacebar'
+import updateAbilities from './updateAbilities'
+import store from '../../store'
 
 export default function makeChatbox (dialogue, npc, gameState, newState, counter = 0) {
   if (!counter) {
@@ -57,6 +59,7 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
       if (gameState.music) gameState.music.stop()
       gameState.game.state.start(newState)
     } else {
+      updateAbilities(npc, gameState)
       gameState.chatbox.destroy()
       delete gameState.chatbox
       gameState.banner.destroy()
