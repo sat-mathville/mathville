@@ -103,19 +103,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 11:
-/*!*********************************************************************!*\
-  !*** ./node_modules/phaser-ce/build/custom/phaser-split.js-exposed ***!
-  \*********************************************************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(/*! -!./phaser-split.js */ 365);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 35)))
-
-/***/ }),
-
 /***/ 141:
 /*!*************************************************************!*\
   !*** ./node_modules/phaser-ce/build/custom/pixi.js-exposed ***!
@@ -138,6 +125,19 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(/*! -!./p2.js */ 364);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 35)))
+
+/***/ }),
+
+/***/ 15:
+/*!*********************************************************************!*\
+  !*** ./node_modules/phaser-ce/build/custom/phaser-split.js-exposed ***!
+  \*********************************************************************/
+/*! dynamic exports provided */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(/*! -!./phaser-split.js */ 365);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 35)))
 
 /***/ }),
@@ -108300,7 +108300,7 @@ PIXI.canUseNewCanvasBlendModes = function () {
 
 __webpack_require__(/*! pixi */141);
 __webpack_require__(/*! p2 */142);
-__webpack_require__(/*! phaser */11);
+__webpack_require__(/*! phaser */15);
 module.exports = __webpack_require__(/*! webfontloader */157);
 
 
