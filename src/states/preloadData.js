@@ -9,7 +9,7 @@ export const images = {
     'potion': '../assets/images/supplies/potion2.png',
     'strawberry': '../assets/images/supplies/strawberry.png',
     'sword': '../assets/images/supplies/sword.png',
-    'sword2': '../assets/images/supplies/sword2.png',
+    'shield': '../assets/images/supplies/shield.png',
     'wand': '../assets/images/supplies/wand2.png',
     'fish': '../assets/images/supplies/fish.png',
     'chatbox': '../assets/images/chatbox.jpg',

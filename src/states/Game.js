@@ -180,11 +180,37 @@ export default class extends Phaser.State {
 
 
     // pull in supplies
-    renderAbilities(this)
+    function fetchSupplies() {
+      const abilitiesIds = store.getState().userAbilities
+      // console.log('ability ids', abilitiesIds)
+      let images = []
+      for(let entry of abilitiesIds) {
+        images.push(store.getState().abilities.find(ability => ability.id === entry).image)
+      }
+      return images
+    }
+
+    let x
+    let y
+    let xcount = 0
+    
+    for(let i = 1; i <= store.getState().userAbilities.size; i++){
+      x = (i * 35) + 140
+      
+      if(i>4){
+        y=45
+        x=(xcount*35) + 174
+        xcount++
+      } else {
+        y=9
+      }
+
+      this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
+      this.abilityImages.fixedToCamera = true
+    }
   }
 
   update () {
-    // this.keys(()=>{console.log(`TEST KEYS`)})
     this.game.physics.arcade.collide(this.boy, this.stations_3)
     this.game.physics.arcade.collide(this.boy, this.flowers_5)
     this.game.physics.arcade.collide(this.boy, this.trees_6)
@@ -247,7 +273,7 @@ export default class extends Phaser.State {
     this.warrior.animations.play('standing', 2, true)
     this.game.physics.arcade.overlap(this.boy, this.warrior, () => {
       if (!this.warriorOverlap) {
-        makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a sword.'], 'Warrior', this)
+        makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a shield.'], 'Warrior', this)
         this.warriorOverlap = true
       }
     }, null, this)
