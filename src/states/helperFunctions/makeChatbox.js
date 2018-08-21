@@ -33,12 +33,6 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
         smoothed: false
       }
     )
-    gameState.banner.inputEnabled = true
-    gameState.banner.input.useHandCursor = true
-    gameState.banner.events.onInputDown.add(() => {
-      counter++
-      makeChatbox(dialogue, npc, gameState, newState, counter)
-    }, gameState)
     const words = wrap(dialogue[counter], 30).split(' ')
     for (let i = 0; i < words.length; i++) {
       setTimeout(() => {
