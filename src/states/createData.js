@@ -68,5 +68,10 @@ export const barriers = {
     x:1400,
     y: 760,
     scale: 0.85
+   },
+   'chicken': {
+    x:500,
+    y:750,
+    scale:0.5
    }
 }

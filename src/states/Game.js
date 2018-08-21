@@ -2,9 +2,7 @@
 import Phaser from 'phaser'
 import store, {
     auth,
-    setCoord,
-    addNewAbilityThunk,
-    setCurrentAbilityId
+    setCoord
   } from '../store'
 import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
@@ -83,12 +81,16 @@ export default class extends Phaser.State {
 
     // other characters
     this.farmer.animations.add('standing', [120, 121, 122, 123, 124, 125, 126, 127], null, true)
+    this.farmer.body.immovable = true
 
     this.warrior.animations.add('standing', [39, 40, 41, 42], null, true)
     this.warrior.body.immovable = true
 
     this.fisherman.animations.add('standing', [26, 27], null, true)
+    this.fisherman.body.immovable = true
 
+    this.chicken.animations.add('walking',[0,1,2,3,4,5,6,7,8],null,true)
+    this.game.physics.arcade.enable(this.chicken)
     // Create player's character
     // Make sure you set up the physics first before animating the character
     this.boy = this.game.add.sprite(
@@ -282,5 +284,8 @@ export default class extends Phaser.State {
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
+  }
+  render(){
+    this.game.debug.spriteInfo(this.boy,20,32)
   }
 }

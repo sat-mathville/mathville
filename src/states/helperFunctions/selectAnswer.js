@@ -12,7 +12,6 @@ export default function selectAnswer (gameState) {
         align: 'left'
       })
   } else {
-    console.log('X coordinate of buttons', gameState.buttons, gameState.currentAnswer)
     gameState.rectangle.x = gameState.buttons[gameState.currentAnswer].x-20
     gameState.rectangle.y = gameState.buttons[gameState.currentAnswer].y-20
     gameState.rectangle.fill = gameState.colors[gameState.currentQuestion]
