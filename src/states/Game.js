@@ -1,12 +1,19 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store, {auth, setCoord, addNewAbilityThunk} from '../store'
+import store, {
+    auth,
+    setCoord,
+    addNewAbilityThunk,
+    setCurrentAbilityId
+  } from '../store'
 import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
 import {images, characters, spritesheets, tilemaps} from './preloadData'
 import { barriers } from './createData'
+import renderAbilities from './helperFunctions/renderAbilities';
+import updateAbilities from './helperFunctions/updateAbilities';
 
 export default class extends Phaser.State {
   preload () {
@@ -129,35 +136,8 @@ export default class extends Phaser.State {
     this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
 
-    // pull in supplies
-    function fetchSupplies () {
-      const abilitiesIds = store.getState().userAbilities
-      // console.log('ability ids', abilitiesIds)
-      let images = []
-      for (let entry of abilitiesIds) {
-        images.push(store.getState().abilities.find(ability => ability.id === entry).image)
-      }
-      return images
-    }
-
-    let x
-    let y
-
-    for (let i = 1; i <= store.getState().userAbilities.size; i++) {
-      x = (i * 35) + 140
-      let xcount = 0
-
-      if (i > 4) {
-        y = 45
-        x = (xcount * 35) + 174
-        xcount++
-      } else {
-        y = 9
-      }
-
-      this.abilityImages = this.add.image(x, y, fetchSupplies()[i - 1])
-      this.abilityImages.fixedToCamera = true
-    }
+    // Render all abilities the user now has
+    renderAbilities(this)
   }
 
   update () {
@@ -217,8 +197,6 @@ export default class extends Phaser.State {
           'They are good for your health.'
         ], 'Farmer', this)
         this.farmerOverlap = true
-        store.dispatch(addNewAbilityThunk(2))
-        // store.subscribe(addNewAbilityThunk.bind(null,2))
       }
     }, null, this)
 
@@ -228,8 +206,6 @@ export default class extends Phaser.State {
       if (!this.warriorOverlap) {
         makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a sword.'], 'Warrior', this)
         this.warriorOverlap = true
-        store.dispatch(addNewAbilityThunk(7))
-        // store.subscribe(addNewAbilityThunk.bind(null,7))
       }
     }, null, this)
 
@@ -238,14 +214,8 @@ export default class extends Phaser.State {
       if (!this.fishermanOverlap) {
         makeChatbox(['Hey!', 'I have extra fish.', 'Let me give you some.', 'They are good for your strength.'], 'Fisherman', this)
         this.fishermanOverlap = true
-        store.dispatch(addNewAbilityThunk(6))
-        // store.subscribe(addNewAbilityThunk.bind(null,6))
       }
     }, null, this)
-
-    // store.subscribe(()=> {
-
-    // })
 
     if (this.cursors.left.isDown) {
       this.boy.body.velocity.x = -200
