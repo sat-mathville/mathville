@@ -200,7 +200,6 @@ export default class extends Phaser.State {
         y=45
         x=(xcount*35) + 174
         xcount++
-        console.log('xcount', xcount)
       } else {
         y=9
       }
@@ -212,7 +211,6 @@ export default class extends Phaser.State {
   }
 
   update () {
-    // this.keys(()=>{console.log(`TEST KEYS`)})
     this.game.physics.arcade.collide(this.boy, this.stations_3)
     this.game.physics.arcade.collide(this.boy, this.flowers_5)
     this.game.physics.arcade.collide(this.boy, this.trees_6)
