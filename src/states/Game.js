@@ -11,6 +11,7 @@ import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
 import instructionsChat from './helperFunctions/instructionsChat'
+import renderAbilities from './helperFunctions/renderAbilities'
 import {images, characters, spritesheets, tilemaps} from './preloadData'
 import { barriers } from './createData'
 
@@ -136,35 +137,35 @@ export default class extends Phaser.State {
     this.txt.fixedToCamera = true
 
   let dialogue = [`
-  Welcome to Mathville! 
+  Welcome to Mathville!
   Mathville is a peaceful town where we have
-  lived in harmony with each other for many 
-  years. However, lately we have had some 
+  lived in harmony with each other for many
+  years. However, lately we have had some
   unfortunate events...`,`
-  Last month our dear villager, Pythagoras, 
-  went missing. Our local fisherman, Lambda, 
-  saw him captured by the creature from the 
-  cave and was quickly taken away.`, 
+  Last month our dear villager, Pythagoras,
+  went missing. Our local fisherman, Lambda,
+  saw him captured by the creature from the
+  cave and was quickly taken away.`,
   `
-  I must warn you that for the few 
-  who have traveled to the cave, they have 
-  never come back! But you look like a brave 
-  soul who can tackle this challenge. 
-  Before you venture to the cave though, 
-  you must be prepared!`,` 
-  The BAKERY will give you health, 
-  our local WIZARD will give you magic, 
-  and in the FORBIDDEN FOREST you can 
-  find weapons. You will need these supplies 
+  I must warn you that for the few
+  who have traveled to the cave, they have
+  never come back! But you look like a brave
+  soul who can tackle this challenge.
+  Before you venture to the cave though,
+  you must be prepared!`,`
+  The BAKERY will give you health,
+  our local WIZARD will give you magic,
+  and in the FORBIDDEN FOREST you can
+  find weapons. You will need these supplies
   to venture to the cave.`,
   `
   To explore this world you must use
-  ARROW KEYS to move left, right, up, 
-  and down. When talking to someone use 
-  the SPACEBAR to keep the conversation 
-  going. If you answer all of the problems 
-  the villagers need help solving, you will 
-  receive a gift that will aid your journey 
+  ARROW KEYS to move left, right, up,
+  and down. When talking to someone use
+  the SPACEBAR to keep the conversation
+  going. If you answer all of the problems
+  the villagers need help solving, you will
+  receive a gift that will aid your journey
   to the cave. Good luck my friend!
   `
   ]
@@ -207,7 +208,6 @@ export default class extends Phaser.State {
       this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
       this.abilityImages.fixedToCamera = true
     }
-    
   }
 
   update () {
