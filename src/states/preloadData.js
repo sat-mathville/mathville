@@ -13,7 +13,9 @@ export const images = {
     'wand': '../assets/images/supplies/wand2.png',
     'fish': '../assets/images/supplies/fish.png',
     'chatbox': '../assets/images/chatbox.jpg',
-    'logoutBtn': '../assets/images/exit.png'
+    'logoutBtn': '../assets/images/exit.png',
+    'instructionsBtn': '../assets/images/instructions.png',
+    'instructionsBox': '../assets/images/instructionsBox.png'
 }
 
 // export const tilemaps
