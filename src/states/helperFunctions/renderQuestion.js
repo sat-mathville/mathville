@@ -50,7 +50,7 @@ export default function renderQuestion (text, gameState) {
       gameState.game.camera.height / 6,
       wrap(`${gameState.currentQuestion + 1}. ${gameState.questions[gameState.currentQuestion].content}`, 45),
       {
-        font: '35px VT323',
+        font: '40px VT323',
         fill: colors[gameState.currentQuestion],
         smoothed: false,
         align: 'left'
@@ -59,12 +59,14 @@ export default function renderQuestion (text, gameState) {
     gameState.currentQuestionText.input.useHandCursor = true
     gameState.currentQuestionText.events.onInputDown.add(() => { renderQuestion(text, gameState) }, gameState)
 
+    const instruction = 'Press the arrow keys ↑↓ to select your answer. Press the spacebar to confirm your answer.'
+
     gameState.choice = gameState.add.text(
       gameState.game.camera.width / 2 - 830,
-      gameState.game.camera.height / 5 + 500,
-      'Drag your answer here: _____________',
+      gameState.game.camera.height / 5 + 400,
+      wrap(instruction, 50),
       {
-        font: '45px VT323',
+        font: '40px VT323',
         fill: colors[gameState.currentQuestion],
         smoothed: false,
         align: 'left'
@@ -97,10 +99,10 @@ export default function renderQuestion (text, gameState) {
       }
       gameState.buttons[i] = gameState.add.text(
         gameState.game.camera.width / 2 + 100,
-        gameState.game.camera.height / 6 + (i * 50),
+        gameState.game.camera.height / 6 + (i * 55),
         answers[i],
         {
-          font: '35px VT323',
+          font: '40px VT323',
           fill: '#FFFFFF',
           smoothed: false,
           align: 'left'

@@ -2,6 +2,7 @@
 import Phaser from 'phaser'
 import renderQuestion from './helperFunctions/renderQuestion'
 import store from '../store'
+import wrap from './helperFunctions/wrap'
 
 export default class extends Phaser.State {
   preload () {
@@ -20,11 +21,11 @@ export default class extends Phaser.State {
     this.currentQuestionText = {}
     this.score = 0
 
-    const opening = 'If you’re ready to solve some math problems, PRESS the SPACE BAR to proceed!'
+    const opening = 'If you’re ready to solve some math problems, PRESS the SPACEBAR to proceed!'
     let banner = this.add.text(
-      this.game.camera.width / 2 - 830,
+      this.game.camera.width / 2 - 800,
       this.game.camera.height / 3,
-      wrap(opening, 70),
+      wrap(opening, 55),
       {
         font: '45px VT323',
         fill: '#FFFFFF',
