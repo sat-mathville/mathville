@@ -273,7 +273,7 @@ export default class extends Phaser.State {
     this.warrior.animations.play('standing', 2, true)
     this.game.physics.arcade.overlap(this.boy, this.warrior, () => {
       if (!this.warriorOverlap) {
-        makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a sword.'], 'Warrior', this)
+        makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a shield.'], 'Warrior', this)
         this.warriorOverlap = true
       }
     }, null, this)

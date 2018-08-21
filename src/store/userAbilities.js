@@ -24,7 +24,6 @@ export const addNewAbilityThunk = (newAbilityId) => async dispatch => {
   try{
     const {data} = await axios.put(`/api/abilities/${newAbilityId}`)
     dispatch(addNewAbility(data.id))
-    console.log('helllooooo')
   } catch (error) {
     console.error(error)
   }

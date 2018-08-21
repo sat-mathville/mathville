@@ -101,9 +101,9 @@ async function seed () {
     value: 5
   })
   abilities[6] = await Ability.create({
-    name: 'sword2',
+    name: 'shield',
     type: 'weaponry',
-    image: 'sword2',
+    image: 'shield',
     value: 4
   })
 
