@@ -1,11 +1,13 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store, {setCoord} from '../store'
+import store, {setCoord, fetchAllAbilities, getProblems} from '../store'
 
 export default class extends Phaser.State {
  preload() {
   this.load.image('playBtn', '../assets/images/playBtn.png')
   store.dispatch(setCoord([450, 500]))
+  store.dispatch(fetchAllAbilities())
+  store.dispatch(getProblems())
  }
 
  update() {
