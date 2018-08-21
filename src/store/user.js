@@ -39,7 +39,7 @@ export const auth = (data, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, data)
-    dispatch(getError(false))
+    dispatch(getError(''))
   } catch (authError) {
     const str = (method === 'login') ? 'Bad login' : 'Bad signup'
     if (authError) { return dispatch(getError(str)) }
