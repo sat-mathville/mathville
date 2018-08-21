@@ -1,5 +1,6 @@
 import wrap from './wrap'
 import Phaser from 'phaser'
+import pressSpacebar from './pressSpacebar'
 
 export default function makeChatbox (dialogue, npc, gameState, newState, counter = 0) {
   if (!counter) {
@@ -16,6 +17,8 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
       delete gameState.chatbox
       gameState.banner.destroy()
       delete gameState.banner
+      gameState.instructions.destroy()
+      delete gameState.instructions
     }
     gameState.chatbox = gameState.add.sprite(
       gameState.camera.x + gameState.camera.width / 3,
@@ -39,12 +42,15 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
       counter++
       makeChatbox(dialogue, npc, gameState, newState, counter)
     }, gameState)
+
     const words = wrap(dialogue[counter], 30).split(' ')
     for (let i = 0; i < words.length; i++) {
       setTimeout(() => {
         gameState.banner.text = npc + ': ' + words.slice(0, i + 1).join(' ')
+        if(i===words.length-1)pressSpacebar(gameState)
       }, 200 * i)
     }
+
   } else {
     gameState.game.input.keyboard.removeKey(Phaser.KeyCode.SPACEBAR)
     if (newState) {
@@ -55,6 +61,8 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
       delete gameState.chatbox
       gameState.banner.destroy()
       delete gameState.banner
+      gameState.instructions.destroy()
+      delete gameState.instructions
     }
   }
 }
