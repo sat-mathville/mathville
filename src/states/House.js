@@ -20,11 +20,11 @@ export default class extends Phaser.State {
     this.currentQuestionText = {}
     this.score = 0
 
-    const opening = 'If you’re ready to solve some math problems, click HERE!'
+    const opening = 'If you’re ready to solve some math problems, PRESS the SPACE BAR to proceed!'
     let banner = this.add.text(
       this.game.camera.width / 2 - 830,
       this.game.camera.height / 3,
-      opening,
+      wrap(opening, 70),
       {
         font: '45px VT323',
         fill: '#FFFFFF',
