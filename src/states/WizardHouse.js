@@ -5,7 +5,7 @@ import spriteUrl from './helperFunctions/spriteUrl'
 
 export default class extends Phaser.State {
   preload () {
-    store.dispatch(setCurrentAbilityId(2))
+    store.dispatch(setCurrentAbilityId(1))
 
     this.load.spritesheet('boy', spriteUrl(), 64, 64)
     this.load.spritesheet('purpleFire', '../assets/images/purpleFire.png', 23.8, 48)

@@ -12,11 +12,11 @@ async function seed () {
     }),
     Question.create({content: '578,101 - 194,129 = ?', option1: '383,972', option2: '772,230', option3: '-383,972', option4: '-772,230'
     }),
-    Question.create({content: '16 * 15 = ?', option1: '240', option2: '224', option3: '180', option4: '242'
+    Question.create({content: '16 x 15 = ?', option1: '240', option2: '224', option3: '180', option4: '242'
     }),
-    Question.create({content: '-96 / 3 = ?', option1: '-32', option2: '32', option3: '-30', option4: '30'
+    Question.create({content: '-96 ÷ 3 = ?', option1: '-32', option2: '32', option3: '-30', option4: '30'
     }),
-    Question.create({content: '-171.6 / -22 = ?', option1: '7.8', option2: '-9.7', option3: '9.7', option4: '-7.8'
+    Question.create({content: '-171.6 ÷ -22 = ?', option1: '7.8', option2: '-9.7', option3: '9.7', option4: '-7.8'
     })
   ])
 
@@ -37,11 +37,11 @@ async function seed () {
   ])
 
   const basicGeometry = await Promise.all([
-    Question.create({content: 'Suppose you have a scoop of ice cream that is a perfect sphere and the scoop has a radius of 3 inches. What is the volume?', option1: '4/3πr³', option2: '3/4πr³', option3: '4/3πr²', option4: '3/4πr²' }),
-    Question.create({content: 'Suppose you have a cone to put your ice cream in. How can you determine the surface area for your cone?', option1: '2πr', option2: '3πr', option3: '2πr²', option4: '-3πr²' }),
-    Question.create({content: 'What is the area of the triangular roof of the bakery? It has a height of 8 feet and a base of 20 feet? What is the area?', option1: '80 feet²', option2: '40 feet²', option3: '-80 feet²', option4: '100 feet²' }),
-    Question.create({content: 'Suppose the bakery has a width of 20 feet and a length of 15 feet. What is the area of the bakery?', option1: '300 feet²', option2: '-300 feet²', option3: '400 feet²', option4: '1500 feet²' }),
-    Question.create({content: 'Suppose you buy a cookie from the bakery. How do you determine its circumference?', option1: 'πd', option2: 'πr²', option3: '2π', option4: '2πd' })
+    Question.create({content: 'Suppose you have a scoop of ice cream that is a perfect sphere and the scoop has a radius of r inches. What is the volume?', option1: '4/3πr³', option2: '3/4πr³', option3: '4/3πr²', option4: '3/4πr²' }),
+    Question.create({content: 'Suppose you have a cyclindrical cup to put your ice cream. How can you determine the volume of your ice cream cup? (r = radius, h = height)', option1: 'πr²h', option2: '2πr²h', option3: '3πr²h', option4: '-3πr²' }),
+    Question.create({content: 'Suppose you buy a scone that is triangular in shape. It has a height of 4 inches and a base of 3 inches. What is the area?', option1: '6 inches²', option2: '4 inches²', option3: '-8 inches²', option4: '12 inches²' }),
+    Question.create({content: 'Suppose the floor area of the bakery has a width of 20 feet and a length of 15 feet. How large is the floor area?', option1: '300 feet²', option2: '-300 feet²', option3: '400 feet²', option4: '1500 feet²' }),
+    Question.create({content: 'Suppose you buy a cookie from the bakery. How do you determine its circumference? (r = radius, d = diameter)', option1: 'πd', option2: 'πr²', option3: '2π', option4: '2πd' })
   ])
 
   // USERS DATA
@@ -93,6 +93,18 @@ async function seed () {
     type: 'magic',
     image: 'wand2',
     value: 5
+  })
+  abilities[5] = await Ability.create({
+    name: 'fish',
+    type: 'strength',
+    image: 'fish',
+    value: 5
+  })
+  abilities[6] = await Ability.create({
+    name: 'sword2',
+    type: 'weaponry',
+    image: 'sword2',
+    value: 4
   })
 
   // SETTING ASSOCIATIONS

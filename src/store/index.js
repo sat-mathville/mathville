@@ -7,6 +7,7 @@ import abilities from './abilities'
 import userAbilities from './userAbilities'
 import currentAbility from './currentAbility'
 import coord from './coord'
+// import latestAbility from './latestAbility'
 import hasError from './handleError'
 
 const reducer = combineReducers({
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   userAbilities,
   currentAbility,
   coord,
+  // latestAbility
   hasError
 })
 
@@ -30,4 +32,5 @@ export * from './userAbilities'
 export * from './abilities'
 export * from './currentAbility'
 export * from './coord'
+// export * from './latestAbility'
 export * from './handleError'
