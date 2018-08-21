@@ -134,10 +134,10 @@ export default class extends Phaser.State {
   Welcome to Mathville! 
   Mathville is a peaceful town where we have
   lived in harmony with each other for many 
-  years. However lately we have had some 
+  years. However, lately we have had some 
   unfortunate events...`,`
-  Last month our dear villager Pythagoras 
-  went missing. Our local fisherman Lambda 
+  Last month our dear villager, Pythagoras, 
+  went missing. Our local fisherman, Lambda, 
   saw him captured by the creature from the 
   cave and was quickly taken away.`, 
   `
@@ -151,8 +151,17 @@ export default class extends Phaser.State {
   our local WIZARD will give you magic, 
   and in the FORBIDDEN FOREST you can 
   find weapons. You will need these supplies 
-  to venture to the cave. If you choose to 
-  accept this challenge I wish you luck.`
+  to venture to the cave.`,
+  `
+  To explore this world you must use
+  ARROW KEYS to move left, right, up, 
+  and down. When talking to someone use 
+  the SPACEBAR to keep the conversation 
+  going. If you answer all of the problems 
+  the villagers need help solving, you will 
+  receive a gift that will aid your journey 
+  to the cave. Good luck my friend!
+  `
   ]
 
     this.instructionsBtn = this.game.add.button(98,80, 'instructionsBtn', () => instructionsChat(dialogue, this), this)

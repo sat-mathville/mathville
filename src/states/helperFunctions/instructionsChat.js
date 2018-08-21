@@ -11,13 +11,15 @@ export default function instructionsChat (dialogue, gameState, counter = 0) {
     }, gameState)
 
   }
-  console.log('banner', gameState.banner)
   if (counter < dialogue.length) {
     if (gameState.banner) {
       gameState.chatbox.destroy()
       delete gameState.chatbox
       gameState.banner.destroy()
       delete gameState.banner
+      gameState.toNextMessage.destroy()
+      delete gameState.toNextMessage
+
     }
     gameState.chatbox = gameState.add.sprite(
       gameState.camera.x + gameState.camera.width / 4,
@@ -35,6 +37,16 @@ export default function instructionsChat (dialogue, gameState, counter = 0) {
         smoothed: false
       }
     )
+      gameState.toNextMessage = gameState.add.text(
+        gameState.chatbox.x + 300,
+        gameState.chatbox.y + 600,
+        'Press SPACEBAR to continue',
+        {
+          font: '25px Kalam',
+          fill: '#060606',
+          smoothed: false
+        }
+      )
     
   } else {
     gameState.game.input.keyboard.removeKey(Phaser.KeyCode.SPACEBAR)
@@ -42,6 +54,8 @@ export default function instructionsChat (dialogue, gameState, counter = 0) {
       delete gameState.chatbox
       gameState.banner.destroy()
       delete gameState.banner
+      gameState.toNextMessage.destroy()
+      delete gameState.toNextMessage
     
   }
 }
