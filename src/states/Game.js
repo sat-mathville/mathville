@@ -12,6 +12,7 @@ import instructionsChat from './helperFunctions/instructionsChat'
 import renderAbilities from './helperFunctions/renderAbilities'
 import {images, characters, spritesheets, tilemaps} from './preloadData'
 import { barriers } from './createData'
+import chickenMovement from './helperFunctions/chickenMovement'
 
 export default class extends Phaser.State {
   preload () {
@@ -195,10 +196,10 @@ export default class extends Phaser.State {
     let x
     let y
     let xcount = 0
-    
+
     for(let i = 1; i <= store.getState().userAbilities.size; i++){
       x = (i * 35) + 140
-      
+
       if(i>4){
         y=45
         x=(xcount*35) + 174
@@ -288,25 +289,12 @@ export default class extends Phaser.State {
       }
     }, null, this)
 
-    if (this.cursors.left.isDown) {
-      this.boy.body.velocity.x = -200
-      this.boy.animations.play('walkLeft', 40, true)
-    } else if (this.cursors.right.isDown) {
-      this.boy.body.velocity.x = 200
-      this.boy.animations.play('walkRight', 40, true)
-    } else if (this.cursors.up.isDown) {
-      this.boy.body.velocity.y = -200
-      this.boy.animations.play('walkUp', 40, true)
-    } else if (this.cursors.down.isDown) {
-      this.boy.body.velocity.y = 200
-      this.boy.animations.play('walkDown', 40, true)
-    } else {
-      this.boy.body.velocity.x = 0
-      this.boy.body.velocity.y = 0
-      this.boy.animations.stop()
-    }
-
+    // main character movement
     navigate(this.cursors, this.boy)
+
+    // chicken movement
+    chickenMovement(this.chicken)
+
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
