@@ -130,7 +130,30 @@ export default class extends Phaser.State {
     this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
 
-    let dialogue = ['Hey!', 'I have extra fish.', 'Let me give you some.', 'They are good for your strength.']
+  let dialogue = [`
+  Welcome to Mathville! 
+  Mathville is a peaceful town where we have
+  lived in harmony with each other for many 
+  years. However lately we have had some 
+  unfortunate events...`,`
+  Last month our dear villager Pythagoras 
+  went missing. Our local fisherman Lambda 
+  saw him captured by the creature from the 
+  cave and was quickly taken away.`, 
+  `
+  I must warn you that for the few 
+  who have traveled to the cave, they have 
+  never come back! But you look like a brave 
+  soul who can tackle this challenge. 
+  Before you venture to the cave though, 
+  you must be prepared!`,` 
+  The BAKERY will give you health, 
+  our local WIZARD will give you magic, 
+  and in the FORBIDDEN FOREST you can 
+  find weapons. You will need these supplies 
+  to venture to the cave. If you choose to 
+  accept this challenge I wish you luck.`
+  ]
 
     this.instructionsBtn = this.game.add.button(98,80, 'instructionsBtn', () => instructionsChat(dialogue, this), this)
     this.instructionsBtn.fixedToCamera = true

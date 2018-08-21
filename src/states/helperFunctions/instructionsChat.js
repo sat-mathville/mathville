@@ -20,17 +20,17 @@ export default function instructionsChat (dialogue, gameState, counter = 0) {
       delete gameState.banner
     }
     gameState.chatbox = gameState.add.sprite(
-      gameState.scoreboard.x + 100,
-      gameState.scoreboard.y + 100,
+      gameState.camera.x + gameState.camera.width / 4,
+      gameState.camera.y + gameState.camera.height / 6,
       'instructionsBox'
     )
     gameState.chatbox.scale.setTo(1.5)
     gameState.banner = gameState.add.text(
-      gameState.chatbox.x + 20,
-      gameState.chatbox.y + 20,
+      gameState.chatbox.x + 70,
+      gameState.chatbox.y + 70,
       dialogue[counter],
       {
-        font: '40px VT323',
+        font: '40px Kalam',
         fill: '#060606',
         smoothed: false
       }
