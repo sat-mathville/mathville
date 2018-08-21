@@ -191,15 +191,16 @@ export default class extends Phaser.State {
 
     let x
     let y
-
+    let xcount = 0
+    
     for(let i = 1; i <= store.getState().userAbilities.size; i++){
       x = (i * 35) + 140
-      let xcount = 0
-
+      
       if(i>4){
         y=45
         x=(xcount*35) + 174
         xcount++
+        console.log('xcount', xcount)
       } else {
         y=9
       }
@@ -207,9 +208,6 @@ export default class extends Phaser.State {
       this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
       this.abilityImages.fixedToCamera = true
     }
-
-      this.abilityImages = this.add.image(x, y, fetchSupplies()[i - 1])
-      this.abilityImages.fixedToCamera = true
     
   }
 
