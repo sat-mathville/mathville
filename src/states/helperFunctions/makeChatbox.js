@@ -1,5 +1,5 @@
 import wrap from './wrap'
-import { Key } from 'phaser-ce';
+import Phaser from 'phaser'
 
 export default function makeChatbox (dialogue, npc, gameState, newState, counter = 0) {
   if (!counter) {

@@ -40,7 +40,7 @@ export default class extends Phaser.State {
     // Load main map/world
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0, 0, 1920, 1024)
-    
+
     //the loop below used preload data and not create data
     for(let tileset in tilemaps){
       //add tilemap
@@ -65,7 +65,7 @@ export default class extends Phaser.State {
     this.game.physics.enable(this.house4, Phaser.Physics.ARCADE)
 
     //reducing the collision size around wizard house to let character get closer to the door
-    this.wizardhouse.body.width = 140;    
+    this.wizardhouse.body.width = 140;
     this.wizardhouse.body.height = 250;
 
     // Set up physics (barriers) for walls and trees and stuff
@@ -174,6 +174,35 @@ export default class extends Phaser.State {
       this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
       this.abilityImages.fixedToCamera = true
     }
+          // pull in supplies
+          function fetchSupplies() {
+            const abilitiesIds = store.getState().userAbilities
+            // console.log('ability ids', abilitiesIds)
+            let images = []
+            for(let entry of abilitiesIds) {
+              images.push(store.getState().abilities.find(ability => ability.id === entry).image)
+            }
+            return images
+          }
+
+          let x
+          let y
+
+          for(let i = 1; i <= store.getState().userAbilities.size; i++){
+            x = (i * 35) + 140
+            let xcount = 0
+
+            if(i>4){
+              y=45
+              x=(xcount*35) + 174
+              xcount++
+            } else {
+              y=9
+            }
+
+            this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
+            this.abilityImages.fixedToCamera = true
+          }
 
   }
 
@@ -260,9 +289,9 @@ export default class extends Phaser.State {
       }
     }, null, this)
 
-    store.subscribe(()=> {
-      
-    })
+    // store.subscribe(()=> {
+
+    // })
 
 
     if (this.cursors.left.isDown) {
