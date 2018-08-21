@@ -84,30 +84,7 @@ export default function renderQuestion (text, gameState) {
       gameState.questions[gameState.currentQuestion].option4
     ]
     shuffle(gameState.answers)
-
     renderAnswers(gameState)
     selectAnswer(gameState)
-    // Register answers
-
-    // gameState.buttons[i].inputEnabled = true
-    // gameState.buttons[i].input.enableDrag()
-    // gameState.buttons[i].events.onInputUp.add(
-    //   () => {
-    //     if (gameState.buttons[i].x > gameState.instruction.x + 400 &&
-    //         gameState.buttons[i].x < gameState.instruction.x + 600 &&
-    //         gameState.buttons[i].y > gameState.instruction.y - 30 &&
-    //         gameState.buttons[i].y < gameState.instruction.y + 30) {
-    //       if (answers[i] === gameState.questions[gameState.currentQuestion].option1) {
-    //         gameState.yay.play()
-    //         gameState.buttons[i].fill = '#00FF00'
-    //         setTimeout(() => correctAnswer(text, gameState), 1500)
-    //       } else {
-    //         gameState.scream.play()
-    //         gameState.buttons[i].fill = '#FF0000'
-    //         setTimeout(() => renderQuestion(text, gameState), 1500)
-    //       }
-    //     }
-    //   }
-    // )
   }
 }

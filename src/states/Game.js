@@ -7,28 +7,27 @@ import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
 import instructionsChat from './helperFunctions/instructionsChat'
 import {images, characters, spritesheets, tilemaps} from './preloadData'
-import { barriers } from './createData';
+import { barriers } from './createData'
 
 export default class extends Phaser.State {
   preload () {
-
-    //images
-    for(let image in images){
-      this.load.image(image,images[image])
+    // images
+    for (let image in images) {
+      this.load.image(image, images[image])
     }
 
-    //character spritesheets
-    this.load.spritesheet('boy', spriteUrl(),64,64)
-    for(let character in characters){
+    // character spritesheets
+    this.load.spritesheet('boy', spriteUrl(), 64, 64)
+    for (let character in characters) {
       this.load.spritesheet(character, characters[character], 64, 64)
     }
 
-    for(let spritesheet in spritesheets){
+    for (let spritesheet in spritesheets) {
       this.load.spritesheet(spritesheet, spritesheets[spritesheet])
     }
 
-    //tilemaps
-    for(let tilemap in tilemaps){
+    // tilemaps
+    for (let tilemap in tilemaps) {
       this.load.tilemap(tilemap, tilemaps[tilemap]['imageUrl'], null, Phaser.Tilemap.CSV)
     }
 
@@ -41,13 +40,13 @@ export default class extends Phaser.State {
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(0, 0, 1920, 1024)
 
-    //the loop below used preload data and not create data
-    for(let tileset in tilemaps){
-      //add tilemap
+    // the loop below used preload data and not create data
+    for (let tileset in tilemaps) {
+      // add tilemap
       this[tileset] = this.game.add.tilemap(tileset)
-      //add tile image
+      // add tile image
       this[tileset].addTilesetImage(tilemaps[tileset]['tilesetImage'])
-      //create tile layer
+      // create tile layer
       this[tilemaps[tileset]['createLayerName']] = this[tileset].createLayer(0)
     }
 
@@ -61,12 +60,12 @@ export default class extends Phaser.State {
       this.game.physics.enable(this[barrier], Phaser.Physics.ARCADE)
     }
 
-    this.house4 = this.game.add.sprite(543,455, 'house3')
+    this.house4 = this.game.add.sprite(543, 455, 'house3')
     this.game.physics.enable(this.house4, Phaser.Physics.ARCADE)
 
-    //reducing the collision size around wizard house to let character get closer to the door
-    this.wizardhouse.body.width = 140;
-    this.wizardhouse.body.height = 250;
+    // reducing the collision size around wizard house to let character get closer to the door
+    this.wizardhouse.body.width = 140
+    this.wizardhouse.body.height = 250
 
     // Set up physics (barriers) for walls and trees and stuff
     this.game.physics.arcade.enable(this.stations)
@@ -102,7 +101,7 @@ export default class extends Phaser.State {
     this.scoreboard = this.game.add.sprite(0, 0, 'scoreboard')
     this.scoreboard.fixedToCamera = true
     this.scoreboard.scale.setTo(1)
-    this.bag = this.game.add.sprite(173,5, 'bag')
+    this.bag = this.game.add.sprite(173, 5, 'bag')
     this.bag.fixedToCamera = true
     this.bag.scale.setTo(1.11)
 
@@ -121,10 +120,7 @@ export default class extends Phaser.State {
       `Score: ${calculateScore()}`,
       {font: '25px Cinzel', fill: '#000', align: 'left'})
 
-      this.scoreNum.fixedToCamera = true
-
-
-
+    this.scoreNum.fixedToCamera = true
 
     // Logout Button
     this.logoutBtn = this.game.add.button(0, 80, 'logoutBtn', this.actionOnLogout, this)
@@ -175,6 +171,9 @@ export default class extends Phaser.State {
       this.abilityImages.fixedToCamera = true
     }
 
+      this.abilityImages = this.add.image(x, y, fetchSupplies()[i - 1])
+      this.abilityImages.fixedToCamera = true
+    
   }
 
   update () {
@@ -260,11 +259,6 @@ export default class extends Phaser.State {
       }
     }, null, this)
 
-    // store.subscribe(()=> {
-
-    // })
-
-
     if (this.cursors.left.isDown) {
       this.boy.body.velocity.x = -200
       this.boy.animations.play('walkLeft', 40, true)
@@ -287,8 +281,5 @@ export default class extends Phaser.State {
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
-    this.game.destroy()
-    delete window.game
   }
-
 }

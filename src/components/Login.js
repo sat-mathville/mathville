@@ -31,6 +31,12 @@ export default class Login extends Component {
         })
       } else this.setState({isLoggedIn: false})
     })
+    store.subscribe(() => {
+      if (!store.getState().user.id && window.game) {
+        window.game.destroy()
+        window.game = null
+      }
+    })
     // store.subscribe(() => {
     //   let userAbilitiesArr = store.getState().userAbilities
     //   if(userAbilitiesArr.length) {
@@ -43,6 +49,16 @@ export default class Login extends Component {
       if (hasError !== this.state.hasError) {
         this.setState({
           hasError: hasError
+        })
+      }
+    })
+    store.subscribe(() => {
+      if (store.getState().user.id) {
+        this.setState({
+          email: '',
+          password: '',
+          username: '',
+          character: 0
         })
       }
     })
@@ -87,14 +103,6 @@ export default class Login extends Component {
           <p>Please view this website from your computer.</p>
         </div>
       )
-    }
-    if (this.state.isLoggedIn) {
-      this.setState({
-        email: '',
-        password: '',
-        username: '',
-        character: 0
-      })
     }
     if (store.getState().user.id) {
       if (!window.game)window.game = new Game()
