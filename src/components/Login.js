@@ -46,6 +46,16 @@ export default class Login extends Component {
         })
       }
     })
+    store.subscribe(() => {
+      if (store.getState().user.id) {
+        this.setState({
+          email: '',
+          password: '',
+          username: '',
+          character: 0
+        })
+      }
+    })
   }
   handleChange (event) {
     this.setState({
@@ -87,14 +97,6 @@ export default class Login extends Component {
           <p>Please view this website from your computer.</p>
         </div>
       )
-    }
-    if (this.state.isLoggedIn) {
-      this.setState({
-        email: '',
-        password: '',
-        username: '',
-        character: 0
-      })
     }
     if (store.getState().user.id) {
       if (!window.game)window.game = new Game()
