@@ -10,10 +10,9 @@ import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
+import instructionsChat from './helperFunctions/instructionsChat'
 import {images, characters, spritesheets, tilemaps} from './preloadData'
 import { barriers } from './createData'
-import renderAbilities from './helperFunctions/renderAbilities';
-import updateAbilities from './helperFunctions/updateAbilities';
 
 export default class extends Phaser.State {
   preload () {
@@ -136,8 +135,82 @@ export default class extends Phaser.State {
     this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
 
-    // Render all abilities the user now has
-    renderAbilities(this)
+  let dialogue = [`
+  Welcome to Mathville! 
+  Mathville is a peaceful town where we have
+  lived in harmony with each other for many 
+  years. However, lately we have had some 
+  unfortunate events...`,`
+  Last month our dear villager, Pythagoras, 
+  went missing. Our local fisherman, Lambda, 
+  saw him captured by the creature from the 
+  cave and was quickly taken away.`, 
+  `
+  I must warn you that for the few 
+  who have traveled to the cave, they have 
+  never come back! But you look like a brave 
+  soul who can tackle this challenge. 
+  Before you venture to the cave though, 
+  you must be prepared!`,` 
+  The BAKERY will give you health, 
+  our local WIZARD will give you magic, 
+  and in the FORBIDDEN FOREST you can 
+  find weapons. You will need these supplies 
+  to venture to the cave.`,
+  `
+  To explore this world you must use
+  ARROW KEYS to move left, right, up, 
+  and down. When talking to someone use 
+  the SPACEBAR to keep the conversation 
+  going. If you answer all of the problems 
+  the villagers need help solving, you will 
+  receive a gift that will aid your journey 
+  to the cave. Good luck my friend!
+  `
+  ]
+
+    this.instructionsBtn = this.game.add.button(98,80, 'instructionsBtn', () => instructionsChat(dialogue, this), this)
+    this.instructionsBtn.fixedToCamera = true
+    this.instructionsBtn.width = 224
+    this.instructionsBtn.height = 29
+    this.txt = this.add.text(this.instructionsBtn.x + 20, this.instructionsBtn.y, 'Instructions', {font: '25px Cinzel', fill: '#fff', align: 'center'})
+    this.txt.fixedToCamera = true
+
+
+
+    // pull in supplies
+    function fetchSupplies() {
+      const abilitiesIds = store.getState().userAbilities
+      // console.log('ability ids', abilitiesIds)
+      let images = []
+      for(let entry of abilitiesIds) {
+        images.push(store.getState().abilities.find(ability => ability.id === entry).image)
+      }
+      return images
+    }
+
+    let x
+    let y
+
+    for(let i = 1; i <= store.getState().userAbilities.size; i++){
+      x = (i * 35) + 140
+      let xcount = 0
+
+      if(i>4){
+        y=45
+        x=(xcount*35) + 174
+        xcount++
+      } else {
+        y=9
+      }
+
+      this.abilityImages = this.add.image(x, y, fetchSupplies()[i-1])
+      this.abilityImages.fixedToCamera = true
+    }
+
+      this.abilityImages = this.add.image(x, y, fetchSupplies()[i - 1])
+      this.abilityImages.fixedToCamera = true
+    
   }
 
   update () {
