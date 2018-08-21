@@ -2,7 +2,7 @@ import store from '../../store'
 import wrap from './wrap'
 
 export default function renderFinalOutput (score,questionsLength,id) {
-  const str = '\n\nClick HERE to leave'
+  const str = '\n\Press the spacebar to leave.'
   const abilityName = store.getState().abilities.find(ability => ability.id===id)
   if (score === questionsLength) {
     if (store.getState().userAbilities.has(id)) return wrap('Good job! But you have done this before. Go somewhere else!', 50) + str
