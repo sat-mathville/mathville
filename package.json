@@ -5,7 +5,7 @@
     "author": "leandro cabrera <leandcabrera@gmail.com>",
     "main": "index.js",
     "scripts": {
-        "seed": "node seed.js",
+        "seed": "node script/seed.js",
         "dev": "webpack & nodemon server -e html,js",
         "start": "node server",
         "startserver": "nodemon server -e html,js",
