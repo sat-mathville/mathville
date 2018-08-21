@@ -31,9 +31,8 @@ export default class extends Phaser.State {
         fill: '#FFFFFF',
         smoothed: false
       })
-    banner.inputEnabled = true
-    banner.input.useHandCursor = true
-    banner.events.onInputDown.add(() => { renderQuestion(banner, this) }, this)
+    this.spacebar = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+    this.spacebar.onDown.add(() => { renderQuestion(banner, this) }, this)
   }
   start(){
     music.fadeOut(4000);
