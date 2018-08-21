@@ -6,6 +6,7 @@ import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
 import {images, characters, spritesheets, tilemaps} from './preloadData'
+import { barriers } from './createData';
 
 export default class extends Phaser.State {
   preload () {
@@ -53,46 +54,14 @@ export default class extends Phaser.State {
     this.music = this.add.audio('music')
     this.music.play()
 
-    // set up barriers for the bakery
-    this.bakery = this.game.add.sprite(710, 170, 'bakery')
-    this.game.physics.enable(this.bakery, Phaser.Physics.ARCADE)
-
-    //set up physics (barriers) for houses in town
-    this.house1 = this.game.add.sprite(800,430, 'house1')
-    this.game.physics.enable(this.house1, Phaser.Physics.ARCADE)
-    this.game.physics.arcade.enable(this.house1)
-
-    this.house2 = this.game.add.sprite(660,391, 'house2')
-    this.game.physics.enable(this.house2, Phaser.Physics.ARCADE)
-    this.game.physics.arcade.enable(this.house2)
-
-    this.house3 = this.game.add.sprite(993,455, 'house3')
-    this.game.physics.enable(this.house3, Phaser.Physics.ARCADE)
-    this.game.physics.arcade.enable(this.house3)
+    for (let barrier in barriers) {
+      this[barrier] = this.game.add.sprite(barriers[barrier]['x'], barriers[barrier]['y'], barrier)
+      this[barrier].scale.setTo(barriers[barrier]['scale'])
+      this.game.physics.enable(this[barrier], Phaser.Physics.ARCADE)
+    }
 
     this.house4 = this.game.add.sprite(543,455, 'house3')
     this.game.physics.enable(this.house4, Phaser.Physics.ARCADE)
-    this.game.physics.arcade.enable(this.house4)
-
-    this.wizardhouse = this.game.add.sprite(890,10, 'wizardhouse')
-    this.wizardhouse.scale.setTo(0.35)
-    this.game.physics.enable(this.wizardhouse, Phaser.Physics.ARCADE)
-    this.game.physics.arcade.enable(this.wizardhouse)
-
-    this.signpost1 = this.game.add.sprite(650, 258, 'sign1')
-    this.signpost1.scale.setTo(1)
-    this.game.physics.enable(this.signpost1, Phaser.Physics.ARCADE)
-    this.game.physics.arcade.enable(this.signpost1)
-
-    this.signpost2 = this.game.add.sprite(1030, 244, 'sign2')
-    this.signpost2.scale.setTo(0.9)
-    this.game.physics.enable(this.signpost2, Phaser.Physics.ARCADE)
-    this.game.physics.arcade.enable(this.signpost2)
-
-    this.signpost3 = this.game.add.sprite(350, 326, 'sign3')
-    this.signpost3.scale.setTo(1)
-    this.game.physics.enable(this.signpost3, Phaser.Physics.ARCADE)
-    this.game.physics.arcade.enable(this.signpost3)
 
     //reducing the collision size around wizard house to let character get closer to the door
     this.wizardhouse.body.width = 140;    
@@ -106,34 +75,12 @@ export default class extends Phaser.State {
     this.game.physics.arcade.enable(this.trees)
     this.trees.setCollisionBetween(0, 6080, true, this.trees_6)
 
-    // Create entrances to other game scenes
-    this.door = this.game.add.sprite(952, 255, 'door')
-    this.door.scale.setTo(0.3)
-    this.game.physics.enable(this.door, Phaser.Physics.ARCADE)
-
-    this.bakerydoor = this.game.add.sprite(744, 277, 'bakerydoor')
-    this.bakerydoor.scale.setTo(1.1)
-    this.game.physics.enable(this.bakerydoor, Phaser.Physics.ARCADE)
-
-    this.forestDoor = this.game.add.sprite(127, 319, 'forestDoor')
-    this.forestDoor.scale.setTo(0.35)
-    this.game.physics.enable(this.forestDoor, Phaser.Physics.ARCADE)
-
     // other characters
-    this.farmer = this.game.add.sprite(728, 750, 'farmer')
-    this.farmer.scale.setTo(0.85)
-    this.game.physics.enable(this.farmer, Phaser.Physics.ARCADE)
     this.farmer.animations.add('standing', [120, 121, 122, 123, 124, 125, 126, 127], null, true)
 
-    this.warrior = this.game.add.sprite(127, 900, 'warrior')
-    this.warrior.scale.setTo(0.85)
-    this.game.physics.enable(this.warrior, Phaser.Physics.ARCADE)
     this.warrior.animations.add('standing', [39, 40, 41, 42], null, true)
     this.warrior.body.immovable = true
 
-    this.fisherman = this.game.add.sprite(1400, 760, 'fisherman')
-    this.fisherman.scale.setTo(0.85)
-    this.game.physics.enable(this.fisherman, Phaser.Physics.ARCADE)
     this.fisherman.animations.add('standing', [26, 27], null, true)
 
     // Create player's character
@@ -230,18 +177,18 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.house3)
     this.game.physics.arcade.collide(this.boy, this.house4)
     this.game.physics.arcade.collide(this.boy, this.wizardhouse)
-    this.game.physics.arcade.collide(this.boy, this.signpost1)
-    this.game.physics.arcade.collide(this.boy, this.signpost2)
-    this.game.physics.arcade.collide(this.boy, this.signpost3)
+    this.game.physics.arcade.collide(this.boy, this.sign1)
+    this.game.physics.arcade.collide(this.boy, this.sign2)
+    this.game.physics.arcade.collide(this.boy, this.sign3)
     this.bakery.body.immovable = true
     this.house1.body.immovable = true
     this.house2.body.immovable = true
     this.house3.body.immovable = true
     this.house4.body.immovable = true
     this.wizardhouse.body.immovable = true
-    this.signpost1.body.immovable = true
-    this.signpost2.body.immovable = true
-    this.signpost3.body.immovable = true
+    this.sign1.body.immovable = true
+    this.sign2.body.immovable = true
+    this.sign3.body.immovable = true
 
     this.game.physics.arcade.overlap(this.boy, this.door, () => {
       store.dispatch(setCoord([
@@ -257,7 +204,7 @@ export default class extends Phaser.State {
       this.music.stop()
       this.game.state.start('ForbiddenForest')
     }, null, this)
-    this.game.physics.arcade.overlap(this.boy, this.bakerydoor, () => {
+    this.game.physics.arcade.overlap(this.boy, this.bakeryDoor, () => {
       store.dispatch(setCoord([
         this.boy.x, this.boy.y + 20
       ]))

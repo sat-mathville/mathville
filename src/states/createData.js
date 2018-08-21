@@ -19,11 +19,6 @@ export const barriers = {
        y: 455,
        scale: 1
    },
-   'house4': {
-       x: 543,
-       y: 455,
-       scale: 1
-   },
    'wizardhouse': {
        x: 890,
        y: 10,
@@ -43,5 +38,35 @@ export const barriers = {
        x: 350,
        y: 326,
        scale: 1
+   },
+   'door': {
+    x: 952,
+    y: 255,
+    scale: 0.3
+   },
+   'bakeryDoor': {
+    x: 744,
+    y: 277,
+    scale: 1.1
+   },
+   'forestDoor': {
+    x:127,
+    y: 319,
+    scale: 0.35
+   },
+   'farmer': {
+    x:728,
+    y: 750,
+    scale: 0.85
+   },
+   'warrior': {
+    x:127,
+    y: 900,
+    scale: 0.85
+   },
+   'fisherman': {
+    x:1400,
+    y: 760,
+    scale: 0.85
    }
 }

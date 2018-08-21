@@ -1,6 +1,6 @@
 
 export const images = {
-   'bakerydoor': '../assets/images/bakersOutside/bakerydoor.png' ,
+   'bakeryDoor': '../assets/images/bakersOutside/bakerydoor.png' ,
     'tileset': '../assets/images/ProjectUtumno_full.png',
     'towntrees': '../assets/images/townTrees.png',
     'scoreboard': '../assets/images/scoreboard.png',
