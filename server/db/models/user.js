@@ -13,17 +13,12 @@ const User = db.define('user', {
   },
   username: {
     type: Sequelize.STRING,
-    unique: true,
     allowNull: false
   },
   character: {
     type: Sequelize.INTEGER,
     defaultValue: 1
   },
-  // satDate: {
-  //   type: Sequelize.DATE
-  //   // allow this to possibly be null?
-  // },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
