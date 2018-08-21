@@ -1,6 +1,11 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import store, {auth, setCoord, addNewAbilityThunk} from '../store'
+import store, {
+    auth,
+    setCoord,
+    addNewAbilityThunk,
+    setCurrentAbilityId
+  } from '../store'
 import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
@@ -8,6 +13,8 @@ import makeChatbox from './helperFunctions/makeChatbox'
 import instructionsChat from './helperFunctions/instructionsChat'
 import {images, characters, spritesheets, tilemaps} from './preloadData'
 import { barriers } from './createData'
+import renderAbilities from './helperFunctions/renderAbilities';
+import updateAbilities from './helperFunctions/updateAbilities';
 
 export default class extends Phaser.State {
   preload () {
@@ -206,6 +213,8 @@ export default class extends Phaser.State {
       this.abilityImages = this.add.image(x, y, fetchSupplies()[i - 1])
       this.abilityImages.fixedToCamera = true
     
+    // Render all abilities the user now has
+    renderAbilities(this)
   }
 
   update () {
@@ -265,8 +274,6 @@ export default class extends Phaser.State {
           'They are good for your health.'
         ], 'Farmer', this)
         this.farmerOverlap = true
-        store.dispatch(addNewAbilityThunk(2))
-        // store.subscribe(addNewAbilityThunk.bind(null,2))
       }
     }, null, this)
 
@@ -276,8 +283,6 @@ export default class extends Phaser.State {
       if (!this.warriorOverlap) {
         makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a sword.'], 'Warrior', this)
         this.warriorOverlap = true
-        store.dispatch(addNewAbilityThunk(7))
-        // store.subscribe(addNewAbilityThunk.bind(null,7))
       }
     }, null, this)
 
@@ -286,8 +291,6 @@ export default class extends Phaser.State {
       if (!this.fishermanOverlap) {
         makeChatbox(['Hey!', 'I have extra fish.', 'Let me give you some.', 'They are good for your strength.'], 'Fisherman', this)
         this.fishermanOverlap = true
-        store.dispatch(addNewAbilityThunk(6))
-        // store.subscribe(addNewAbilityThunk.bind(null,6))
       }
     }, null, this)
 
