@@ -31,6 +31,13 @@ export default class Login extends Component {
         })
       } else this.setState({isLoggedIn: false})
     })
+    // store.subscribe(() => {
+    //   let userAbilitiesArr = store.getState().userAbilities
+    //   if(userAbilitiesArr.length) {
+    //     let latestAbilityId = userAbilitiesArr[userAbilitiesArr.length-1]
+    //     store.dispatch(getLatestAbility(latestAbilityId))
+    //   }
+    // })
     store.subscribe(() => {
       const hasError = store.getState().hasError
       if (hasError !== this.state.hasError) {

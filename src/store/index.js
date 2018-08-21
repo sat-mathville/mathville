@@ -7,7 +7,11 @@ import abilities from './abilities'
 import userAbilities from './userAbilities'
 import currentAbility from './currentAbility'
 import coord from './coord'
+<<<<<<< HEAD
+// import latestAbility from './latestAbility'
+=======
 import hasError from './handleError'
+>>>>>>> master
 
 const reducer = combineReducers({
   questions,
@@ -16,7 +20,11 @@ const reducer = combineReducers({
   userAbilities,
   currentAbility,
   coord,
+<<<<<<< HEAD
+  // latestAbility
+=======
   hasError
+>>>>>>> master
 })
 
 const logger = createLogger({collapsed: true})
@@ -30,4 +38,8 @@ export * from './userAbilities'
 export * from './abilities'
 export * from './currentAbility'
 export * from './coord'
+<<<<<<< HEAD
+// export * from './latestAbility'
+=======
 export * from './handleError'
+>>>>>>> master
