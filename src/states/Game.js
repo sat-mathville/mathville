@@ -90,8 +90,14 @@ export default class extends Phaser.State {
     this.fisherman.animations.add('standing', [26, 27], null, true)
     this.fisherman.body.immovable = true
 
-    this.chicken.animations.add('walking',[0,1,2,3,4,5,6,7,8],null,true)
+    this.chicken.animations.add('walkUp',[0,1,2],null,true)
+    this.chicken.animations.add('walkRight',[3,4,5],null,true)
+    this.chicken.animations.add('walkDown',[6,7,8],null,true)
+    this.chicken.animations.add('walkLeft',[9,10,11],null,true)
     this.game.physics.arcade.enable(this.chicken)
+    // chicken movement
+    chickenMovement(this.chicken)
+
     // Create player's character
     // Make sure you set up the physics first before animating the character
     this.boy = this.game.add.sprite(
@@ -263,14 +269,11 @@ export default class extends Phaser.State {
     // main character movement
     navigate(this.cursors, this.boy)
 
-    // chicken movement
-    chickenMovement(this.chicken)
-
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
   }
   render(){
-    this.game.debug.spriteInfo(this.boy,20,32)
+    this.game.debug.spriteInfo(this.chicken,20,32)
   }
 }
