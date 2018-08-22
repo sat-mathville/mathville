@@ -18,7 +18,8 @@ export const images = {
     'logoutBtn': '../assets/images/exit.png',
     'instructionsBtn': '../assets/images/instructions.png',
     'instructionsBox': '../assets/images/instructionsBox.png',
-    'splash': '../assets/images/supplies/orcSplash.png'
+    'splash': '../assets/images/supplies/orcSplash.png',
+    'kitten': '../assets/images/supplies/cat_fighter_sprite2.png'
 }
 
 // export const tilemaps

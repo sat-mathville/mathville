@@ -90,6 +90,7 @@ export default class extends Phaser.State {
     this.load.audio('Farmer', '../assets/sounds/farmer.mp3')
     this.load.audio('Warrior', '../assets/sounds/warrior.mp3')
     this.load.audio('Orc', '../assets/sounds/orc.mp3')
+    this.load.audio('Cave','../assets/sounds/Pretty Rave Girl.mp3')
   }
 
   create () {
