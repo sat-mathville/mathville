@@ -2,36 +2,15 @@
 import Phaser from 'phaser'
 import makeChatbox from './helperFunctions/makeChatbox'
 import store, {setCurrentAbilityId} from '../store'
-import spriteUrl from './helperFunctions/spriteUrl'
 
 export default class extends Phaser.State {
   preload () {
     store.dispatch(setCurrentAbilityId(4))
-
-    // characters and creatures
-    this.load.spritesheet('gnome', '../assets/images/creatures/gnome.png', 32, 32)
-    this.load.spritesheet('livingTree', '../assets/images/creatures/livingTree.png', 32, 32)
-    this.load.spritesheet('rose', '../assets/images/creatures/rose.png', 32, 32)
-    this.load.spritesheet('snakeman', '../assets/images/creatures/snakeman.png', 32, 32)
-    this.load.spritesheet('spider', '../assets/images/creatures/spider.png', 32, 32)
-
-    this.load.spritesheet('boy', spriteUrl(), 64, 64)
-    this.load.spritesheet('villain', '../assets/images/villain_idle.png', 80, 80)
-
-    this.load.tilemap('ground', '../assets/images/forest_ground1.csv', null, Phaser.Tilemap.CSV)
-    this.load.tilemap('holes', '../assets/images/forest_holes2.csv', null, Phaser.Tilemap.CSV)
-    this.load.tilemap('trees', '../assets/images/forest_trees3.csv', null, Phaser.Tilemap.CSV)
-    this.load.image('tileset', '../assets/images/ProjectUtumno_full.png')
-
-    this.load.image('chatbox', '../assets/images/chatbox.jpg')
-
-    // music
-    this.load.audio('music', '../assets/sounds/foggywoods.mp3')
   }
 
   create () {
     // music
-    this.music = this.add.audio('music')
+    this.music = this.add.audio('forestMusic')
     this.music.volume = 0.5
     this.music.play()
 
@@ -39,7 +18,7 @@ export default class extends Phaser.State {
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(-320, 0, 1280, 960)
 
-    this.ground = this.game.add.tilemap('ground')
+    this.ground = this.game.add.tilemap('forestGround')
     this.ground.addTilesetImage('tileset')
     this.forestGround = this.ground.createLayer(0)
 
@@ -47,7 +26,7 @@ export default class extends Phaser.State {
     this.holes.addTilesetImage('tileset')
     this.forestHoles = this.holes.createLayer(0)
 
-    this.trees = this.game.add.tilemap('trees')
+    this.trees = this.game.add.tilemap('forestTrees')
     this.trees.addTilesetImage('tileset')
     this.forestTrees = this.trees.createLayer(0)
     this.game.physics.arcade.enable(this.trees)

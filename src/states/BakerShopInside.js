@@ -1,27 +1,9 @@
 import Phaser from 'phaser'
 import store, {setCurrentAbilityId} from '../store'
 import makeChatbox from './helperFunctions/makeChatbox'
-import spriteUrl from './helperFunctions/spriteUrl'
 export default class extends Phaser.State {
   preload () {
     store.dispatch(setCurrentAbilityId(3))
-    // characters
-    this.load.spritesheet('boy', spriteUrl(), 64, 64)
-    this.load.spritesheet('baker', '../assets/images/bakersInside/littleBaker.png', 64, 64)
-    // tilesheets
-    this.load.image('bakerySet', '../assets/images/bakersInside/interior.png')
-    // tilemap layers
-    this.load.tilemap('floor', '../assets/images/bakersInside/bakery_floor.csv')
-    this.load.tilemap('furniture', '../assets/images/bakersInside/bakery_furniture.csv')
-    this.load.tilemap('outsidewall', '../assets/images/bakersInside/bakery_outside wall.csv')
-    this.load.tilemap('onfurniture', '../assets/images/bakersInside/bakery_stuff on top of furniture.csv')
-    this.load.tilemap('layer1', '../assets/images/bakersInside/bakery_Tile Layer 1')
-    this.load.tilemap('insidewall', '../assets/images/bakersInside/bakery_wall.csv')
-
-    this.load.image('chatbox', '../assets/images/chatbox.jpg')
-
-    //music
-    this.load.audio('music', '../assets/sounds/bakery.m4a')
   }
 
   create () {
@@ -35,11 +17,11 @@ export default class extends Phaser.State {
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(-320, 0, 1344, 960)
-    this.floor = this.game.add.tilemap('floor')
+    this.floor = this.game.add.tilemap('bakeryFloor')
     this.floor.addTilesetImage('bakerySet')
     this.bakeryFloor = this.floor.createLayer(0)
 
-    this.furniture = this.game.add.tilemap('furniture')
+    this.furniture = this.game.add.tilemap('bakeryFurniture')
     this.furniture.addTilesetImage('bakerySet')
     this.bakeryFurniture = this.furniture.createLayer(0)
     this.game.physics.arcade.enable(this.furniture)
@@ -74,8 +56,8 @@ export default class extends Phaser.State {
 
     this.baker.animations.add('standing', [26, 27], null, true)
 
-    //music
-    this.music = this.add.audio('music')
+    // music
+    this.music = this.add.audio('bakeryMusic')
     this.music.play()
   }
 
