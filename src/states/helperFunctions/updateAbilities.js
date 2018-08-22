@@ -2,13 +2,15 @@ import store, {addNewAbilityThunk} from '../../store'
 import renderAbilities from './renderAbilities'
 
 export default (npc, gameState) => {
-  const unsubscribed = store.subscribe(
-    () => renderAbilities(gameState)
-  )
-  store.subscribe(() => {
-    unsubscribed()
-  })
-  store.dispatch(addNewAbilityThunk(dict[npc]))
+  if (npc !== 'Orc') {
+    const unsubscribed = store.subscribe(
+      () => renderAbilities(gameState)
+    )
+    store.subscribe(() => {
+      unsubscribed()
+    })
+    store.dispatch(addNewAbilityThunk(dict[npc]))
+  }
 }
 
 const dict = {
