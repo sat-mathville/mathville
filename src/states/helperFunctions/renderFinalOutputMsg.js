@@ -4,7 +4,7 @@ import Phaser from 'phaser'
 
 export default function renderFinalOutput (gameState) {
   let finalMsg = ''
-  const str = '\n\Press the spacebar to leave.'
+  const str = '\n\nPress the SPACEBAR to leave.'
   const abilityName = store.getState().abilities.find(ability => ability.id === gameState.id)
   if (gameState.score === gameState.questions.length) {
     if (store.getState().userAbilities.has(gameState.id)) {
