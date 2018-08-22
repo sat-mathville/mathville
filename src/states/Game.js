@@ -281,6 +281,7 @@ export default class extends Phaser.State {
       }
     }, null, this)
 
+    // Chicken dialogue
     this.game.physics.arcade.overlap(this.boy, this.chicken, () => {
       if (!this.chickenOverlap) {
         makeChatbox([
@@ -289,6 +290,17 @@ export default class extends Phaser.State {
           'EEggg'
         ], 'Chicken', this)
         this.chickenOverlap = true
+      }
+    }, null, this)
+
+    // Orc dialogue
+    this.game.physics.arcade.overlap(this.boy, this.orc, () => {
+      if (!this.orcOverlap) {
+        makeChatbox([
+          'Why are you following me?',
+          'Don’t go into the cave!'
+        ], 'Orc', this)
+        this.orcOverlap = true
       }
     }, null, this)
 

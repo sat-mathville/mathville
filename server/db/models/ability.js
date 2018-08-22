@@ -8,7 +8,7 @@ const Ability = db.define('ability', {
     allowNull: false
   },
   type: {
-    type: Sequelize.ENUM('healing', 'weaponry', 'strength', 'magic'),
+    type: Sequelize.ENUM('healing', 'weaponry', 'strength', 'magic', 'trash'),
     allowNull: false
   },
   image: {
@@ -17,10 +17,8 @@ const Ability = db.define('ability', {
   },
   value: {
     type: Sequelize.INTEGER,
-    defaultValue: 0,
+    defaultValue: 0
   }
 })
-
-
 
 module.exports = Ability

@@ -112,6 +112,12 @@ async function seed () {
     image: 'egg',
     value: 2
   })
+  abilities[8] = await Ability.create({
+    name: 'splash',
+    type: 'trash',
+    image: 'splash',
+    value: 0
+  })
 
   // SETTING ASSOCIATIONS
   for (let i = 0; i < basicArithmetic.length; i++) {
