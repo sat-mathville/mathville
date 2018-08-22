@@ -39,7 +39,7 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
       }
     )
 
-    const words = wrap(dialogue[counter], 30).split(' ')
+    const words = wrap(dialogue[counter], 25).split(' ')
     for (let i = 0; i < words.length; i++) {
       setTimeout(() => {
         gameState.banner.text = npc + ': ' + words.slice(0, i + 1).join(' ')

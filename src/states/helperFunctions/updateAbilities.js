@@ -14,5 +14,6 @@ export default (npc, gameState) => {
 const dict = {
   Farmer: 2,
   Warrior: 7,
-  Fisherman: 6
+  Fisherman: 6,
+  Chicken: 8
 }

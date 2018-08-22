@@ -159,8 +159,4 @@ export default class extends Phaser.State {
       this.boy.x = this.world.centerX + 260
       this.boy.y = this.world.centerY }, 1500)
   }
-
-  render () {
-    this.game.debug.spriteInfo(this.boy, 20, 32)
-  }
 }

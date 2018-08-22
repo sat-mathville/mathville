@@ -241,9 +241,11 @@ export default class extends Phaser.State {
       if (!this.farmerOverlap) {
         makeChatbox([
           'Hi there!',
-          'I have too many crops.',
-          'Let me give you some strawberries.',
-          'They are good for your health.'
+          'Do you want some strawberries?',
+          'I have too many.',
+          'By the way, are you going to the cave?',
+          'Have you gotten the golden egg?',
+          'You can’t get in without it.',
         ], 'Farmer', this)
         this.farmerOverlap = true
       }
@@ -253,7 +255,13 @@ export default class extends Phaser.State {
     this.warrior.animations.play('standing', 2, true)
     this.game.physics.arcade.overlap(this.boy, this.warrior, () => {
       if (!this.warriorOverlap) {
-        makeChatbox(['Hi!', 'The forbidden forest is very dangerous.', 'Be prepared!', 'Here is a shield.'], 'Warrior', this)
+        makeChatbox([
+          'Are you going to the cave?',
+          'I’ve been to the cave once...',
+          'And it was awful.',
+          'Be prepared!',
+          'You will need this shield.'
+        ], 'Warrior', this)
         this.warriorOverlap = true
       }
     }, null, this)
@@ -261,8 +269,27 @@ export default class extends Phaser.State {
     this.fisherman.animations.play('standing', 1, true)
     this.game.physics.arcade.overlap(this.boy, this.fisherman, () => {
       if (!this.fishermanOverlap) {
-        makeChatbox(['Hey!', 'I have extra fish.', 'Let me give you some.', 'They are good for your strength.'], 'Fisherman', this)
+        makeChatbox([
+        'Do you want some fish?',
+        'I can’t eat all the fish I just caught.',
+        'Oh, you’re going to the cave!',
+        'Have you heard that there is a dragon kidnaping people around here?',
+        'Good luck...',
+        'The other day I heard Pythagoras screaming in the cave.',
+        'The dragon must have eaten him alive!',
+      ], 'Fisherman', this)
         this.fishermanOverlap = true
+      }
+    }, null, this)
+
+    this.game.physics.arcade.overlap(this.boy, this.chicken, () => {
+      if (!this.chickenOverlap) {
+        makeChatbox([
+          'Puk Puk Pukaaak',
+          'Bok',
+          'EEggg'
+        ], 'Chicken', this)
+        this.chickenOverlap = true
       }
     }, null, this)
 
@@ -272,8 +299,5 @@ export default class extends Phaser.State {
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
-  }
-  render(){
-    this.game.debug.spriteInfo(this.chicken,20,32)
   }
 }
