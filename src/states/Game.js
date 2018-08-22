@@ -181,6 +181,7 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.flowers_5)
     this.game.physics.arcade.collide(this.boy, this.trees_6)
     this.game.physics.arcade.collide(this.boy, this.bakery)
+    this.game.physics.arcade.collide(this.boy, this.cave)
     this.game.physics.arcade.collide(this.boy, this.house1)
     this.game.physics.arcade.collide(this.boy, this.house2)
     this.game.physics.arcade.collide(this.boy, this.house3)
@@ -190,6 +191,7 @@ export default class extends Phaser.State {
     this.game.physics.arcade.collide(this.boy, this.sign2)
     this.game.physics.arcade.collide(this.boy, this.sign3)
     this.bakery.body.immovable = true
+    this.cave.body.immovable = true
     this.house1.body.immovable = true
     this.house2.body.immovable = true
     this.house3.body.immovable = true
