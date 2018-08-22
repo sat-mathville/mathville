@@ -2,7 +2,6 @@ import wrap from './wrap'
 import Phaser from 'phaser'
 import pressSpacebar from './pressSpacebar'
 import updateAbilities from './updateAbilities'
-import store from '../../store'
 
 export default function makeChatbox (dialogue, npc, gameState, newState, counter = 0) {
   if (!counter) {
@@ -11,7 +10,10 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
       counter++
       makeChatbox(dialogue, npc, gameState, newState, counter)
     }, gameState)
-
+    if (!newState) {
+      const sound = gameState.add.audio(npc)
+      sound.play()
+    }
   }
   if (counter < dialogue.length) {
     if (gameState.banner) {

@@ -34,6 +34,7 @@ export const spritesheets = {
     'door': '../assets/images/door.png',
     'forestDoor': '../assets/images/forestDoor.png',
     'bakery': '../assets/images/houses/house2.png',
+    'cave': '../assets/images/caveOutside/outsideCave.png',
     'house1': '../assets/images/houses/house.png',
     'house2': '../assets/images/houses/house2.png',
     'house3': '../assets/images/houses/house3.png',
