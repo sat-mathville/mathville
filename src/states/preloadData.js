@@ -17,7 +17,8 @@ export const images = {
     'chatbox': '../assets/images/chatbox.jpg',
     'logoutBtn': '../assets/images/exit.png',
     'instructionsBtn': '../assets/images/instructions.png',
-    'instructionsBox': '../assets/images/instructionsBox.png'
+    'instructionsBox': '../assets/images/instructionsBox.png',
+    'splash': '../assets/images/supplies/orcSplash.png'
 }
 
 // export const tilemaps
