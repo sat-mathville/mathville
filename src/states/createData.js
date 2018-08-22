@@ -4,6 +4,11 @@ export const barriers = {
     y: 170,
     scale: 1
   },
+  'cave': {
+    x: 1410,
+    y: 0,
+    scale: 1
+  },
   'house1': {
     x: 800,
     y: 430,
