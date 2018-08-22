@@ -14,7 +14,7 @@ import WizardHouseState from './states/WizardHouse'
 import BakerShopState from './states/BakerShopInside'
 import ForestState from './states/ForbiddenForest'
 import CaveState from './states/caveInside'
-
+import Ending from './states/ending'
 
 import config from './config'
 
@@ -37,6 +37,7 @@ export default class Game extends Phaser.Game {
     this.state.add('House', HouseState, false)
     this.state.add('ForbiddenForest', ForestState, false)
     this.state.add('caveInside', CaveState, false)
+    this.state.add('ending', Ending, false)
 
     // with Cordova with need to wait that the device is ready so we will call the Boot state in another file
     if (!window.cordova) {
