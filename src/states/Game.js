@@ -286,8 +286,4 @@ export default class extends Phaser.State {
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
   }
-  render() {
-    this.game.debug.spriteInfo(this.boy, 20, 32);
-
- }
 }
