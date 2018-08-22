@@ -10,7 +10,7 @@ export default function renderFinalOutput (gameState) {
     if (store.getState().userAbilities.has(gameState.id)) {
       finalMsg = wrap('Good job! But you have done this before. Go somewhere else!', 50) + str
     } else {
-      finalMsg = wrap(`Congratulations! You have leveled up! You just got ${abilityName.name}`, 50) + str
+      finalMsg = wrap(`Congratulations! You have leveled up! You just got ${abilityName.name.toLowerCase()}.`, 50) + str
     }
   } else {
     finalMsg = wrap(`I'm sorry. You have not answered enough questions correctly. Please come back to get ${abilityName.name.toLowerCase()}.`, 50) + str
