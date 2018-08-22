@@ -3,12 +3,12 @@ import store from '../../store'
 export default gameState => {
   let x = 0
   let y = 0
+  let xcount = 0
 
   const images = fetchSupplies()
-
+  
   for (let i = 1; i <= store.getState().userAbilities.size; i++) {
     x = (i * 35) + 140
-    let xcount = 0
 
     if (i > 4) {
       y = 45
