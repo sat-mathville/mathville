@@ -10,6 +10,8 @@ export default (npc, gameState) => {
       unsubscribed()
     })
     store.dispatch(addNewAbilityThunk(dict[npc]))
+  } else {
+    gameState.game.state.start('ending')
   }
 }
 
