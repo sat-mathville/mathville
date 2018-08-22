@@ -6,8 +6,6 @@ import wrap from './helperFunctions/wrap'
 
 export default class extends Phaser.State {
   preload () {
-    this.load.audio('yay', '../assets/sounds/yay.m4a')
-    this.load.audio('scream', '../assets/sounds/scream.m4a')
     const state = store.getState()
     this.questions = state.questions.filter(
       question => question.abilityId === state.currentAbility
