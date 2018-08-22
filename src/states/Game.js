@@ -4,17 +4,40 @@ import store, {
     auth,
     setCoord
   } from '../store'
+import spriteUrl from './helperFunctions/spriteUrl'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
 import instructionsChat from './helperFunctions/instructionsChat'
 import renderAbilities from './helperFunctions/renderAbilities'
-import {tilemaps} from './preloadData'
+import {images, characters, spritesheets, tilemaps} from './preloadData'
 import { barriers } from './createData'
 import chickenMovement from './helperFunctions/chickenMovement'
 
 export default class extends Phaser.State {
   preload () {
+    // images
+    for (let image in images) {
+      this.load.image(image, images[image])
+    }
+
+    // character spritesheets
+    this.load.spritesheet('boy', spriteUrl(), 64, 64)
+    for (let character in characters) {
+      this.load.spritesheet(character, characters[character], 64, 64)
+    }
+
+    for (let spritesheet in spritesheets) {
+      this.load.spritesheet(spritesheet, spritesheets[spritesheet])
+    }
+
+    // tilemaps
+    for (let tilemap in tilemaps) {
+      this.load.tilemap(tilemap, tilemaps[tilemap]['imageUrl'], null, Phaser.Tilemap.CSV)
+    }
+
+    // music
+    this.load.audio('music', '../assets/sounds/mapBGM.mp3')
   }
 
   create () {
