@@ -50,9 +50,9 @@ export default class extends Phaser.State {
     this.wizardhouse.body.width = 140
     this.wizardhouse.body.height = 250
 
-    this.cave.body.height = 50
+    this.cave.body.height = 40
 
-    this.caveDoor.body.height = 2
+    this.caveDoor.body.height = 30
 
     // Set up physics (barriers) for walls and trees and stuff
     this.game.physics.arcade.enable(this.stations)
@@ -227,7 +227,6 @@ export default class extends Phaser.State {
       this.game.state.start('BakerShopInside')
     })
     this.game.physics.arcade.overlap(this.boy, this.caveDoor, () => {
-      console.log('I am invoked')
       store.dispatch(setCoord([
         this.boy.x, this.boy.y + 20
       ]))
@@ -300,7 +299,4 @@ export default class extends Phaser.State {
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
   }
-  // render(){
-  //   this.game.debug.body(this.caveDoor);
-  // }
 }
