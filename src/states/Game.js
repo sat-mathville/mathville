@@ -50,6 +50,8 @@ export default class extends Phaser.State {
     this.wizardhouse.body.width = 140
     this.wizardhouse.body.height = 250
 
+    this.cave.body.height = 50
+
     // Set up physics (barriers) for walls and trees and stuff
     this.game.physics.arcade.enable(this.stations)
     this.stations.setCollisionBetween(0, 6080, true, this.stations_3)
