@@ -25,7 +25,9 @@ export const characters = {
     'farmer': '../assets/images/characters/farmer.png',
     'warrior': '../assets/images/characters/warrior.png',
     'fisherman': '../assets/images/characters/fisherman.png',
-    'chicken': '../assets/images/characters/chicken.png'
+    'chicken': '../assets/images/characters/chicken.png',
+    'orc':'../assets/images/characters/Orc.png'
+
 }
 
 export const spritesheets = {

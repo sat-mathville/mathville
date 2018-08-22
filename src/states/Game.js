@@ -13,6 +13,7 @@ import renderAbilities from './helperFunctions/renderAbilities'
 import {images, characters, spritesheets, tilemaps} from './preloadData'
 import { barriers } from './createData'
 import chickenMovement from './helperFunctions/chickenMovement'
+import orcMovement from './helperFunctions/orcMovement'
 
 export default class extends Phaser.State {
   preload () {
@@ -95,8 +96,16 @@ export default class extends Phaser.State {
     this.chicken.animations.add('walkDown',[6,7,8],null,true)
     this.chicken.animations.add('walkLeft',[9,10,11],null,true)
     this.game.physics.arcade.enable(this.chicken)
+
+    this.orc.animations.add('walkLeft',[117,118,119,120,121,122,123,124,125],null,true)
+    this.orc.animations.add('walkRight',[143,144,145,146,147,148,149,150,151],null,true)
+    this.game.physics.arcade.enable(this.orc)
+
     // chicken movement
     chickenMovement(this.chicken)
+
+    // Orc Movement
+    orcMovement(this.orc)
 
     // Create player's character
     // Make sure you set up the physics first before animating the character
@@ -300,4 +309,8 @@ export default class extends Phaser.State {
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
   }
+  render() {
+    this.game.debug.spriteInfo(this.boy, 20, 32);
+
+ }
 }
