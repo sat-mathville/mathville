@@ -74,8 +74,8 @@ export default class extends Phaser.State {
     this.chicken.animations.add('walkLeft',[9,10,11],null,true)
     this.game.physics.arcade.enable(this.chicken)
 
-    this.orc.animations.add('walkLeft',[130,131,132,133,134,135,136,137,138],null,true)
-    this.orc.animations.add('walkRight',[156,157,158,159,160,161,162,163,164],null,true)
+    this.orc.animations.add('walkLeft',[117,118,119,120,121,122,123,124,125],null,true)
+    this.orc.animations.add('walkRight',[143,144,145,146,147,148,149,150,151],null,true)
     this.game.physics.arcade.enable(this.orc)
 
     // chicken movement
@@ -286,4 +286,8 @@ export default class extends Phaser.State {
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
   }
+  render() {
+    this.game.debug.spriteInfo(this.boy, 20, 32);
+
+ }
 }
