@@ -12,6 +12,7 @@ import renderAbilities from './helperFunctions/renderAbilities'
 import {tilemaps} from './preloadData'
 import { barriers } from './createData'
 import chickenMovement from './helperFunctions/chickenMovement'
+import orcMovement from './helperFunctions/orcMovement'
 
 export default class extends Phaser.State {
   preload () {
@@ -80,7 +81,8 @@ export default class extends Phaser.State {
     // chicken movement
     chickenMovement(this.chicken)
 
-
+    // Orc Movement
+    orcMovement(this.orc)
 
     // Create player's character
     // Make sure you set up the physics first before animating the character
