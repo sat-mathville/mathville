@@ -72,8 +72,15 @@ export default class extends Phaser.State {
     this.chicken.animations.add('walkDown',[6,7,8],null,true)
     this.chicken.animations.add('walkLeft',[9,10,11],null,true)
     this.game.physics.arcade.enable(this.chicken)
+
+    this.orc.animations.add('walkLeft',[130,131,132,133,134,135,136,137,138],null,true)
+    this.orc.animations.add('walkRight',[156,157,158,159,160,161,162,163,164],null,true)
+    this.game.physics.arcade.enable(this.orc)
+
     // chicken movement
     chickenMovement(this.chicken)
+
+
 
     // Create player's character
     // Make sure you set up the physics first before animating the character
