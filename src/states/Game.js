@@ -285,7 +285,6 @@ export default class extends Phaser.State {
 
     // main character movement
     navigate(this.cursors, this.boy)
-
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
