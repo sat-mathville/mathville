@@ -44,7 +44,7 @@ export default class extends Phaser.State {
     this.game.physics.arcade.enable(this.water)
     this.water.setCollisionBetween(0, 2000, true, this.caveWater)
 
-    this.boy = this.game.add.sprite(this.world.centerX + 50, this.world.centerY - 370, 'boy')
+    this.boy = this.game.add.sprite(this.world.centerX + 50, this.world.centerY - 340, 'boy')
     this.boy.scale.setTo(0.7)
     //add cave character scale
     this.cursors = this.game.input.keyboard.createCursorKeys()
@@ -83,13 +83,13 @@ export default class extends Phaser.State {
     //     this.overlap = true
     //   }
     // }, null, this)
-
-    if (this.boy.x < 380 && this.boy.x > 350 && this.boy.y < 886.0 && this.boy.y > 870) {
-      this.game.state.start('Game')
-      this.music.stop()
-    }
-
     // this.baker.animations.play('standing', 5, true)
+
+    if (this.boy.x < 435 && this.boy.x > 390 && this.boy.y < 140.0 && this.boy.y > 90) {
+      console.log('get out')
+      this.game.state.start('Game')
+      // this.music.stop()
+    }
 
     if (this.cursors.left.isDown) {
       this.boy.body.velocity.x = -200
