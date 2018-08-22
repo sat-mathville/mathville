@@ -63,7 +63,7 @@ async function seed () {
   ])
 
   // ABILITIES DATA
-  const abilities = new Array(9)
+  const abilities = new Array(8)
   abilities[0] = await Ability.create({
     name: 'Magic Potion',
     type: 'magic',
@@ -89,30 +89,24 @@ async function seed () {
     value: 4
   })
   abilities[4] = await Ability.create({
-    name: 'wand',
-    type: 'magic',
-    image: 'wand2',
-    value: 5
-  })
-  abilities[5] = await Ability.create({
     name: 'fish',
     type: 'strength',
     image: 'fish',
     value: 5
   })
-  abilities[6] = await Ability.create({
+  abilities[5] = await Ability.create({
     name: 'shield',
     type: 'weaponry',
     image: 'shield',
     value: 4
   })
-  abilities[7] = await Ability.create({
+  abilities[6] = await Ability.create({
     name: 'egg',
     type: 'healing',
     image: 'egg',
     value: 2
   })
-  abilities[8] = await Ability.create({
+  abilities[7] = await Ability.create({
     name: 'splash',
     type: 'trash',
     image: 'splash',
@@ -128,17 +122,19 @@ async function seed () {
       basicProbability[i].setAbility(abilities[3])
     ])
   }
-  await abilities[0].setUsers(users[0])
+
+  for (let i = 0; i < abilities.length; i++) {
+    await abilities[i].setUsers(users[0])
+  }
   await abilities[1].setUsers(users[1])
 
-
-console.log(`seeded ${basicArithmetic.length} basic arithmetic questions`)
-console.log(`seeded ${advancedArithmetic.length} advanced arithmetic
+  console.log(`seeded ${basicArithmetic.length} basic arithmetic questions`)
+  console.log(`seeded ${advancedArithmetic.length} advanced arithmetic
 questions`)
-console.log(`seeded ${basicGeometry.length} basic geometry questions`)
-console.log(`seeded ${basicProbability.length} basic probability questions`)
-console.log(`seeded ${users.length} users`)
-console.log(`seeded ${abilities.length} abilities`)
+  console.log(`seeded ${basicGeometry.length} basic geometry questions`)
+  console.log(`seeded ${basicProbability.length} basic probability questions`)
+  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${abilities.length} abilities`)
 }
 async function runSeed () {
   console.log('...seeding')
