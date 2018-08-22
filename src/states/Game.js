@@ -12,6 +12,7 @@ import instructionsChat from './helperFunctions/instructionsChat'
 import renderAbilities from './helperFunctions/renderAbilities'
 import {images, characters, spritesheets, tilemaps} from './preloadData'
 import { barriers } from './createData'
+import chickenMovement from './helperFunctions/chickenMovement'
 
 export default class extends Phaser.State {
   preload () {
@@ -89,8 +90,14 @@ export default class extends Phaser.State {
     this.fisherman.animations.add('standing', [26, 27], null, true)
     this.fisherman.body.immovable = true
 
-    this.chicken.animations.add('walking',[0,1,2,3,4,5,6,7,8],null,true)
+    this.chicken.animations.add('walkUp',[0,1,2],null,true)
+    this.chicken.animations.add('walkRight',[3,4,5],null,true)
+    this.chicken.animations.add('walkDown',[6,7,8],null,true)
+    this.chicken.animations.add('walkLeft',[9,10,11],null,true)
     this.game.physics.arcade.enable(this.chicken)
+    // chicken movement
+    chickenMovement(this.chicken)
+
     // Create player's character
     // Make sure you set up the physics first before animating the character
     this.boy = this.game.add.sprite(
@@ -259,30 +266,14 @@ export default class extends Phaser.State {
       }
     }, null, this)
 
-    if (this.cursors.left.isDown) {
-      this.boy.body.velocity.x = -200
-      this.boy.animations.play('walkLeft', 40, true)
-    } else if (this.cursors.right.isDown) {
-      this.boy.body.velocity.x = 200
-      this.boy.animations.play('walkRight', 40, true)
-    } else if (this.cursors.up.isDown) {
-      this.boy.body.velocity.y = -200
-      this.boy.animations.play('walkUp', 40, true)
-    } else if (this.cursors.down.isDown) {
-      this.boy.body.velocity.y = 200
-      this.boy.animations.play('walkDown', 40, true)
-    } else {
-      this.boy.body.velocity.x = 0
-      this.boy.body.velocity.y = 0
-      this.boy.animations.stop()
-    }
-
+    // main character movement
     navigate(this.cursors, this.boy)
+
   }
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
   }
   render(){
-    this.game.debug.spriteInfo(this.boy,20,32)
+    this.game.debug.spriteInfo(this.chicken,20,32)
   }
 }
