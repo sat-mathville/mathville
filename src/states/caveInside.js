@@ -1,13 +1,13 @@
 import Phaser from 'phaser'
-import store, {setCurrentAbilityId} from '../store'
 import makeChatbox from './helperFunctions/makeChatbox'
 import spriteUrl from './helperFunctions/spriteUrl'
 export default class extends Phaser.State {
   preload () {
-    // store.dispatch(setCurrentAbilityId(3))
     // characters
     this.load.spritesheet('boy', spriteUrl(), 64, 64)
-    //add ogre here?
+    this.load.spritesheet('kitten', '../assets/images/characters/cat_fighter_sprite2.png', 50, 50)
+
+    // add ogre here?
     // tilesheets
     this.load.image('caveSet', '../assets/images/caveInside/cave.png')
     // tilemap layers
@@ -17,7 +17,7 @@ export default class extends Phaser.State {
 
     this.load.image('chatbox', '../assets/images/chatbox.jpg')
 
-    //music
+    // music
     // let's add creepy music
     // this.load.audio('music', '../assets/sounds/bakery.m4a')
   }
@@ -46,7 +46,7 @@ export default class extends Phaser.State {
 
     this.boy = this.game.add.sprite(this.world.centerX + 50, this.world.centerY - 300, 'boy')
     this.boy.scale.setTo(0.7)
-    //add cave character scale
+    // add cave character scale
     this.cursors = this.game.input.keyboard.createCursorKeys()
     this.game.physics.enable(this.boy, Phaser.Physics.ARCADE)
     // this.game.physics.enable(this.baker, Phaser.Physics.ARCADE)
@@ -59,36 +59,42 @@ export default class extends Phaser.State {
     this.boy.animations.add('walkRight', [143, 144, 145, 146, 147, 148, 149, 150, 151], null, true)
 
     // this.baker.animations.add('standing', [26, 27], null, true)
-    //add ogre standing
+    // add ogre standing
 
-    //music
-    // this.music = this.add.audio('music')
-    // this.music.play()
+    // music
+    this.music = this.add.audio('Cave')
+    this.music.play()
+
+    // Add kitten
+    this.kitten = this.game.add.sprite(this.world.centerX-300, this.world.centerY-200, 'kitten')
+    this.kitten.animations.add('standing', [0,1,2,3], null, true)
+
+    this.game.physics.enable(this.kitten, Phaser.Physics.ARCADE)
+    this.kitten.body.immovable = true
   }
 
   update () {
     this.game.physics.arcade.collide(this.boy, this.caveWalls)
     this.game.physics.arcade.collide(this.boy, this.caveWater)
-    // this.game.physics.arcade.overlap(this.boy, this.ogre, () => {
-    //   if (!this.overlap) {
-    //     const name = store.getState().user.username
-    //     makeChatbox([
-    //       `Meharghahhh who are you?!`,
-    //       `Wait..what is all this stuff you have?`,
-    //       "Hmm..you know..",
-    //       "If you give me those things I can let your friend go",
-    //       "..otherwise",
-    //       "You will be trapped in this cave FOREVER HEHEHEH"
-    //     ], 'Ogre', this, "House")
-    //     this.overlap = true
-    //   }
-    // }, null, this)
-    // this.baker.animations.play('standing', 5, true)
+
+    this.kitten.animations.play('standing', 20, true)
+    this.game.physics.arcade.overlap(this.boy, this.kitten, () => {
+      if (!this.kittenOverlap) {
+        makeChatbox([
+          'Ahhh... Ahhhh...',
+          'Why are you here?',
+          'I thought no one would ever find me.',
+          'Please don’t tell anyone that I am alive!',
+          'Welcome to my rave cave! You can party with me!'
+        ], 'Pythagoras', this)
+        this.kittenOverlap = true
+      }
+    }, null, this)
 
     if (this.boy.x < 435 && this.boy.x > 390 && this.boy.y < 140.0 && this.boy.y > 90) {
       console.log('get out')
       this.game.state.start('Game')
-      // this.music.stop()
+      this.music.stop()
     }
 
     if (this.cursors.left.isDown) {
