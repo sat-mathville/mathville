@@ -73,5 +73,10 @@ export const barriers = {
     x: 700,
     y: 600,
     scale: 0.5
+  },
+  'orc': {
+    x: 1500,
+    y: 300,
+    scale: 0.85
   }
 }
