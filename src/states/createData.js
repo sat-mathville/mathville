@@ -16,7 +16,7 @@ export const barriers = {
   },
   'house2': {
     x: 660,
-    y: 391,
+    y: 400,
     scale: 1
   },
   'house3': {
