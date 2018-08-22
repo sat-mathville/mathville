@@ -63,7 +63,7 @@ async function seed () {
   ])
 
   // ABILITIES DATA
-  const abilities = new Array(4)
+  const abilities = new Array(9)
   abilities[0] = await Ability.create({
     name: 'Magic Potion',
     type: 'magic',
@@ -105,6 +105,12 @@ async function seed () {
     type: 'weaponry',
     image: 'shield',
     value: 4
+  })
+  abilities[7] = await Ability.create({
+    name: 'egg',
+    type: 'healing',
+    image: 'egg',
+    value: 2
   })
 
   // SETTING ASSOCIATIONS

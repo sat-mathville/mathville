@@ -12,6 +12,7 @@ export const images = {
     'shield': '../assets/images/supplies/shield.png',
     'wand': '../assets/images/supplies/wand2.png',
     'fish': '../assets/images/supplies/fish.png',
+    'egg': '../assets/images/supplies/egg.png',
     'chatbox': '../assets/images/chatbox.jpg',
     'logoutBtn': '../assets/images/exit.png',
     'instructionsBtn': '../assets/images/instructions.png',
