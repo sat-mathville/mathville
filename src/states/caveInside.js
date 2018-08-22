@@ -74,12 +74,13 @@ export default class extends Phaser.State {
     //   if (!this.overlap) {
     //     const name = store.getState().user.username
     //     makeChatbox([
-            // `Meharghahhh who are you?!`,
-    //       `Hello ${name}!`,
-    //       "I want to start selling some ice cream!",
-    //       "But I need to figure some numbers out...",
-    //       "Could you help me?"
-    //     ], 'Baker', this, "House")
+    //       `Meharghahhh who are you?!`,
+    //       `Wait..what is all this stuff you have?`,
+    //       "Hmm..you know..",
+    //       "If you give me those things I can let your friend go",
+    //       "..otherwise",
+    //       "You will be trapped in this cave FOREVER HEHEHEH"
+    //     ], 'Ogre', this, "House")
     //     this.overlap = true
     //   }
     // }, null, this)
