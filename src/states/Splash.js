@@ -81,6 +81,12 @@ export default class extends Phaser.State {
     this.load.audio('bakeryMusic', '../assets/sounds/bakery.m4a')
     this.load.audio('yay', '../assets/sounds/yay.m4a')
     this.load.audio('scream', '../assets/sounds/scream.m4a')
+
+    // other random sounds
+    this.load.audio('Chicken', '../assets/sounds/chicken.m4a')
+    this.load.audio('Fisherman', '../assets/sounds/fisherman.mp3')
+    this.load.audio('Farmer', '../assets/sounds/farmer.mp3')
+    this.load.audio('Warrior', '../assets/sounds/warrior.mp3')
   }
 
   create () {
