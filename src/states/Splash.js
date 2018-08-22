@@ -23,6 +23,8 @@ export default class extends Phaser.State {
       this.load.spritesheet(character, characters[character], 64, 64)
     }
 
+    // this.load.spritesheet('cave', '../assets/images/caveOutside/outsideCave.png', 16, 16)
+
     for (let spritesheet in spritesheets) {
       this.load.spritesheet(spritesheet, spritesheets[spritesheet])
     }
@@ -87,6 +89,7 @@ export default class extends Phaser.State {
     this.load.audio('Fisherman', '../assets/sounds/fisherman.mp3')
     this.load.audio('Farmer', '../assets/sounds/farmer.mp3')
     this.load.audio('Warrior', '../assets/sounds/warrior.mp3')
+    this.load.audio('Orc', '../assets/sounds/orc.mp3')
   }
 
   create () {

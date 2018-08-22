@@ -11,9 +11,9 @@ export default class extends Phaser.State {
     // tilesheets
     this.load.image('caveSet', '../assets/images/caveInside/cave.png')
     // tilemap layers
-    this.load.tilemap('ground', '../assets/images/caveInside/cave._ground.csv')
-    this.load.tilemap('walls', '../assets/images/caveInside/cave._walls.csv')
-    this.load.tilemap('water', '../assets/images/caveInside/cave._water.csv')
+    this.load.tilemap('caveGround', '../assets/images/caveInside/cave._ground.csv')
+    this.load.tilemap('caveWalls', '../assets/images/caveInside/cave._walls.csv')
+    this.load.tilemap('caveWater', '../assets/images/caveInside/cave._water.csv')
 
     this.load.image('chatbox', '../assets/images/chatbox.jpg')
 
@@ -25,32 +25,31 @@ export default class extends Phaser.State {
   create () {
     this.overlap = false
 
-    this.ground = this.game.add.tilemap('ground')
+    this.ground = this.game.add.tilemap('caveGround', 16, 16)
     this.ground.addTilesetImage('caveSet')
     this.caveGround = this.ground.createLayer(0)
     this.game.physics.arcade.enable(this.ground)
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(-320, 0, 1344, 960)
-    
-    this.walls = this.game.add.tilemap('walls')
+
+    this.walls = this.game.add.tilemap('caveWalls', 16, 16)
     this.walls.addTilesetImage('caveSet')
     this.caveWalls = this.walls.createLayer(0)
     this.walls.setCollisionBetween(0, 2000, true, this.caveWalls)
 
-    this.water = this.game.add.tilemap('water')
+    this.water = this.game.add.tilemap('caveWater', 16, 16)
     this.water.addTilesetImage('caveSet')
     this.caveWater = this.water.createLayer(0)
     this.game.physics.arcade.enable(this.water)
     this.water.setCollisionBetween(0, 2000, true, this.caveWater)
 
-    this.boy = this.game.add.sprite(this.world.centerX - 50, this.world.centerY + 220, 'boy')
-    //add ogre
-    this.boy.scale.setTo(1)
-    //add ogre scale
+    this.boy = this.game.add.sprite(this.world.centerX + 50, this.world.centerY - 340, 'boy')
+    this.boy.scale.setTo(0.7)
+    //add cave character scale
     this.cursors = this.game.input.keyboard.createCursorKeys()
     this.game.physics.enable(this.boy, Phaser.Physics.ARCADE)
-    this.game.physics.enable(this.baker, Phaser.Physics.ARCADE)
+    // this.game.physics.enable(this.baker, Phaser.Physics.ARCADE)
     this.boy.body.collideWorldBounds = true
     this.camera.follow(this.boy)
 
@@ -69,13 +68,28 @@ export default class extends Phaser.State {
 
   update () {
     this.game.physics.arcade.collide(this.boy, this.caveWalls)
+    this.game.physics.arcade.collide(this.boy, this.caveWater)
+    // this.game.physics.arcade.overlap(this.boy, this.ogre, () => {
+    //   if (!this.overlap) {
+    //     const name = store.getState().user.username
+    //     makeChatbox([
+    //       `Meharghahhh who are you?!`,
+    //       `Wait..what is all this stuff you have?`,
+    //       "Hmm..you know..",
+    //       "If you give me those things I can let your friend go",
+    //       "..otherwise",
+    //       "You will be trapped in this cave FOREVER HEHEHEH"
+    //     ], 'Ogre', this, "House")
+    //     this.overlap = true
+    //   }
+    // }, null, this)
+    // this.baker.animations.play('standing', 5, true)
 
-    if (this.boy.x < 380 && this.boy.x > 350 && this.boy.y < 886.0 && this.boy.y > 870) {
+    if (this.boy.x < 435 && this.boy.x > 390 && this.boy.y < 140.0 && this.boy.y > 90) {
+      console.log('get out')
       this.game.state.start('Game')
-      this.music.stop()
+      // this.music.stop()
     }
-
-    this.baker.animations.play('standing', 5, true)
 
     if (this.cursors.left.isDown) {
       this.boy.body.velocity.x = -200

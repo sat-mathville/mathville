@@ -15,5 +15,6 @@ const dict = {
   Farmer: 2,
   Warrior: 7,
   Fisherman: 6,
-  Chicken: 8
+  Chicken: 8,
+  Orc: 9
 }

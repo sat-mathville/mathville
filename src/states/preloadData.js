@@ -1,7 +1,7 @@
 
 export const images = {
     'bakeryDoor': '../assets/images/bakersOutside/bakerydoor.png',
-    // 'caveDoor': '../assets/images/caveOutside/outsideCave.png',
+    'caveDoor': '../assets/images/caveOutside/caveDoor.png',
     'tileset': '../assets/images/ProjectUtumno_full.png',
     'towntrees': '../assets/images/townTrees.png',
     'scoreboard': '../assets/images/scoreboard.png',
@@ -17,7 +17,8 @@ export const images = {
     'chatbox': '../assets/images/chatbox.jpg',
     'logoutBtn': '../assets/images/exit.png',
     'instructionsBtn': '../assets/images/instructions.png',
-    'instructionsBox': '../assets/images/instructionsBox.png'
+    'instructionsBox': '../assets/images/instructionsBox.png',
+    'splash': '../assets/images/supplies/orcSplash.png'
 }
 
 // export const tilemaps
