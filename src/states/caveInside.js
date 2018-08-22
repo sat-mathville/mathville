@@ -44,7 +44,7 @@ export default class extends Phaser.State {
     this.game.physics.arcade.enable(this.water)
     this.water.setCollisionBetween(0, 2000, true, this.caveWater)
 
-    this.boy = this.game.add.sprite(this.world.centerX + 50, this.world.centerY - 340, 'boy')
+    this.boy = this.game.add.sprite(this.world.centerX + 50, this.world.centerY - 300, 'boy')
     this.boy.scale.setTo(0.7)
     //add cave character scale
     this.cursors = this.game.input.keyboard.createCursorKeys()
