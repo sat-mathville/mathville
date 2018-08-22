@@ -1,9 +1,9 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
 import store, {
-    auth,
-    setCoord
-  } from '../store'
+  auth,
+  setCoord
+} from '../store'
 import animate from './helperFunctions/animate'
 import navigate from './helperFunctions/navigate'
 import makeChatbox from './helperFunctions/makeChatbox'
@@ -72,14 +72,14 @@ export default class extends Phaser.State {
     this.fisherman.animations.add('standing', [26, 27], null, true)
     this.fisherman.body.immovable = true
 
-    this.chicken.animations.add('walkUp',[0,1,2],null,true)
-    this.chicken.animations.add('walkRight',[3,4,5],null,true)
-    this.chicken.animations.add('walkDown',[6,7,8],null,true)
-    this.chicken.animations.add('walkLeft',[9,10,11],null,true)
+    this.chicken.animations.add('walkUp', [0, 1, 2], null, true)
+    this.chicken.animations.add('walkRight', [3, 4, 5], null, true)
+    this.chicken.animations.add('walkDown', [6, 7, 8], null, true)
+    this.chicken.animations.add('walkLeft', [9, 10, 11], null, true)
     this.game.physics.arcade.enable(this.chicken)
 
-    this.orc.animations.add('walkLeft',[117,118,119,120,121,122,123,124,125],null,true)
-    this.orc.animations.add('walkRight',[143,144,145,146,147,148,149,150,151],null,true)
+    this.orc.animations.add('walkLeft', [117, 118, 119, 120, 121, 122, 123, 124, 125], null, true)
+    this.orc.animations.add('walkRight', [143, 144, 145, 146, 147, 148, 149, 150, 151], null, true)
     this.game.physics.arcade.enable(this.orc)
 
     // chicken movement
@@ -135,41 +135,41 @@ export default class extends Phaser.State {
     this.txt = this.add.text(this.logoutBtn.x + 25, this.logoutBtn.y, 'Exit', {font: '25px Cinzel', fill: '#fff', align: 'center'})
     this.txt.fixedToCamera = true
 
-  let dialogue = [`
+    let dialogue = [`
   Welcome to Mathville!
   Mathville is a peaceful town where we have
   lived in harmony with each other for many
   years. However, lately we have had some
-  unfortunate events...`,`
+  unfortunate events...`, `
   Last month our dear villager, Pythagoras,
   went missing. Our local fisherman, Lambda,
   saw him captured by the creature from the
   cave and was quickly taken away.`,
-  `
+    `
   I must warn you that for the few
   who have traveled to the cave, they have
   never come back! But you look like a brave
   soul who can tackle this challenge.
   Before you venture to the cave though,
-  you must be prepared!`,`
+  you must be prepared!`, `
   The BAKERY will give you health,
   our local WIZARD will give you magic,
   and in the FORBIDDEN FOREST you can
   find weapons. You will need these supplies
   to venture to the cave.`,
-  `
+    `
   To explore this world you must use
   ARROW KEYS to move left, right, up,
   and down. When talking to someone use
   the SPACEBAR to keep the conversation
-  going. If you answer all of the problems
-  the villagers need help solving, you will
-  receive a gift that will aid your journey
+  going. If you help all the
+  the villagers that you encounter, you will
+  receive gifts that will aid your journey
   to the cave. Good luck my friend!
   `
-  ]
+    ]
 
-    this.instructionsBtn = this.game.add.button(98,80, 'instructionsBtn', () => instructionsChat(dialogue, this), this)
+    this.instructionsBtn = this.game.add.button(98, 80, 'instructionsBtn', () => instructionsChat(dialogue, this), this)
     this.instructionsBtn.fixedToCamera = true
     this.instructionsBtn.width = 224
     this.instructionsBtn.height = 29
@@ -227,11 +227,13 @@ export default class extends Phaser.State {
       this.game.state.start('BakerShopInside')
     })
     this.game.physics.arcade.overlap(this.boy, this.caveDoor, () => {
-      store.dispatch(setCoord([
-        this.boy.x, this.boy.y + 20
-      ]))
-      this.music.stop()
-      this.game.state.start('caveInside')
+      if (store.getState().userAbilities.size === 8) {
+        store.dispatch(setCoord([
+          this.boy.x, this.boy.y + 20
+        ]))
+        this.music.stop()
+        this.game.state.start('caveInside')
+      }
     })
 
     // talk to farmer
@@ -244,7 +246,7 @@ export default class extends Phaser.State {
           'I have too many.',
           'By the way, are you going to the cave?',
           'Have you gotten the golden egg?',
-          'You can’t get in without it.',
+          'You can’t get in without it.'
         ], 'Farmer', this)
         this.farmerOverlap = true
       }
@@ -256,10 +258,9 @@ export default class extends Phaser.State {
       if (!this.warriorOverlap) {
         makeChatbox([
           'Are you going to the cave?',
-          'I’ve been to the cave once...',
-          'And it was awful.',
           'Be prepared!',
-          'You will need this shield.'
+          'You will need this shield.',
+          'Anyway, have you talked to the fisherman?'
         ], 'Warrior', this)
         this.warriorOverlap = true
       }
@@ -269,14 +270,14 @@ export default class extends Phaser.State {
     this.game.physics.arcade.overlap(this.boy, this.fisherman, () => {
       if (!this.fishermanOverlap) {
         makeChatbox([
-        'Do you want some fish?',
-        'I can’t eat all the fish I just caught.',
-        'Oh, you’re going to the cave!',
-        'Have you heard that there is a dragon kidnaping people around here?',
-        'Good luck...',
-        'The other day I heard Pythagoras screaming in the cave.',
-        'The dragon must have eaten him alive!',
-      ], 'Fisherman', this)
+          'Do you want some fish?',
+          'I can’t eat all the fish I just caught.',
+          'Oh, you’re going to the cave!',
+          'Have you heard that there is a dragon kidnaping people around here?',
+          'Good luck...',
+          'The other day I heard Pythagoras screaming in the cave.',
+          'The dragon must have eaten him alive!'
+        ], 'Fisherman', this)
         this.fishermanOverlap = true
       }
     }, null, this)

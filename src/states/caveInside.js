@@ -32,7 +32,7 @@ export default class extends Phaser.State {
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.world.setBounds(-320, 0, 1344, 960)
-    
+
     this.walls = this.game.add.tilemap('caveWalls', 16, 16)
     this.walls.addTilesetImage('caveSet')
     this.caveWalls = this.walls.createLayer(0)
@@ -109,7 +109,4 @@ export default class extends Phaser.State {
       this.boy.animations.stop()
     }
   }
-  render() {
-    this.game.debug.spriteInfo(this.boy, 20, 32);
- }
 }
