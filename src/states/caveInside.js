@@ -44,7 +44,7 @@ export default class extends Phaser.State {
     this.game.physics.arcade.enable(this.water)
     this.water.setCollisionBetween(0, 2000, true, this.caveWater)
 
-    this.boy = this.game.add.sprite(this.world.centerX - 50, this.world.centerY + 320, 'boy')
+    this.boy = this.game.add.sprite(this.world.centerX - 50, this.world.centerY + 220, 'boy')
     //add ogre
     this.boy.scale.setTo(1)
     //add ogre scale
@@ -69,21 +69,6 @@ export default class extends Phaser.State {
 
   update () {
     this.game.physics.arcade.collide(this.boy, this.caveWalls)
-    this.game.physics.arcade.collide(this.boy, this.caveWater)
-    // this.game.physics.arcade.overlap(this.boy, this.ogre, () => {
-    //   if (!this.overlap) {
-    //     const name = store.getState().user.username
-    //     makeChatbox([
-    //       `Meharghahhh who are you?!`,
-    //       `Wait..what is all this stuff you have?`,
-    //       "Hmm..you know..",
-    //       "If you give me those things I can let your friend go",
-    //       "..otherwise",
-    //       "You will be trapped in this cave FOREVER HEHEHEH"
-    //     ], 'Ogre', this, "House")
-    //     this.overlap = true
-    //   }
-    // }, null, this)
 
     if (this.boy.x < 380 && this.boy.x > 350 && this.boy.y < 886.0 && this.boy.y > 870) {
       this.game.state.start('Game')
