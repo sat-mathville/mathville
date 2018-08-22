@@ -1,7 +1,7 @@
 
 export const images = {
     'bakeryDoor': '../assets/images/bakersOutside/bakerydoor.png',
-    // 'caveDoor': '../assets/images/caveOutside/outsideCave.png',
+    'caveDoor': '../assets/images/caveOutside/caveDoor.png',
     'tileset': '../assets/images/ProjectUtumno_full.png',
     'towntrees': '../assets/images/townTrees.png',
     'scoreboard': '../assets/images/scoreboard.png',

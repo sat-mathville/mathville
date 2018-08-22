@@ -54,6 +54,11 @@ export const barriers = {
     y: 277,
     scale: 1.1
   },
+  'caveDoor':{
+    x: 1600,
+    y: 150,
+    scale: 1
+  },
   'forestDoor': {
     x: 127,
     y: 319,

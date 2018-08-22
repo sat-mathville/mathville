@@ -23,6 +23,8 @@ export default class extends Phaser.State {
       this.load.spritesheet(character, characters[character], 64, 64)
     }
 
+    // this.load.spritesheet('cave', '../assets/images/caveOutside/outsideCave.png', 16, 16)
+
     for (let spritesheet in spritesheets) {
       this.load.spritesheet(spritesheet, spritesheets[spritesheet])
     }

@@ -52,6 +52,8 @@ export default class extends Phaser.State {
 
     this.cave.body.height = 50
 
+    this.caveDoor.body.height = 2
+
     // Set up physics (barriers) for walls and trees and stuff
     this.game.physics.arcade.enable(this.stations)
     this.stations.setCollisionBetween(0, 6080, true, this.stations_3)
@@ -224,6 +226,14 @@ export default class extends Phaser.State {
       this.music.stop()
       this.game.state.start('BakerShopInside')
     })
+    this.game.physics.arcade.overlap(this.boy, this.caveDoor, () => {
+      console.log('I am invoked')
+      store.dispatch(setCoord([
+        this.boy.x, this.boy.y + 20
+      ]))
+      this.music.stop()
+      this.game.state.start('caveInside')
+    })
 
     // talk to farmer
     this.farmer.animations.play('standing', 2, true)
@@ -290,4 +300,7 @@ export default class extends Phaser.State {
   actionOnLogout () {
     store.dispatch(auth({}, 'logout'))
   }
+  // render(){
+  //   this.game.debug.body(this.caveDoor);
+  // }
 }
