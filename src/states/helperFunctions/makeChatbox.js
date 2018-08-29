@@ -7,8 +7,10 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
   if (!counter) {
     gameState.spacebar = gameState.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
     gameState.spacebar.onDown.add(() => {
-      counter++
-      makeChatbox(dialogue, npc, gameState, newState, counter)
+      if(!gameState.rendering){
+        counter++
+        makeChatbox(dialogue, npc, gameState, newState, counter)
+      }
     }, gameState)
     if (!newState) {
       const sound = gameState.add.audio(npc)
@@ -42,10 +44,14 @@ export default function makeChatbox (dialogue, npc, gameState, newState, counter
     )
 
     const words = wrap(dialogue[counter], 25).split(' ')
+    gameState.rendering = true
     for (let i = 0; i < words.length; i++) {
       setTimeout(() => {
         gameState.banner.text = npc + ': ' + words.slice(0, i + 1).join(' ')
-        if(i===words.length-1)pressSpacebar(gameState)
+        if(i===words.length-1){
+          gameState.rendering = false
+          pressSpacebar(gameState)
+        }
       }, 200 * i)
     }
 
