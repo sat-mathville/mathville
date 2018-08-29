@@ -7,7 +7,6 @@ import abilities from './abilities'
 import userAbilities from './userAbilities'
 import currentAbility from './currentAbility'
 import coord from './coord'
-// import latestAbility from './latestAbility'
 import hasError from './handleError'
 
 const reducer = combineReducers({
@@ -17,13 +16,12 @@ const reducer = combineReducers({
   userAbilities,
   currentAbility,
   coord,
-  // latestAbility
   hasError
 })
 
 const logger = createLogger({collapsed: true})
 
-const store = createStore(reducer, applyMiddleware(thunkMiddleware, logger))
+const store = (process.env.NODE_ENV !== 'production') ? createStore(reducer, applyMiddleware(thunkMiddleware, logger)) : createStore(reducer, applyMiddleware(thunkMiddleware))
 
 export default store
 export * from './questions'
@@ -32,5 +30,4 @@ export * from './userAbilities'
 export * from './abilities'
 export * from './currentAbility'
 export * from './coord'
-// export * from './latestAbility'
 export * from './handleError'
