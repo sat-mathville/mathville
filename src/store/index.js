@@ -21,7 +21,9 @@ const reducer = combineReducers({
 
 const logger = createLogger({collapsed: true})
 
-const store = (process.env.NODE_ENV !== 'production') ? createStore(reducer, applyMiddleware(thunkMiddleware, logger)) : createStore(reducer, applyMiddleware(thunkMiddleware))
+const store = (!process.env.NODE_ENV) ? createStore(reducer, applyMiddleware(thunkMiddleware, logger)) : createStore(reducer, applyMiddleware(thunkMiddleware))
+)
+
 
 export default store
 export * from './questions'
