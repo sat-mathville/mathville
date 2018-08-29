@@ -22,6 +22,7 @@ const reducer = combineReducers({
 const logger = createLogger({collapsed: true})
 
 const store = (!process.env.NODE_ENV) ? createStore(reducer, applyMiddleware(thunkMiddleware, logger)) : createStore(reducer, applyMiddleware(thunkMiddleware))
+console.log('PROCESS ENV', process.env)
 
 
 export default store
