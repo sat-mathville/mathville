@@ -273,7 +273,7 @@ export default class extends Phaser.State {
           'Do you want some fish?',
           'I can’t eat all the fish I just caught.',
           'Oh, you’re going to the cave!',
-          'Have you heard that there is a dragon kidnaping people around here?',
+          'Have you heard that there is a dragon kidnapping people around here?',
           'Good luck...',
           'The other day I heard Pythagoras screaming in the cave.',
           'The dragon must have eaten him alive!'
