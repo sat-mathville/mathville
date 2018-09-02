@@ -9,7 +9,7 @@
         "dev": "webpack & nodemon server -e html,js",
         "start": "node server",
         "startserver": "nodemon server -e html,js",
-        "deploy": "script/deploy",
+        "deploy": "webpack --config webpack.production.config.js",
         "cordova": "webpack --config webpack.cordova.config.js",
         "test": "mocha \"./server/**/*.spec.js\" \"./src/**/*.spec.js\" --require babel-polyfill --require babel-register"
     },
