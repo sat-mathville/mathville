@@ -8,13 +8,6 @@ h1 {
   font-size: 3em;
 }
 
-.bad-browser-container {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  width: 600px;
-}
-
 button {
   font-size: 1.2em;
   font-family: 'Cinzel', serif;
@@ -25,7 +18,7 @@ button {
 }
 
 .container {
-  height: 100vh;
+  height: 120vh;
   flex-direction: column;
   justify-content: center;
   display: flex;
@@ -48,11 +41,6 @@ input, select {
   font-family: 'EB Garamond', serif;
 }
 
-#safari-message {
-  font-size: 2em
-}
-
 .submitButton {
   margin-bottom: 25px;
 }
-
