@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import store, {logout, auth, me} from '../store'
 import Game from '../main'
-import {isMobile} from 'react-device-detect'
+import {isMobile, isSafari} from 'react-device-detect'
 
 export default class Login extends Component {
   constructor () {
@@ -96,6 +96,13 @@ export default class Login extends Component {
     return (atIndex > 0 && dotIndex > atIndex && email.length > (dotIndex + 2))
   }
   render () {
+    if(isSafari){
+      return (
+        <div className='bad-browser-container'>
+          <p id='safari-message'>I hate to say this fellow traveler, but your adventure is best seen on Google Chrome or Firefox!</p>
+        </div>
+      )
+    }
     if (isMobile) {
       return (
         <div>
