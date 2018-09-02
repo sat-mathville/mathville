@@ -48,6 +48,10 @@ input, select {
   font-family: 'EB Garamond', serif;
 }
 
+#safari-message {
+  font-size: 2em
+}
+
 .submitButton {
   margin-bottom: 25px;
 }
