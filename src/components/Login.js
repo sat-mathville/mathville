@@ -138,7 +138,7 @@ export default class Login extends Component {
           {this.state.validEmail ? null : <span>Invalid Email</span>}
           <input placeholder='Enter Password'name='password' type='password' value={this.state.password} onChange={this.handleChange}/>
           {this.state.password ? null : <span>Password cannot be empty</span>}
-          <select id='characterDropdown' name='character' onChange={this.handleChange}>
+          <select id='characterDropdown' name='character' onChange={this.handleChange} >
             <option value='default'>Select Character</option>
             <option value='1'>Boy</option>
             <option value='2'>Girl</option>
