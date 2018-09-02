@@ -59,7 +59,6 @@
         "pg-hstore": "^2.3.2",
         "phaser-ce": "^2.10.0",
         "react": "^16.4.2",
-        "react-browser-detection": "^1.2.0",
         "react-device-detect": "^1.5.9",
         "react-dom": "^16.4.2",
         "react-form-validation": "^1.1.3",
