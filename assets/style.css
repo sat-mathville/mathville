@@ -25,7 +25,7 @@ button {
 }
 
 .container {
-  height: 100vh;
+  height: 120vh;
   flex-direction: column;
   justify-content: center;
   display: flex;
@@ -55,4 +55,3 @@ input, select {
 .submitButton {
   margin-bottom: 25px;
 }
-
